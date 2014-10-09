@@ -13,6 +13,10 @@ using System.IO.IsolatedStorage;
 
 namespace PrTab
 {
+    /**
+     * Clase con de la vista principal de la aplicación.
+     * 
+     * */
     public partial class MainPage : PhoneApplicationPage
     {
         // Constructor
@@ -42,6 +46,7 @@ namespace PrTab
         //    ApplicationBar.MenuItems.Add(appBarMenuItem);
         //}
 
+        //Se sobre escribe la funcion que se llama cuando el usuario pulsa la tecla FISICA "Back", para que cierre la aplicación.
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             //Do your work here

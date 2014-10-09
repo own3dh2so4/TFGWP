@@ -13,7 +13,7 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
-    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    <!--Layaout vacio-->
     <Grid>
         
     </Grid>

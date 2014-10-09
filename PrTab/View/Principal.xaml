@@ -15,9 +15,11 @@
     shell:SystemTray.IsVisible="True">
     
     
-    
+    <!--Definicion de recursos a nivel más bajo-->
     <phone:PhoneApplicationPage.Resources>
+        <!--Creamos el objeto de tipo MensajeTablonViewModel que vamos a observar-->
         <vm:MensajesTablonViewModel x:Key="ViewModelTablon" />
+        <!--Definimos un template para mostrar los mensajes del tablon.-->
         <DataTemplate x:Key="MensajesTablonDataTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -35,19 +37,24 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+        
     </phone:PhoneApplicationPage.Resources>
     
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
     <Grid x:Name="LayoutRoot"   Background="Black">
+        <!--Pestañas con los paneles.-->
         <phone:Pivot    Title=""  >
+            <!--Primera pestaña-->
             <phone:PivotItem CacheMode="{x:Null}" >
+                <!--Cabecera de la primera pestaña-->
                 <phone:PivotItem.Header>
                     <StackPanel Orientation="Horizontal" >                        
                         <Image Width="50" Source="fotos/tablon_sinfondo.png"  />
                         <TextBlock Text=" Tablon" FontSize="48" />
                     </StackPanel>  
                 </phone:PivotItem.Header>
+                <!--Cuerpo de la primera pestaña-->
                 <Grid DataContext="{Binding Source = {StaticResource ViewModelTablon}}">
                     <Grid.RowDefinitions>
                         <RowDefinition />

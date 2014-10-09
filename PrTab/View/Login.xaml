@@ -13,16 +13,21 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
-    
+    <!--Panel del fondo-->
     <Grid>
+        <!--Definicion de las filas que va a tener el panel-->
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <!--Primera fila en la que se incluye un texto con el nombre de la aplicación-->
         <Grid Grid.Row="0">
             <TextBlock Text="UniApp" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
+        
+        <!--Panel con las segunda fila que incluye los campos necesarios para pedir usuario y contraseña-->
         <StackPanel Grid.Row="1">
             <TextBlock Text="Usuario" Margin="10" MaxWidth="450" FontSize="48"/>
             <TextBox x:Name="Usuario" Margin="10" MaxWidth="450"/>

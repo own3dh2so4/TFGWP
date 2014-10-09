@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace PrTab.ViewModel
 {
+    /**
+     * Clase que encagada de guardar la información de la aplicacion.
+     * */
     public static class AplicationSettings
     {
+        //Nombre con el que se guarda el usuario.
         const string nombreUsuario = "Usuario";
+        //Nombre con el que se guarda la contraseña.
         const string contraseñaUsuario = "Contraseña";
 
+        //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
+        //para no volver a pedirlos.
         public static void RegistrarUsuario(string usuario, string contraseña)
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains(nombreUsuario))
@@ -26,6 +33,7 @@ namespace PrTab.ViewModel
             IsolatedStorageSettings.ApplicationSettings.Add(contraseñaUsuario, contraseña);
         }
 
+        //Devuelve el nombre del usuario registrado.
         public static string getUsuario()
         {
             string ret = null;
@@ -34,6 +42,7 @@ namespace PrTab.ViewModel
             return ret;
         }
 
+        //Devuelve la contraseña del usuario registrado.
         public static string getContraseña()
         {
             string ret = null;

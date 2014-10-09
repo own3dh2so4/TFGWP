@@ -11,11 +11,15 @@ using System.Windows.Input;
 
 namespace PrTab.ViewModel
 {
+    /**
+     * Clase que implementa el ViewModel del patron MVVM para el apartado de Mensajes del Tablon.
+     * */
     public class MensajesTablonViewModel : NotificationenabledObject
     {
-      
+        //Mensajes del tablon
         public ObservableCollection<MensajeTablon> mensajes;
 
+        //Getter y Setter
         public ObservableCollection<MensajeTablon> Mensajes
         {
             get
@@ -38,10 +42,11 @@ namespace PrTab.ViewModel
             }
         }
 
+        //Objeto que sde comunica con el servidor
         Comunicacion_MensajesTablon servicioMensajes = new Comunicacion_MensajesTablon();
 
        
-
+        //Comando que se ejecuta al pulsar el boton
         public ICommand getMensajesTablon
         {
             get;
@@ -63,7 +68,7 @@ namespace PrTab.ViewModel
             }
         }*/
 
-
+        //Constructor.
         public MensajesTablonViewModel()
         {
             servicioMensajes.getMensajesTablonCompletado += (s, a) =>
@@ -75,9 +80,10 @@ namespace PrTab.ViewModel
 
         }
 
+        //Cargar mensajes.
         private void onGetMensajesTablon()
         {
-            //MessageBox.Show("paytonGOD is the GREATEST!");
+            
             servicioMensajes.getMensajesTablon();
         }
     }

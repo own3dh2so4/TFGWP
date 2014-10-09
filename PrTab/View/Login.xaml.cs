@@ -13,9 +13,13 @@ using System.IO.IsolatedStorage;
 
 namespace PrTab.View
 {
-    
+    /**
+     * Clase que contiene los componentes visuales que el usuario necesita para hacer login.
+     * 
+     * */
     public partial class Login : PhoneApplicationPage
     {
+        //Constructor por defecto.
         public Login()
         {        
             InitializeComponent();
@@ -24,7 +28,9 @@ namespace PrTab.View
        
 
        
-
+        //Funcion que se llama cuando el usuario pulsa el boton "Aceptar".
+        //Esta funcuion te redirecciona a la ventana principal de la aplicación si el usuario existe,
+        //en caso contrario te muestra un mensaje de error.
         private void Aceptar_Click(object sender, RoutedEventArgs e)
         {
             //Comprobar si el usuario y contraseña es el correcto.
@@ -40,24 +46,24 @@ namespace PrTab.View
             }
         }
 
-
+        //FUNCION PROVISIONAL.
         private bool usuarioCorrecto(string user, string pass)
         {
             return user.Equals("qwe") && pass.Equals("qwe");
         }
 
+        //Funcion que se ejecuta cuando el usuario pulsa el boton cancelar.
+        //Guarda los datos pendientes de guardar y cierra la aplicación.
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
+            IsolatedStorageSettings.ApplicationSettings.Save();
             Application.Current.Terminate();
         }
 
         
 
-        //protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        //{
-        //    int i = 0;
-        //}
-
+   
+        //Se sobre escribe la funcion que se llama cuando el usuario pulsa la tecla FISICA "Back", para que cierre la aplicación.
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             //Do your work here
