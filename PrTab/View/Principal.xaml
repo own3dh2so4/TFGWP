@@ -62,8 +62,10 @@
                     </Grid.RowDefinitions>   
                     
                     <phone:LongListSelector
+                        x:Name="ListaMensajesTablon"
                         ItemsSource="{Binding Mensajes}"
-                        ItemTemplate="{StaticResource MensajesTablonDataTemplate}"/>
+                        ItemTemplate="{StaticResource MensajesTablonDataTemplate}"
+                        SelectionChanged="MensajeTablonSelected"/>
                     <Button Content="Cargar Comentarios" Grid.Row="1"
                             Command="{Binding getMensajesTablon}" />
                     

@@ -38,7 +38,8 @@ namespace PrTab.View
             {
                 AplicationSettings.RegistrarUsuario(Usuario.Text, Contraseña.Password); 
                 //NavigationService.Navigate(new Uri("/View/Inicial.xaml", UriKind.Relative));
-                NavigationService.GoBack();
+                //NavigationService.GoBack();
+                NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
             }
             else
             {
@@ -56,21 +57,22 @@ namespace PrTab.View
         //Guarda los datos pendientes de guardar y cierra la aplicación.
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            IsolatedStorageSettings.ApplicationSettings.Save();
-            Application.Current.Terminate();
+            //IsolatedStorageSettings.ApplicationSettings.Save();
+            //Application.Current.Terminate();
+            NavigationService.GoBack();
         }
 
         
 
    
         //Se sobre escribe la funcion que se llama cuando el usuario pulsa la tecla FISICA "Back", para que cierre la aplicación.
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        /*protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             //Do your work here
             base.OnBackKeyPress(e);
             IsolatedStorageSettings.ApplicationSettings.Save();
             Application.Current.Terminate();
-        }
+        }*/
 
     }
 }

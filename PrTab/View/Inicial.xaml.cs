@@ -34,7 +34,7 @@ namespace PrTab.View
             if (ExisteUsuarioRegistrado())
                 NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
             else
-                NavigationService.Navigate(new Uri("/View/Login.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/View/RegistroLogin.xaml", UriKind.Relative));
         }
 
         //Esta funcion mira si ya hay un usuario registrado en la aplicacion.

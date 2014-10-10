@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 using PrTab.Resources;
 using Windows.Phone.UI.Input;
 using System.IO.IsolatedStorage;
+using PrTab.Model;
+using System.Windows.Media;
 
 namespace PrTab
 {
@@ -28,7 +30,7 @@ namespace PrTab
             //BuildLocalizedApplicationBar();
         }
 
-        
+
 
         // Código de ejemplo para compilar una ApplicationBar traducida
         //private void BuildLocalizedApplicationBar()
@@ -54,5 +56,14 @@ namespace PrTab
             IsolatedStorageSettings.ApplicationSettings.Save();
             Application.Current.Terminate();
         }
+
+        private void MensajeTablonSelected(object sender, SelectionChangedEventArgs e)
+        {
+            var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
+            //MessageBox.Show(myItem.mensaje);
+            NavigationService.Navigate(new Uri("/View/MensajeTablon.xaml?name="+myItem.nombre+"&message="+myItem.mensaje+"&photo="+myItem.foto, UriKind.Relative));
+        }
+
+       
     }
 }
