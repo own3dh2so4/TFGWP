@@ -17,6 +17,8 @@ namespace PrTab.ViewModel
         //Nombre con el que se guarda la contraseña.
         const string contraseñaUsuario = "Contraseña";
 
+        const string tokenUsuario = "Token";
+
         //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
         //para no volver a pedirlos.
         public static void RegistrarUsuario(string usuario, string contraseña)
@@ -50,6 +52,24 @@ namespace PrTab.ViewModel
                 ret = IsolatedStorageSettings.ApplicationSettings[contraseñaUsuario].ToString();
             return ret;
         }
+
+        public static void setToken(string token)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(tokenUsuario))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(tokenUsuario);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(tokenUsuario, token);
+        }
+
+        public static string getToken()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(tokenUsuario))
+                ret = IsolatedStorageSettings.ApplicationSettings[tokenUsuario].ToString();
+            return ret;
+        }
+
 
     }
 

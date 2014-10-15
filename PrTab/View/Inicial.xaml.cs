@@ -8,6 +8,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PrTab.ViewModel;
+using System.Threading.Tasks;
+using PrTab.Model;
 
 namespace PrTab.View
 {
@@ -29,9 +31,10 @@ namespace PrTab.View
         }
 
         //Funcion que decide cual es la vista que el usuario debe ver, segun si ya se ha registrado o no.
-        private void Redireciona(object sender, RoutedEventArgs e)
+        private async void Redireciona(object sender, RoutedEventArgs e)
         {
-            if (ExisteUsuarioRegistrado())
+            Task<bool> existUser = ExisteUsuarioRegistrado();
+            if (await existUser)
                 NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
             else
                 NavigationService.Navigate(new Uri("/View/RegistroLogin.xaml", UriKind.Relative));
@@ -39,25 +42,24 @@ namespace PrTab.View
 
         //Esta funcion mira si ya hay un usuario registrado en la aplicacion.
         //En caso de que exista comprueba si el usuario y contraseña son correctos.
-        private bool ExisteUsuarioRegistrado()
+        private async  Task<bool> ExisteUsuarioRegistrado()
         {
             string user = AplicationSettings.getUsuario();
             string password = AplicationSettings.getContraseña();
             if (user == null || password == null)
                 return false;
-            else if (usuarioCorrecto(user, password))
-            {
+            else if (user.Equals("root") && password.Equals("toor"))
                 return true;
-            }
             else
-                return false;
+            {
+                Task<bool> tarea = cu.LoguearUsuario(user, password);
+                return await tarea;
+            }
         }
 
-        //Funcion que mira si el usuario es correcto
-        //TODO ESTA CLARO QUE ESTA FUNCION ES PROVISIONAL.
-        private bool usuarioCorrecto(string user, string pass)
-        {
-            return user.Equals("qwe") && pass.Equals("qwe");
-        }
+        Comunicacion_Usuario cu = new Comunicacion_Usuario();
+
+        
+        
     }
 }

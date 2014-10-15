@@ -15,6 +15,8 @@ namespace PrTab.Model
         //Evento que lanza cuando tiene todos los mensajes disponibles.
         public event EventHandler<MensajesTablonEventArgs> getMensajesTablonCompletado;
 
+        
+
         //Metodo por el cual se obtienen los mensajes del servidro
         //TODO AHORA MISMO ESTO NO FUNCIONA CON EL SERVIDOR.
         public void getMensajesTablon()

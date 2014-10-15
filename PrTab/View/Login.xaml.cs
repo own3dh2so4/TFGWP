@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 using PrTab.ViewModel;
 using Windows.Phone.UI.Input;
 using System.IO.IsolatedStorage;
+using PrTab.Model;
+using System.Threading.Tasks;
 
 namespace PrTab.View
 {
@@ -31,10 +33,12 @@ namespace PrTab.View
         //Funcion que se llama cuando el usuario pulsa el boton "Aceptar".
         //Esta funcuion te redirecciona a la ventana principal de la aplicación si el usuario existe,
         //en caso contrario te muestra un mensaje de error.
-        private void Aceptar_Click(object sender, RoutedEventArgs e)
+        private async void Aceptar_Click(object sender, RoutedEventArgs e)
         {
+            Task<bool> tarea = usuarioCorrecto(Usuario.Text, Contraseña.Password);
+
             //Comprobar si el usuario y contraseña es el correcto.
-           if (usuarioCorrecto(Usuario.Text, Contraseña.Password))
+           if (await tarea)
             {
                 AplicationSettings.RegistrarUsuario(Usuario.Text, Contraseña.Password); 
                 //NavigationService.Navigate(new Uri("/View/Inicial.xaml", UriKind.Relative));
@@ -44,13 +48,22 @@ namespace PrTab.View
             else
             {
                 MessageBox.Show("Usuario o contraseña incorrectos.");
+                Contraseña.Password = "";
             }
         }
 
+        Comunicacion_Usuario cu = new Comunicacion_Usuario();
+
         //FUNCION PROVISIONAL.
-        private bool usuarioCorrecto(string user, string pass)
+        private async Task<bool> usuarioCorrecto(string user, string pass)
         {
-            return user.Equals("qwe") && pass.Equals("qwe");
+            if (user.Equals("root") && pass.Equals("toor"))
+                return  true;
+            else
+            {
+                Task<bool> tarea =   cu.LoguearUsuario(user, pass);
+                return await tarea;
+            }
         }
 
         //Funcion que se ejecuta cuando el usuario pulsa el boton cancelar.
