@@ -97,8 +97,11 @@
     <Compile Include="Model\Comunicacion.cs" />
     <Compile Include="Model\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion_Usuario.cs" />
+    <Compile Include="Model\Facultad.cs" />
     <Compile Include="Model\MensajesTablonEventArgs.cs" />
     <Compile Include="Model\MensajeTablon.cs" />
+    <Compile Include="Model\Provincia.cs" />
+    <Compile Include="Model\Universidad.cs" />
     <Compile Include="Model\Uri_Get.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\AplicationSettings.cs" />
@@ -186,6 +189,12 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
     <Content Include="View\fotos\archivos_sinfondo.png" />
     <Content Include="View\fotos\chat_sinfondo.png" />
     <Content Include="View\fotos\foto.jpg" />
@@ -198,6 +207,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>

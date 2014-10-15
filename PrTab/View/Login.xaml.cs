@@ -52,7 +52,6 @@ namespace PrTab.View
             }
         }
 
-        Comunicacion_Usuario cu = new Comunicacion_Usuario();
 
         //FUNCION PROVISIONAL.
         private async Task<bool> usuarioCorrecto(string user, string pass)
@@ -61,7 +60,7 @@ namespace PrTab.View
                 return  true;
             else
             {
-                Task<bool> tarea =   cu.LoguearUsuario(user, pass);
+                Task<bool> tarea = Comunicacion_Usuario.LoguearUsuario(user, pass);
                 return await tarea;
             }
         }

@@ -19,6 +19,8 @@ namespace PrTab.ViewModel
 
         const string tokenUsuario = "Token";
 
+        const string errorServer = "Error";
+
         //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
         //para no volver a pedirlos.
         public static void RegistrarUsuario(string usuario, string contraseña)
@@ -67,6 +69,24 @@ namespace PrTab.ViewModel
             string ret = null;
             if (IsolatedStorageSettings.ApplicationSettings.Contains(tokenUsuario))
                 ret = IsolatedStorageSettings.ApplicationSettings[tokenUsuario].ToString();
+            return ret;
+        }
+
+
+        public static void setErrorServer(string error)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(errorServer))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(errorServer);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(errorServer, error);
+        }
+
+        public static string getErrorServer()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(errorServer))
+                ret = IsolatedStorageSettings.ApplicationSettings[errorServer].ToString();
             return ret;
         }
 

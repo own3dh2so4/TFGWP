@@ -52,12 +52,12 @@ namespace PrTab.View
                 return true;
             else
             {
-                Task<bool> tarea = cu.LoguearUsuario(user, password);
+                Task<bool> tarea = Comunicacion_Usuario.LoguearUsuario(user, password);
                 return await tarea;
             }
         }
 
-        Comunicacion_Usuario cu = new Comunicacion_Usuario();
+    
 
         
         

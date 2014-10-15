@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model
 {
-    class Comunicacion_Usuario
+    public static class Comunicacion_Usuario
     {
 
-        public async Task<bool> LoguearUsuario (string usuario, string contraseña)
+        public static async Task<bool> LoguearUsuario (string usuario, string contraseña)
         {            
             string result = await Comunicacion.loguearUsuario(usuario, contraseña);
             JObject o = JObject.Parse(result);
@@ -22,7 +22,22 @@ namespace PrTab.Model
                 return true;
             }
             return false;
+        }
 
+        public static async Task<bool> RegistrarUsuario(string usuario, string contraseña, string correo, string uni, string facul )
+        {
+            string result = await Comunicacion.registrarUsuario(usuario, contraseña, correo,uni,facul);
+            JObject o = JObject.Parse(result);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                AplicationSettings.setToken((string)o.SelectToken("token"));
+                return true;
+            }
+            else if ((string)o.SelectToken("error") == "406")
+            {
+                AplicationSettings.setErrorServer((string)o.SelectToken("error_msg"));
+            }
+            return false;
         }
     }
 }

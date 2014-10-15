@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,7 +34,7 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Usuario" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"/>
+                    <TextBox x:Name="NombreUsuario" Grid.Column="1"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -41,7 +42,7 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Contraseña" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"/>
+                    <PasswordBox x:Name="PasswordUsuario" Grid.Column="1"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -49,7 +50,17 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Email" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"/>
+                    <TextBox x:Name="EmailUsuario" Grid.Column="1" LostFocus="EmailUsuario_LostFocus" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Provincia" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemProvincias" SelectionChanged="ListPicker_ProvicniaSeleccionada" >
+                        
+                    </toolkit:ListPicker>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -57,7 +68,9 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Universidad" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"/>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemUniversidad" SelectionChanged="ListPicker_UniversidadSeleccionada"  IsEnabled="False">
+
+                    </toolkit:ListPicker>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -65,16 +78,11 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Facultad" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"/>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemFacultades" SelectionChanged="ListPicker_FacultadSeleccionada" IsEnabled="False" >
+
+                    </toolkit:ListPicker>
                 </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Curso" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"/>
-                </Grid>                
+                                
             </StackPanel>            
         </ScrollViewer>
         
@@ -84,7 +92,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Content="Cancelar" Grid.Column="0" Click="Button_Click" />
-            <Button Content="Registrar" Grid.Column="1"/>
+            <Button Content="Registrar" Grid.Column="1" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 
