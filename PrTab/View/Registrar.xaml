@@ -34,7 +34,7 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Usuario" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBox x:Name="NombreUsuario" Grid.Column="1"/>
+                    <TextBox x:Name="NombreUsuario" Grid.Column="1" LostFocus="lostFoco_usuario"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -42,7 +42,7 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Contraseña" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <PasswordBox x:Name="PasswordUsuario" Grid.Column="1"/>
+                    <PasswordBox x:Name="PasswordUsuario" Grid.Column="1" LostFocus="PasswordUsuario_LostFocus"/>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>

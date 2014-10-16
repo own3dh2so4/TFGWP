@@ -39,5 +39,33 @@ namespace PrTab.Model
             }
             return false;
         }
+
+        public static async Task<bool> ExisteUsuario(string user)
+        {
+            string result = await Comunicacion.consultaUsuario(user);
+            JObject o = JObject.Parse(result);
+            if((string)o.SelectToken("error")=="200")
+            {
+                if ((string)o.SelectToken("available") == "0")
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        public static async Task<bool> ExisteEmail(string email)
+        {
+            string result = await Comunicacion.consultaEmail(email);
+            JObject o = JObject.Parse(result);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                if ((string)o.SelectToken("available") == "0")
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
     }
 }

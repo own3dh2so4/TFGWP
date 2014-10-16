@@ -24,6 +24,8 @@ namespace PrTab.View
         private int id_universidad=0;
         private int id_facultad = 0;
 
+        private bool controlUser = false, controlPass = false, controlEmail = false;
+
         public Registrar()
         {
             InitializeComponent();
@@ -88,17 +90,17 @@ namespace PrTab.View
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (NombreUsuario.Text.Length < 3)
+            if (!controlUser)
             {
                 NombreUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
-                MessageBox.Show("Nombre de usuario demasiado corto");
+                MessageBox.Show("Nombre de usuario no valido");
             }
-            else if (PasswordUsuario.Password.Length < 6)
+            else if (!controlPass)
             {
                 PasswordUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
                 MessageBox.Show("Contraseña demasiado corto");
             }
-            else if (!email_bien_escrito())
+            else if (!controlEmail)
             {
                 EmailUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
                 MessageBox.Show("Email no valido");
@@ -196,17 +198,62 @@ namespace PrTab.View
             }
         }
 
-        private void EmailUsuario_LostFocus(object sender, RoutedEventArgs e)
+        private async void EmailUsuario_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!email_bien_escrito())
             {
                 EmailUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
+                controlEmail = false;
             }
             else
             {
-                EmailUsuario.BorderBrush = new SolidColorBrush(Colors.Gray);
+                bool validacion = await Comunicacion_Usuario.ExisteEmail(EmailUsuario.Text);
+                if (validacion)
+                {
+                    EmailUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
+                    MessageBox.Show("Este email ya ha sido usado.");
+                    controlEmail = false;
+                }
+                else
+                {
+                    EmailUsuario.BorderBrush = new SolidColorBrush(Colors.Gray);
+                    controlEmail = true;
+                }
+                
             }
         }
+
+        private async void lostFoco_usuario(object sender, RoutedEventArgs e)
+        {
+            if (NombreUsuario.Text.Length>3)
+            {
+                bool valido = await Comunicacion_Usuario.ExisteUsuario(NombreUsuario.Text);
+                if (valido)
+                {
+                    NombreUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
+                    MessageBox.Show("Nombre de usuario no valido");
+                    controlUser = false;
+                }
+                else
+                {
+                    NombreUsuario.BorderBrush = new SolidColorBrush(Colors.Gray);
+                    controlUser = true;
+                }
+                
+            }
+            else
+            {
+                NombreUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
+                controlUser = false;
+            }
+        }
+
+        private void PasswordUsuario_LostFocus(object sender, RoutedEventArgs e)
+        {
+            controlPass = PasswordUsuario.Password.Length >= 6;
+        }
+
+        
 
        
         

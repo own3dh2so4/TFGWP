@@ -80,9 +80,10 @@
                         <TextBlock Text="    Chat" FontSize="48" />
                     </Grid>                                       
                 </phone:PivotItem.Header>
-                <Grid >
+                <StackPanel >
                     <TextBlock Text="Pestaña2" />
-                </Grid>
+                    <Button x:Name="destrucion" Content="Salir" Click="destrucion_Click"/>
+                </StackPanel>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}"  >
                 <phone:PivotItem.Header>

@@ -34,6 +34,27 @@ namespace PrTab.Model
         const string parametro_universidadRegistro = "university";
         const string parametro_facultadRegistro = "faculty";
 
+        const string consultarUsuario = "checkuser";
+        const string parametro_NombreUsuarioConsultar = "user";
+
+
+        const string consularEmail = "checkemail";
+        const string parametro_EmailUsuarioConsulta = "email";
+
+
+        public static async Task<string> consultaEmail(string email)
+        {
+            Uri_Get url = new Uri_Get(baseURL + consularEmail);
+            url.GetData(parametro_EmailUsuarioConsulta, email);
+            return await client.GetStringAsync(url.getUri());
+        }
+
+        public static async Task<string> consultaUsuario(string usuario)
+        {
+            Uri_Get url = new Uri_Get(baseURL + consultarUsuario);
+            url.GetData(parametro_NombreUsuarioConsultar, usuario);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> registrarUsuario(string usuario, string contraseña, string email, string uni, string facul)
         {

@@ -90,6 +90,18 @@ namespace PrTab.ViewModel
             return ret;
         }
 
+        public static void logout()
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(nombreUsuario))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(nombreUsuario);
+            }
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(contraseñaUsuario))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(contraseñaUsuario);
+            }
+        }
+
 
     }
 

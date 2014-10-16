@@ -12,6 +12,7 @@ using Windows.Phone.UI.Input;
 using System.IO.IsolatedStorage;
 using PrTab.Model;
 using System.Windows.Media;
+using PrTab.ViewModel;
 
 namespace PrTab
 {
@@ -62,6 +63,13 @@ namespace PrTab
             var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
             //MessageBox.Show(myItem.mensaje);
             NavigationService.Navigate(new Uri("/View/MensajeTablon.xaml?name="+myItem.nombre+"&message="+myItem.mensaje+"&photo="+myItem.foto, UriKind.Relative));
+        }
+
+        private void destrucion_Click(object sender, RoutedEventArgs e)
+        {
+            AplicationSettings.logout();
+            IsolatedStorageSettings.ApplicationSettings.Save();
+            Application.Current.Terminate();
         }
 
        
