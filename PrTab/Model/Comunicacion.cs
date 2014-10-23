@@ -12,8 +12,8 @@ namespace PrTab.Model
     public static class Comunicacion
     {
         static HttpClient client = new HttpClient();
-        //const string baseURL = "http://192.168.0.2:80/";
-        const string baseURL = "http://www.bsodsoftware.me/";
+        const string baseURL = "http://192.168.0.2:80/";
+        //const string baseURL = "http://www.bsodsoftware.me/";
 
         const string logearUsuario = "loginuser";
         const string parametro_NombreUsuario = "user";
@@ -129,8 +129,8 @@ namespace PrTab.Model
                 JArray jArray = (JArray)json["data"];
                 for (int i = 0; i < jArray.Count; i++)
                 {
-                    JObject fields = (JObject)jArray[i].SelectToken("fields");
-                    string nombre = (string)fields.SelectToken("nombre");
+                    //JObject fields = (JObject)jArray[i].SelectToken("fields");
+                    string nombre = (string)jArray[i].SelectToken("nombre");
                     int id = Convert.ToInt32((string)jArray[i].SelectToken("pk"));
                     facultades.Add(new Facultad(nombre, id, idUni));
                 }
