@@ -41,6 +41,35 @@ namespace PrTab.Model
         const string consularEmail = "checkemail";
         const string parametro_EmailUsuarioConsulta = "email";
 
+        const string postearMensaje = "sendmensajetablon";
+        const string parametro_postMensajeToken = "token";
+        const string parametro_postMensajeMensaje = "message";
+        const string parametro_postMensajeFacultad = "idfaculty";
+
+        const string getMensajesTablon = "getmensajestablon";
+        const string parametro_getMensajeToken = "token";
+        const string parametro_getMensajeIdLastMensaje = "idmessage";
+        const string parametro_getMensajeIdFaculty = "idfaculty";
+
+
+        public static async Task<string> getMensajes(string token, string idMensaje, string idFacultad)
+        {
+            Uri_Get url = new Uri_Get(baseURL + getMensajesTablon);
+            url.GetData(parametro_getMensajeToken, token);
+            url.GetData(parametro_getMensajeIdLastMensaje, idMensaje);
+            url.GetData(parametro_getMensajeIdFaculty, idFacultad);
+            return await client.GetStringAsync(url.getUri());
+        }
+
+
+        public static async Task<string> postMensaje(string token, string mensaje, string facultad)
+        {
+            Uri_Get url = new Uri_Get(baseURL + postearMensaje);
+            url.GetData(parametro_postMensajeToken, token);
+            url.GetData(parametro_postMensajeMensaje, mensaje);
+            url.GetData(parametro_postMensajeFacultad, facultad);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> consultaEmail(string email)
         {
