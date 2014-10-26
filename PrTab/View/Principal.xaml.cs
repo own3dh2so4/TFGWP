@@ -72,6 +72,22 @@ namespace PrTab
             Application.Current.Terminate();
         }
 
+        private void TextoNuevoMensaje_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if(TextoNuevoMensaje.Text == "Escribe tu mensaje")
+            {
+                TextoNuevoMensaje.Text = "";
+            }
+        }
+
+        private void TextoNuevoMensaje_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(TextoNuevoMensaje.Text == "")
+            {
+                TextoNuevoMensaje.Text = "Escribe tu mensaje";
+            }
+        }
+
        
     }
 }

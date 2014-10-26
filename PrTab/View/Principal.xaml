@@ -74,7 +74,7 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Escribe tu mensaje" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+                        <TextBox MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
                         <Button Grid.Column="1"/>
                     </Grid>
                     

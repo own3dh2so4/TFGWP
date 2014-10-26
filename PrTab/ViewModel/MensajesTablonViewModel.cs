@@ -71,20 +71,30 @@ namespace PrTab.ViewModel
         //Constructor.
         public MensajesTablonViewModel()
         {
+            mensajes = new ObservableCollection<MensajeTablon>();
             servicioMensajes.getMensajesTablonCompletado += (s, a) =>
             {
-                mensajes = new ObservableCollection<MensajeTablon>(a.mensajes);
+                //mensajes = new ObservableCollection<MensajeTablon>(a.mensajes);
+                insertarNuevosMensajes(a.mensajes);
                 this.OnPropertyChanged("Mensajes");
             };
             this.getMensajesTablon = new ActionCommand(this.onGetMensajesTablon);
+            servicioMensajes.getMensajesTablon();
 
+        }
+
+        private void insertarNuevosMensajes(IList<MensajeTablon> nuevosMensajes)
+        {
+            for (int i = 0; i < nuevosMensajes.Count; i++)
+                mensajes.Insert(i, nuevosMensajes[i]);
         }
 
         //Cargar mensajes.
         private void onGetMensajesTablon()
         {
             
-            servicioMensajes.getMensajesTablon();
+            servicioMensajes.getMensajesTablonFromServer("1");
+            //servicioMensajes.getMensajesTablon();
         }
     }
 }
