@@ -52,6 +52,12 @@ namespace PrTab.ViewModel
             get;
             private set;
         }
+
+        public ICommand postMensajesTablon
+        {
+            get;
+            private set;
+        }
         /*public ICommand GetMensajesTablon
         {
             get
@@ -78,7 +84,8 @@ namespace PrTab.ViewModel
                 insertarNuevosMensajes(a.mensajes);
                 this.OnPropertyChanged("Mensajes");
             };
-            this.getMensajesTablon = new ActionCommand(this.onGetMensajesTablon);
+            this.getMensajesTablon = new ActionCommand<string>(this.onGetMensajesTablon);
+            this.postMensajesTablon = new ActionCommand<string>(this.onPostMensajesTablon);
             servicioMensajes.getMensajesTablon();
 
         }
@@ -90,11 +97,16 @@ namespace PrTab.ViewModel
         }
 
         //Cargar mensajes.
-        private void onGetMensajesTablon()
+        private void onGetMensajesTablon(string useless)
         {
             
             servicioMensajes.getMensajesTablonFromServer("1");
             //servicioMensajes.getMensajesTablon();
+        }
+
+        private void onPostMensajesTablon(string message)
+        {
+            servicioMensajes.postMensajeTablon(message, "1");
         }
     }
 }

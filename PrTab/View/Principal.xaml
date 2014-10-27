@@ -68,14 +68,15 @@
                         ItemTemplate="{StaticResource MensajesTablonDataTemplate}"
                         SelectionChanged="MensajeTablonSelected"/>
                     <Button Content="Cargar Comentarios" Grid.Row="1"
-                            Command="{Binding getMensajesTablon}" />
+                            Command="{Binding getMensajesTablon}" 
+                            CommandParameter=""/>
                     <Grid Grid.Row="2" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
-                        <Button Grid.Column="1"/>
+                        <Button x:Name="EnviarMensaje" Grid.Column="1" Command="{Binding postMensajesTablon}" CommandParameter="{Binding Text, ElementName=TextoNuevoMensaje}"/>
                     </Grid>
                     
                 </Grid>

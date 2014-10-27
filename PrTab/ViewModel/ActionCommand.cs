@@ -10,12 +10,12 @@ namespace PrTab.ViewModel
     /**
      * Clase que implementa la interfaz ICommand
      * */
-    public class ActionCommand :ICommand
+    public class ActionCommand<T> :ICommand
     {
         //Accion que se realiza
-        Action action;
+        Action<T> action;
         //Constructor
-        public ActionCommand(Action accion)
+        public ActionCommand(Action<T> accion)
         {
             action = accion;
         }
@@ -29,7 +29,7 @@ namespace PrTab.ViewModel
         //Ejecuta el evento.
         public void Execute(object parameter)
         {
-            action();
+            action((T)parameter);
         }
     }
 }

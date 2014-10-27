@@ -70,10 +70,14 @@ namespace PrTab.Model
                 JArray jArray = (JArray)json["data"];
                 foreach(var mensaje in jArray)
                 {
-                    JArray userInfo = (JArray)mensaje.SelectToken("usuario");
-                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensaje.SelectToken("pk")),  Convert.ToInt32((string)userInfo[0]),(string)userInfo[1],
-                                    (string)mensaje.SelectToken("texto"), "fotos/foto.jpg", Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
-                                    Convert.ToInt32((string)mensaje.SelectToken("tablon"))));
+                    JObject userInfo = (JObject)mensaje.SelectToken("usuario");
+                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensaje.SelectToken("pk")),  
+                        Convert.ToInt32((string)userInfo.SelectToken("pk")),
+                        (string)userInfo.SelectToken("username"),
+                        (string)mensaje.SelectToken("texto"),
+                        "fotos/foto.jpg",
+                        Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
+                        Convert.ToInt32(idFacultad)));
                 }
 
                 //Dar la vuelta al array que recibes para mostrarlos en orden
@@ -85,15 +89,44 @@ namespace PrTab.Model
                 }
 
 
-                    dbConn.InsertAll(mensajesNuevos);
+                dbConn.InsertAll(mensajesNuevos);
 
                 if (getMensajesTablonCompletado != null)
                 {
                     getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevosVuelta));
                 }
             }
-
             
+            
+        }
+
+        public async void postMensajeTablon (string mensaje, string idFacultad)
+        {
+            string response = await Comunicacion.postMensaje(AplicationSettings.getToken(), mensaje, idFacultad);
+            JObject json = JObject.Parse(response);
+            if ((string)json.SelectToken("error") == "200")
+            {
+                List<MensajeTablon> mensajesNuevos = new List<MensajeTablon>();
+                //HAY QUE PONER EL ID DEL USUARIO CORRECTO!!!!
+                JArray mensajeJArray = (JArray)json.SelectToken("data");
+
+                foreach (var mensajeJson in mensajeJArray)
+                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensajeJson.SelectToken("pk")),
+                        Convert.ToInt32((string)mensajeJson.SelectToken("usuario").SelectToken("pk")),
+                        AplicationSettings.getUsuario(),                                    
+                        mensaje,
+                        "fotos/foto.jpg",
+                        Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")), 
+                        Convert.ToInt32(idFacultad)));
+
+                dbConn = new SQLiteConnection(DB_PATH);
+                dbConn.InsertAll(mensajesNuevos);
+
+                if (getMensajesTablonCompletado != null)
+                {
+                    getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevos));
+                }            
+            }
             
         }
     }

@@ -44,5 +44,16 @@ namespace PrTab.Model
             fecha = fecha.AddSeconds( fechamensaje ).ToLocalTime();
             identificadorTablon = idTablon;
         }
+
+        public MensajeTablon(int id, int idUsuario, string nombreUsuario, string mensajeUsuario, string fotoUsuario, DateTime fechamensaje, int idTablon)
+        {
+            identificador = id;
+            identificadorUsuario = idUsuario;
+            nombre = nombreUsuario;
+            mensaje = mensajeUsuario;
+            foto = fotoUsuario;
+            fecha = fechamensaje;
+            identificadorTablon = idTablon;
+        }
     }
 }
