@@ -13,6 +13,7 @@ using System.IO.IsolatedStorage;
 using PrTab.Model;
 using System.Windows.Media;
 using PrTab.ViewModel;
+using System.Windows.Data;
 
 namespace PrTab
 {
@@ -22,16 +23,21 @@ namespace PrTab
      * */
     public partial class MainPage : PhoneApplicationPage
     {
+        MensajesTablonViewModel _viewModelTablonMensaje;
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+            _viewModelTablonMensaje = (MensajesTablonViewModel)Resources["ViewModelTablon"];
+            
 
             // Código de ejemplo para traducir ApplicationBar
             //BuildLocalizedApplicationBar();
         }
 
 
+        
 
         // Código de ejemplo para compilar una ApplicationBar traducida
         //private void BuildLocalizedApplicationBar()
@@ -86,6 +92,11 @@ namespace PrTab
             {
                 TextoNuevoMensaje.Text = "Escribe tu mensaje";
             }
+        }
+
+        private void CargarMensajes_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
     

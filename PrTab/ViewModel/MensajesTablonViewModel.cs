@@ -1,4 +1,5 @@
-﻿using PrTab.Model;
+﻿using Microsoft.Phone.Shell;
+using PrTab.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,51 @@ namespace PrTab.ViewModel
     {
         //Mensajes del tablon
         public ObservableCollection<MensajeTablon> mensajes;
+
+        System.Windows.Visibility visibilidadMensaje;
+        public System.Windows.Visibility VisibilidadMensaje
+        {
+            get
+            {
+                return visibilidadMensaje;
+            }
+            private set
+            {
+                visibilidadMensaje = value;
+                
+            }
+        }
+
+        string mensajeMostrar="";
+
+        public string MensajeMostrar
+        {
+            get
+            {
+                return mensajeMostrar;
+            }
+            private set
+            {
+                mensajeMostrar = value;
+                
+            }
+        }
+
+        private void mostarMensaje(string menssage)
+        {
+            VisibilidadMensaje = Visibility.Visible;
+            mensajeMostrar = menssage;
+            this.OnPropertyChanged("VisibilidadMensaje");
+            this.OnPropertyChanged("MensajeMostrar");
+        }
+
+        private void ocultarMensaje()
+        {
+            visibilidadMensaje = Visibility.Collapsed;
+            mensajeMostrar = "";
+            this.OnPropertyChanged("VisibilidadMensaje");
+            this.OnPropertyChanged("MensajeMostrar");
+        }
 
         //Getter y Setter
         public ObservableCollection<MensajeTablon> Mensajes
@@ -86,9 +132,12 @@ namespace PrTab.ViewModel
             };
             this.getMensajesTablon = new ActionCommand<string>(this.onGetMensajesTablon);
             this.postMensajesTablon = new ActionCommand<string>(this.onPostMensajesTablon);
+            //Aqui continuar.
+            visibilidadMensaje =  Visibility.Collapsed;
             servicioMensajes.getMensajesTablon();
 
         }
+
 
         private void insertarNuevosMensajes(IList<MensajeTablon> nuevosMensajes)
         {
@@ -97,16 +146,20 @@ namespace PrTab.ViewModel
         }
 
         //Cargar mensajes.
-        private void onGetMensajesTablon(string useless)
+        private async void onGetMensajesTablon(string useless)
         {
-            
-            servicioMensajes.getMensajesTablonFromServer("1");
+            mostarMensaje("Cargando mensajes");
+            await servicioMensajes.getMensajesTablonFromServer("1");
             //servicioMensajes.getMensajesTablon();
+            //System.Threading.Thread.Sleep(5000);
+            ocultarMensaje();
         }
 
-        private void onPostMensajesTablon(string message)
+        private async void onPostMensajesTablon(string message)
         {
-            servicioMensajes.postMensajeTablon(message, "1");
+            mostarMensaje("Enviando mensaje");
+            await servicioMensajes.postMensajeTablon(message, "1");
+            ocultarMensaje();
         }
     }
 }

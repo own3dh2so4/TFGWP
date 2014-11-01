@@ -56,7 +56,7 @@ namespace PrTab.Model
             dbConn.InsertAll(mensajes);*/
         }
 
-        public async void getMensajesTablonFromServer( string idFacultad)
+        public async Task<bool> getMensajesTablonFromServer( string idFacultad)
         {
             dbConn = new SQLiteConnection(DB_PATH);
             var idMensaje = dbConn.Query<MensajeTablon>("select MAX(identificador) as identificador from MensajeTablon where identificadorTablon = "+ idFacultad + ";");
@@ -78,29 +78,31 @@ namespace PrTab.Model
                         "fotos/foto.jpg",
                         Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
                         Convert.ToInt32(idFacultad)));
+                    
                 }
 
                 //Dar la vuelta al array que recibes para mostrarlos en orden
-                List<MensajeTablon> mensajesNuevosVuelta = new List<MensajeTablon>();
+                /*List<MensajeTablon> mensajesNuevosVuelta = new List<MensajeTablon>();
                 for (int i = mensajesNuevos.Count - 1; i >= 0; i--)
                 {
 
                     mensajesNuevosVuelta.Add(mensajesNuevos[i]);
-                }
+                }*/
 
 
                 dbConn.InsertAll(mensajesNuevos);
 
                 if (getMensajesTablonCompletado != null)
                 {
-                    getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevosVuelta));
+                    getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevos));
                 }
+                return true;
             }
-            
+            return false;
             
         }
 
-        public async void postMensajeTablon (string mensaje, string idFacultad)
+        public async Task<bool> postMensajeTablon (string mensaje, string idFacultad)
         {
             string response = await Comunicacion.postMensaje(AplicationSettings.getToken(), mensaje, idFacultad);
             JObject json = JObject.Parse(response);
@@ -125,9 +127,11 @@ namespace PrTab.Model
                 if (getMensajesTablonCompletado != null)
                 {
                     getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevos));
-                }            
+                }
+
+                return true;
             }
-            
+            return false;
         }
     }
 }
