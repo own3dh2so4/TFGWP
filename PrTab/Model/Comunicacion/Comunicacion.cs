@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PrTab.Model.Modelo;
+using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrTab.Model
+namespace PrTab.Model.Comunicacion
 {
     public static class Comunicacion
     {
@@ -33,6 +35,10 @@ namespace PrTab.Model
         const string parametro_emailRegistro = "email";
         const string parametro_universidadRegistro = "university";
         const string parametro_facultadRegistro = "faculty";
+        //Parametros opcionales
+        const string parametroOpcional_ModeloMovilRegistro = "model";
+        const string parametroOpcional_PlataformaMovilRegistro = "platform";
+        const string parametroOpcional_DimensionesPantallaRegistro = "displaysize";
 
         const string consultarUsuario = "checkuser";
         const string parametro_NombreUsuarioConsultar = "user";
@@ -95,6 +101,19 @@ namespace PrTab.Model
             url.GetData(parametro_facultadRegistro, facul);
             return await client.GetStringAsync(url.getUri());
         }
+        public static async Task<string> registrarUsuario(string usuario, string contraseña, string email, string uni, string facul, string model, string platform, string displaysize)
+        {
+            Uri_Get url = new Uri_Get(baseURL + registUsuario);
+            url.GetData(parametro_NombreRegistro, usuario);
+            url.GetData(parametro_ContraseñaRegistro, contraseña);
+            url.GetData(parametro_emailRegistro, email);
+            url.GetData(parametro_universidadRegistro, uni);
+            url.GetData(parametro_facultadRegistro, facul);
+            url.GetData(parametroOpcional_ModeloMovilRegistro, model);
+            url.GetData(parametroOpcional_PlataformaMovilRegistro, platform);
+            url.GetData(parametroOpcional_DimensionesPantallaRegistro, displaysize);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> loguearUsuario(string usuario, string contraseña)
         {
@@ -115,8 +134,7 @@ namespace PrTab.Model
                 JArray jArray = (JArray)json["data"];
                 for (int i = 0; i < jArray.Count; i++)
                 {
-                    JObject fields = (JObject)jArray[i].SelectToken("fields");
-                    string nombre = (string)fields.SelectToken("nombre");
+                    string nombre = (string)jArray[i].SelectToken("nombre");
                     int id = Convert.ToInt32((string)jArray[i].SelectToken("pk"));
                     provincias.Add(new Provincia(nombre, id));
                 }
@@ -136,8 +154,7 @@ namespace PrTab.Model
                 JArray jArray = (JArray)json["data"];
                 for (int i = 0; i < jArray.Count; i++)
                 {
-                    JObject fields = (JObject)jArray[i].SelectToken("fields");
-                    string nombre = (string)fields.SelectToken("nombre");
+                    string nombre = (string)jArray[i].SelectToken("nombre");
                     int id = Convert.ToInt32((string)jArray[i].SelectToken("pk"));
                     universidades.Add(new Universidad(nombre, id, idProv));
                 }

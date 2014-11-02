@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using PrTab.Model.Modelo;
+using PrTab.Utiles;
 using PrTab.ViewModel;
 using SQLite;
 using System;
@@ -9,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace PrTab.Model
+namespace PrTab.Model.Comunicacion
 {
     /**
      * Clase encargada de realizar la peticion al servidor de los mensajes del tablon.

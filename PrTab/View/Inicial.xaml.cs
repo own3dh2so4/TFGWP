@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 using PrTab.ViewModel;
 using System.Threading.Tasks;
 using PrTab.Model;
+using PrTab.Model.Comunicacion;
+using PrTab.Utiles;
 
 namespace PrTab.View
 {

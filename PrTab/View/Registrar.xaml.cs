@@ -7,10 +7,13 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using PrTab.Model;
+using PrTab.Model.Comunicacion;
+using PrTab.Model.Modelo;
 using PrTab.ViewModel;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
+using PrTab.Utiles;
+
 
 namespace PrTab.View
 {
@@ -23,6 +26,10 @@ namespace PrTab.View
         private int id_provincia = 0;
         private int id_universidad=0;
         private int id_facultad = 0;
+
+        private string terminalModel = "";
+        private string termnalPlataform = "";
+        private string terminalDisplaysize = "";
 
         private bool controlUser = false, controlPass = false, controlEmail = false;
 
@@ -90,6 +97,18 @@ namespace PrTab.View
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            if (terminalModel=="")
+            {
+                terminalModel = await DeviceInfoHelper.GetDeviceModelAsync();
+            }
+            if (termnalPlataform=="")
+            {
+                termnalPlataform = "WindowsPhone " + Environment.OSVersion.Version.ToString(); 
+            }
+            if (terminalDisplaysize=="")
+            {
+                terminalDisplaysize = Application.Current.Host.Content.ActualWidth + "x" + Application.Current.Host.Content.ActualHeight; 
+            }
             if (!controlUser)
             {
                 NombreUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
@@ -120,7 +139,7 @@ namespace PrTab.View
                 ListItemFacultades.BorderBrush = new SolidColorBrush(Colors.Red);
                 MessageBox.Show("Seleciona una facultad");
             }
-            else if (await Comunicacion_Usuario.RegistrarUsuario(NombreUsuario.Text, PasswordUsuario.Password, EmailUsuario.Text, id_universidad + "", id_facultad+""))
+            else if (await Comunicacion_Usuario.RegistrarUsuario(NombreUsuario.Text, PasswordUsuario.Password, EmailUsuario.Text, id_universidad + "", id_facultad+"", terminalModel, termnalPlataform, terminalDisplaysize))
             {
                 AplicationSettings.RegistrarUsuario(NombreUsuario.Text, PasswordUsuario.Password);
                 NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));

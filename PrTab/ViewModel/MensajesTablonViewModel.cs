@@ -1,5 +1,7 @@
 ﻿using Microsoft.Phone.Shell;
 using PrTab.Model;
+using PrTab.Model.Comunicacion;
+using PrTab.Model.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

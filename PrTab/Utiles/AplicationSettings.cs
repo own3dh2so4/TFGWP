@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrTab.ViewModel
+namespace PrTab.Utiles
 {
     /**
      * Clase que encagada de guardar la información de la aplicacion.

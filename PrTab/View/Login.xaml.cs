@@ -12,6 +12,8 @@ using Windows.Phone.UI.Input;
 using System.IO.IsolatedStorage;
 using PrTab.Model;
 using System.Threading.Tasks;
+using PrTab.Utiles;
+using PrTab.Model.Comunicacion;
 
 namespace PrTab.View
 {

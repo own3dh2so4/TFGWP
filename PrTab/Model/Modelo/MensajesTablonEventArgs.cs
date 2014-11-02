@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrTab.Model
+namespace PrTab.Model.Modelo
 {
     /**
      * Clase que implemente el evento que lanza el objeto cuando cambia para notificar a la vista 

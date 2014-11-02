@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrTab.Model
+namespace PrTab.Model.Modelo
 {
-    public class Provincia
+    public class Facultad
     {
         public string nombre;
-        public int identificador; 
+        public int idUniversidad;
+        public int identificador;
 
-        public Provincia(string name, int id)
+        public Facultad(string name, int id, int idUni)
         {
             nombre = name;
+            idUniversidad = idUni;
             identificador = id;
         }
     }

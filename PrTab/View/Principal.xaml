@@ -65,7 +65,6 @@
                         </Grid.RowDefinitions>   
                     
                         
-                        
                         <phone:LongListSelector
                             x:Name="ListaMensajesTablon"
                             ItemsSource="{Binding Mensajes}"

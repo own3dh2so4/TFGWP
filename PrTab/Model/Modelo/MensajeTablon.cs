@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 
-namespace PrTab.Model
+namespace PrTab.Model.Modelo
 {
     /**
      * Clase que reprensenta los mensajes que se publican en el tablon.

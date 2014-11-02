@@ -14,6 +14,8 @@ using PrTab.Model;
 using System.Windows.Media;
 using PrTab.ViewModel;
 using System.Windows.Data;
+using PrTab.Model.Modelo;
+using PrTab.Utiles;
 
 namespace PrTab
 {

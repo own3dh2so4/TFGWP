@@ -13,20 +13,23 @@
     <RootNamespace>PrTab</RootNamespace>
     <AssemblyName>PrTab</AssemblyName>
     <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <SilverlightVersion>
+    </SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>PrTab_$(Configuration)_$(Platform).xap</XapFilename>
+    <XapFilename>TFG_WP_$(Configuration)_$(Platform).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>PrTab.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <NuGetPackageImportStamp>fe09a3fd</NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <DefaultLanguage>es-ES</DefaultLanguage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +62,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -69,6 +73,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,6 +85,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
     <DebugType>pdbonly</DebugType>
@@ -90,25 +96,27 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget />
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="Model\Comunicacion.cs" />
-    <Compile Include="Model\Comunicacion_MensajesTablon.cs" />
-    <Compile Include="Model\Comunicacion_Usuario.cs" />
-    <Compile Include="Model\Facultad.cs" />
-    <Compile Include="Model\MensajesTablonEventArgs.cs" />
-    <Compile Include="Model\MensajeTablon.cs" />
-    <Compile Include="Model\Provincia.cs" />
-    <Compile Include="Model\Universidad.cs" />
-    <Compile Include="Model\Uri_Get.cs" />
+    <Compile Include="Model\Comunicacion\Comunicacion.cs" />
+    <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
+    <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
+    <Compile Include="Model\Modelo\Facultad.cs" />
+    <Compile Include="Model\Modelo\MensajesTablonEventArgs.cs" />
+    <Compile Include="Model\Modelo\MensajeTablon.cs" />
+    <Compile Include="Model\Modelo\Provincia.cs" />
+    <Compile Include="Model\Modelo\Universidad.cs" />
+    <Compile Include="Utiles\DeviceInfoHelper.cs" />
+    <Compile Include="Utiles\Uri_Get.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
-    <Compile Include="ViewModel\AplicationSettings.cs" />
+    <Compile Include="Utiles\AplicationSettings.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
     <Compile Include="ViewModel\NotificationenabledObject.cs" />
     <Compile Include="View\Inicial.xaml.cs">
@@ -167,6 +175,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
@@ -178,6 +189,12 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\BadgeLogo.png" />
+    <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\SquareTile150x150.png" />
+    <Content Include="Assets\SquareTile71x71.png" />
+    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -193,6 +210,7 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\WideLogo.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
