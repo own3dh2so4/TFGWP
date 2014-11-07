@@ -13,8 +13,8 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     xmlns:vm ="clr-namespace:PrTab.ViewModel"
     shell:SystemTray.IsVisible="True">
-    
-    
+
+
     <!--Definicion de recursos a nivel más bajo-->
     <phone:PhoneApplicationPage.Resources>
         <!--Creamos el objeto de tipo MensajeTablonViewModel que vamos a observar-->
@@ -37,23 +37,44 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-        
-    </phone:PhoneApplicationPage.Resources>
-    
 
-    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    </phone:PhoneApplicationPage.Resources>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton Text="Mensaje" 
+                                            IconUri="/View/icons/appbar.message.smiley.png"
+                                            Click="escribirMensajeTablon_Click"/>
+            <shell:ApplicationBarIconButton Text="Cargar" 
+                                            IconUri="/View/icons/appbar.refresh.png"
+                                            Click="recargarMensajesTablon_Click"/>            
+            <shell:ApplicationBarIconButton Text="Perfil" IconUri="/View/icons/appbar.people.profile.png"/>            
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="Escribir tablon"/>
+                <shell:ApplicationBarMenuItem Text="Cargar mensajes"/>
+                <shell:ApplicationBarMenuItem Text="ver perfil"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator x:Name="BarraDeProgreso" IsIndeterminate="True"/>
+    </shell:SystemTray.ProgressIndicator>
+
+
+<!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
     <Grid x:Name="LayoutRoot"   Background="Black">
         <!--Pestañas con los paneles.-->
-        
+
         <phone:Pivot    Title=""  >
             <!--Primera pestaña-->
             <phone:PivotItem CacheMode="{x:Null}" >
                 <!--Cabecera de la primera pestaña-->
                 <phone:PivotItem.Header>
-                    <StackPanel Orientation="Horizontal" >                        
+                    <StackPanel Orientation="Horizontal" >
                         <Image Width="50" Source="fotos/tablon_sinfondo.png"  />
                         <TextBlock Text=" Tablon" FontSize="48" />
-                    </StackPanel>  
+                    </StackPanel>
                 </phone:PivotItem.Header>
                 <!--Cuerpo de la primera pestaña-->
                 <Grid DataContext="{Binding Source = {StaticResource ViewModelTablon}}">
@@ -61,16 +82,15 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>   
-                    
-                        
+                        </Grid.RowDefinitions>
+
+
                         <phone:LongListSelector
                             x:Name="ListaMensajesTablon"
                             ItemsSource="{Binding Mensajes}"
                             ItemTemplate="{StaticResource MensajesTablonDataTemplate}"
                             SelectionChanged="MensajeTablonSelected"/>
-                        <Button x:Name="CargarMensajes"
+                        <!--<Button x:Name="CargarMensajes"
                                 Content="Cargar Comentarios" Grid.Row="1"
                                 Command="{Binding getMensajesTablon}" 
                                 CommandParameter="" Click="CargarMensajes_Click" />
@@ -81,23 +101,45 @@
                             </Grid.ColumnDefinitions>
                             <TextBox MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
                             <Button x:Name="EnviarMensaje" Grid.Column="1" Command="{Binding postMensajesTablon}" CommandParameter="{Binding Text, ElementName=TextoNuevoMensaje}"/>
-                        </Grid>
+                        </Grid>-->
+                        <TextBox  Grid.Row="1" MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0"  FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
                     </Grid>
-                    <Grid Visibility="{Binding VisibilidadMensaje}" Background="#7F808080">
+                    <!--<Grid Visibility="{Binding VisibilidadMensaje}" Background="#7F808080">
                         <TextBlock Text="{Binding MensajeMostrar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
+                    </Grid>-->
+                    <Grid x:Name="GridCargando" Visibility="{Binding VisibilidadMensaje}" Background="#7F808080">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Rectangle Margin="10" Height="auto" Width="auto" Fill="Black" MaxHeight="250" MaxWidth="450" />
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="MensajeCargando" Text="{Binding MensajeMostrar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
+                                <ProgressBar x:Name="myProgressRing" IsIndeterminate="True" Height="90" Width="300" Grid.Row="1"/>
+                            </Grid>
+                        </Grid>            
+                        
                     </Grid>
 
+
                 </Grid>
-                
+          
+
             </phone:PivotItem>
-            
-            
+
+
             <phone:PivotItem CacheMode="{x:Null}"  >
                 <phone:PivotItem.Header>
                     <Grid >
                         <Image Width="50" Source="fotos/chat_sinfondo.png" HorizontalAlignment="Left"/>
                         <TextBlock Text="    Chat" FontSize="48" />
-                    </Grid>                                       
+                    </Grid>
                 </phone:PivotItem.Header>
                 <StackPanel >
                     <TextBlock Text="Pestaña2" />
@@ -109,7 +151,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Width="50" Source="fotos/archivos_sinfondo.png"  />
                         <TextBlock Text=" Apuntes" FontSize="48" />
-                    </StackPanel>                    
+                    </StackPanel>
                 </phone:PivotItem.Header>
                 <Grid>
                     <TextBlock Text="Pestaña3" />
@@ -119,9 +161,6 @@
 
 
         </phone:Pivot>
-
-        
-
     </Grid>
-
+       
 </phone:PhoneApplicationPage>

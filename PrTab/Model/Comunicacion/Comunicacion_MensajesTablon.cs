@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using PrTab.Model.Base_de_Datos;
 using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using PrTab.ViewModel;
@@ -22,8 +23,9 @@ namespace PrTab.Model.Comunicacion
         //Evento que lanza cuando tiene todos los mensajes disponibles.
         public event EventHandler<MensajesTablonEventArgs> getMensajesTablonCompletado;
 
-        public static string DB_PATH = Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "MensajesTablon.sqlite"));
-        private SQLiteConnection dbConn;
+        //public static string DB_PATH = Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "MensajesTablon.sqlite"));
+        //private SQLiteConnection dbConn;
+        private CDB_MensajeTablon  dataBase = new CDB_MensajeTablon();
 
         //Metodo por el cual se obtienen los mensajes del servidro
         //TODO AHORA MISMO ESTO NO FUNCIONA CON EL SERVIDOR.
@@ -31,13 +33,15 @@ namespace PrTab.Model.Comunicacion
         {
 
             /// Create the database connection.
-            dbConn = new SQLiteConnection(DB_PATH);
+            //dbConn = new SQLiteConnection(DB_PATH);
             /// Create the table Task, if it doesn't exist.
-            dbConn.CreateTable<MensajeTablon>();
+            //dbConn.CreateTable<MensajeTablon>();
 
             //var mess = dbConn.Table<MensajeTablon>().Where(c => c.identificador != null).ToList();
 
-            var mess = dbConn.Query<MensajeTablon>("select * from MensajeTablon order by identificador DESC;");
+            //var mess = dbConn.Query<MensajeTablon>("select * from MensajeTablon order by identificador DESC;");
+
+            var mess = dataBase.getAllOrderByIDDesc();
 
             if (getMensajesTablonCompletado != null)
             {
@@ -60,12 +64,12 @@ namespace PrTab.Model.Comunicacion
 
         public async Task<bool> getMensajesTablonFromServer( string idFacultad)
         {
-            dbConn = new SQLiteConnection(DB_PATH);
-            var idMensaje = dbConn.Query<MensajeTablon>("select MAX(identificador) as identificador from MensajeTablon where identificadorTablon = "+ idFacultad + ";");
+            //dbConn = new SQLiteConnection(DB_PATH);
+            //var idMensaje = dbConn.Query<MensajeTablon>("select MAX(identificador) as identificador from MensajeTablon where identificadorTablon = "+ idFacultad + ";");
 
             List<MensajeTablon> mensajesNuevos = new List<MensajeTablon>();
-            var idemax = idMensaje[0].identificador;
-            string response = await Comunicacion.getMensajes(AplicationSettings.getToken(),idemax+"",idFacultad);
+            //int idemax = idMensaje[0].identificador;
+            string response = await Comunicacion.getMensajes(AplicationSettings.getToken(),dataBase.getMAXIdFormMensajeTablon(idFacultad)+"",idFacultad);
             JObject json = JObject.Parse(response);
             if ((string)json.SelectToken("error") == "200")
             {
@@ -92,7 +96,8 @@ namespace PrTab.Model.Comunicacion
                 }*/
 
 
-                dbConn.InsertAll(mensajesNuevos);
+                //dbConn.InsertAll(mensajesNuevos);
+                dataBase.insertAll(mensajesNuevos);
 
                 if (getMensajesTablonCompletado != null)
                 {
@@ -123,8 +128,9 @@ namespace PrTab.Model.Comunicacion
                         Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")), 
                         Convert.ToInt32(idFacultad)));
 
-                dbConn = new SQLiteConnection(DB_PATH);
-                dbConn.InsertAll(mensajesNuevos);
+                //dbConn = new SQLiteConnection(DB_PATH);
+                //dbConn.InsertAll(mensajesNuevos);
+                dataBase.insertAll(mensajesNuevos);
 
                 if (getMensajesTablonCompletado != null)
                 {

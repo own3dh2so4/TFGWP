@@ -92,16 +92,31 @@ namespace PrTab
         {
             if(TextoNuevoMensaje.Text == "")
             {
-                TextoNuevoMensaje.Text = "Escribe tu mensaje";
+               TextoNuevoMensaje.Text = "Escribe tu mensaje";
             }
         }
 
-        private void CargarMensajes_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void escribirMensajeTablon_Click(object s, EventArgs e)
+        {
+            if (TextoNuevoMensaje.Text != "Escribe tu mensaje")
+            {
+                _viewModelTablonMensaje.EnviarMensajeTablon(TextoNuevoMensaje.Text);
+                //Esto oculta el teclado.
+                this.Focus();
+                TextoNuevoMensaje.Text = "Escribe tu mensaje";
+            }
+            else
+            {
+                //TODO aqui mostrar un error o algo.
+            }
+                
         }
 
-    
+        private void recargarMensajesTablon_Click(object sender, EventArgs e)
+        {
+            _viewModelTablonMensaje.CargarMensajesTablon();
+        }
 
        
     }

@@ -2,6 +2,7 @@
 using PrTab.Model;
 using PrTab.Model.Comunicacion;
 using PrTab.Model.Modelo;
+using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -151,7 +152,7 @@ namespace PrTab.ViewModel
         private async void onGetMensajesTablon(string useless)
         {
             mostarMensaje("Cargando mensajes");
-            await servicioMensajes.getMensajesTablonFromServer("1");
+            await servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
             //servicioMensajes.getMensajesTablon();
             //System.Threading.Thread.Sleep(5000);
             ocultarMensaje();
@@ -160,7 +161,23 @@ namespace PrTab.ViewModel
         private async void onPostMensajesTablon(string message)
         {
             mostarMensaje("Enviando mensaje");
-            await servicioMensajes.postMensajeTablon(message, "1");
+            await servicioMensajes.postMensajeTablon(message, AplicationSettings.getIdTablonMensajes());
+            ocultarMensaje();
+        }
+
+        public async void CargarMensajesTablon()
+        {
+            mostarMensaje("Cargando mensajes");
+            await servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
+            //servicioMensajes.getMensajesTablon();
+            //System.Threading.Thread.Sleep(5000);
+            ocultarMensaje();
+        }
+
+        public async void EnviarMensajeTablon(string message)
+        {
+            mostarMensaje("Enviando mensaje");
+            await servicioMensajes.postMensajeTablon(message, AplicationSettings.getIdTablonMensajes());
             ocultarMensaje();
         }
     }

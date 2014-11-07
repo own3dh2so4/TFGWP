@@ -21,6 +21,10 @@ namespace PrTab.Utiles
 
         const string errorServer = "Error";
 
+        const string idTablonMensajes = "TablonMensajesID";
+
+        const string idUsuarioRegistrado = "UsuarioID";
+
         //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
         //para no volver a pedirlos.
         public static void RegistrarUsuario(string usuario, string contraseña)
@@ -36,6 +40,40 @@ namespace PrTab.Utiles
             IsolatedStorageSettings.ApplicationSettings.Add(nombreUsuario, usuario);
             IsolatedStorageSettings.ApplicationSettings.Add(contraseñaUsuario, contraseña);
         }
+
+        public static string getIdTablonMensajes()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idTablonMensajes))
+                ret = IsolatedStorageSettings.ApplicationSettings[idTablonMensajes].ToString();
+            return ret;
+        }
+
+        public static void setIdTablonMensaje(string id)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idTablonMensajes))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(idTablonMensajes);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(idTablonMensajes, id);
+        }
+
+        public static string getIdUsuario()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idUsuarioRegistrado))
+                ret = IsolatedStorageSettings.ApplicationSettings[idUsuarioRegistrado].ToString();
+            return ret;
+        }
+
+        public static void setIdUsuario(string id)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idUsuarioRegistrado))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(idUsuarioRegistrado);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(idUsuarioRegistrado, id);
+        }    
 
         //Devuelve el nombre del usuario registrado.
         public static string getUsuario()

@@ -103,6 +103,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Model\Base de Datos\CDB_Facultad.cs" />
+    <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
+    <Compile Include="Model\Base de Datos\CDB_Provincia.cs" />
+    <Compile Include="Model\Base de Datos\CDB_Universidad.cs" />
+    <Compile Include="Model\Base de Datos\ConexionDataBase.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
@@ -221,6 +226,9 @@
     <Content Include="View\fotos\chat_sinfondo.png" />
     <Content Include="View\fotos\foto.jpg" />
     <Content Include="View\fotos\tablon_sinfondo.png" />
+    <Content Include="View\icons\appbar.message.smiley.png" />
+    <Content Include="View\icons\appbar.people.profile.png" />
+    <Content Include="View\icons\appbar.refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using PrTab.Model.Base_de_Datos;
+using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using PrTab.ViewModel;
 using System;
@@ -19,7 +21,7 @@ namespace PrTab.Model.Comunicacion
             JObject o = JObject.Parse(result);
             if ((string)o.SelectToken("error") == "200")
             {
-                AplicationSettings.setToken((string)o.SelectToken("token"));
+                AplicationSettings.setToken((string)o.SelectToken("token").SelectToken("token"));
                 return true;
             }
             return false;
@@ -47,7 +49,37 @@ namespace PrTab.Model.Comunicacion
             JObject o = JObject.Parse(result);
             if ((string)o.SelectToken("error") == "200")
             {
-                AplicationSettings.setToken((string)o.SelectToken("token"));
+                //Guardamos en la bd la info de la facultad.
+                {
+                    Facultad facultad = new Facultad((string)o.SelectToken("faculty").SelectToken("nombre"),
+                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("pk")),
+                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk")));
+                    AplicationSettings.setIdTablonMensaje((string)o.SelectToken("faculty").SelectToken("pk"));
+                    CDB_Facultad bdFacultad = new CDB_Facultad();
+                    bdFacultad.insert(facultad);
+                }
+                //Guardar universidad 
+                {
+                    Universidad universidad = new Universidad((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("nombre"),
+                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk")),
+                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
+                    CDB_Universidad bdUniversidad = new CDB_Universidad();
+                    bdUniversidad.insert(universidad);
+                }
+                //Guardar provincia
+                {
+                    Provincia provincia = new Provincia((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("nombre"),
+                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
+                    CDB_Provincia dbProvincia = new CDB_Provincia();
+                    dbProvincia.insert(provincia);
+                }
+                //Guardar idUsuario
+                {
+                    AplicationSettings.setIdUsuario((string)o.SelectToken("user").SelectToken("pk"));
+                }
+
+                //Guardamos el token
+                AplicationSettings.setToken((string)(o.SelectToken("token").SelectToken("token")));
                 return true;
             }
             else if ((string)o.SelectToken("error") == "406")
