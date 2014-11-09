@@ -21,7 +21,19 @@ namespace PrTab.Model.Comunicacion
             JObject o = JObject.Parse(result);
             if ((string)o.SelectToken("error") == "200")
             {
-                AplicationSettings.setToken((string)o.SelectToken("token").SelectToken("token"));
+                //AplicationSettings.setToken((string)o.SelectToken("token").SelectToken("token"));
+                //return true;
+                {
+                    AplicationSettings.setIdTablonMensaje((string)o.SelectToken("faculty").SelectToken("pk"));
+                }
+                
+                //Guardar idUsuario
+                {
+                    AplicationSettings.setIdUsuario((string)o.SelectToken("user").SelectToken("pk"));
+                }
+
+                //Guardamos el token
+                AplicationSettings.setToken((string)(o.SelectToken("token").SelectToken("token")));
                 return true;
             }
             return false;

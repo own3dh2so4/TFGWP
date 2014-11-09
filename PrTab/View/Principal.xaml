@@ -42,17 +42,19 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar>
-            <shell:ApplicationBarIconButton Text="Mensaje" 
+            <!--<shell:ApplicationBarIconButton Text="Mensaje" 
                                             IconUri="/View/icons/appbar.message.smiley.png"
-                                            Click="escribirMensajeTablon_Click"/>
+                                            Click="escribirMensajeTablon_Click"/>-->
             <shell:ApplicationBarIconButton Text="Cargar" 
                                             IconUri="/View/icons/appbar.refresh.png"
                                             Click="recargarMensajesTablon_Click"/>            
             <shell:ApplicationBarIconButton Text="Perfil" IconUri="/View/icons/appbar.people.profile.png"/>            
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Escribir tablon"/>
+                <!--<shell:ApplicationBarMenuItem Text="Escribir tablon"
+                                              Click="escribirMensajeTablon_Click"/>-->
                 <shell:ApplicationBarMenuItem Text="Cargar mensajes"/>
-                <shell:ApplicationBarMenuItem Text="ver perfil"/>
+                <shell:ApplicationBarMenuItem Text="ver perfil"
+                                              Click="recargarMensajesTablon_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -102,7 +104,18 @@
                             <TextBox MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
                             <Button x:Name="EnviarMensaje" Grid.Column="1" Command="{Binding postMensajesTablon}" CommandParameter="{Binding Text, ElementName=TextoNuevoMensaje}"/>
                         </Grid>-->
-                        <TextBox  Grid.Row="1" MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0"  FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
+                        <Grid Grid.Row="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox  Grid.Row="1" MinWidth="350" x:Name="TextoNuevoMensaje" Foreground="Gray" Text="Escribe tu mensaje" Grid.Column="0"  FontSize="36" GotFocus="TextoNuevoMensaje_GotFocus" LostFocus="TextoNuevoMensaje_LostFocus"/>
+                            <Button x:Name="EnviarMensaje" Grid.Column="1" Click="escribirMensajeTablon_Click">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/View/icons/appbar.message.smiley.png" />
+                                </Button.Background>
+                            </Button>
+                        </Grid>
                     </Grid>
                     <!--<Grid Visibility="{Binding VisibilidadMensaje}" Background="#7F808080">
                         <TextBlock Text="{Binding MensajeMostrar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>

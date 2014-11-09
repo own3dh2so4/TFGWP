@@ -69,6 +69,7 @@ namespace PrTab.Model.Comunicacion
 
             List<MensajeTablon> mensajesNuevos = new List<MensajeTablon>();
             //int idemax = idMensaje[0].identificador;
+            var asd = dataBase.getMAXIdFormMensajeTablon(idFacultad);
             string response = await Comunicacion.getMensajes(AplicationSettings.getToken(),dataBase.getMAXIdFormMensajeTablon(idFacultad)+"",idFacultad);
             JObject json = JObject.Parse(response);
             if ((string)json.SelectToken("error") == "200")
