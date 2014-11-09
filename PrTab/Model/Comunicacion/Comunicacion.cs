@@ -57,6 +57,21 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getMensajeIdLastMensaje = "idmessage";
         const string parametro_getMensajeIdFaculty = "idfaculty";
 
+        const string getExamenAsignatura = "getexamen";
+        const string parametro_getExamenAsignaturaToken = "token";
+        const string parametro_getExamenAsignaturaAsignatura = "subject";
+        const string parametro_getExamenAsignaturaNumeroPreguntas = "numberofquestions";
+        const string parametroOpcional_getExamenAsignaturaTema = "theme";
+
+
+        public static async Task<string> getExamen(string token, string asignatura, string numeroPreguntas)
+        {
+            Uri_Get url = new Uri_Get(baseURL+getExamenAsignatura);
+            url.GetData(parametro_getExamenAsignaturaToken, token);
+            url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
+            url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> getMensajes(string token, string idMensaje, string idFacultad)
         {
