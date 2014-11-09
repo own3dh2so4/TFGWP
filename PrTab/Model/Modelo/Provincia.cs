@@ -19,5 +19,10 @@ namespace PrTab.Model.Modelo
             nombre = name;
             identificador = id;
         }
+
+        public Provincia()
+        {
+
+        }
     }
 }

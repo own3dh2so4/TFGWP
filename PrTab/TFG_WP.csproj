@@ -109,12 +109,16 @@
     <Compile Include="Model\Base de Datos\CDB_Universidad.cs" />
     <Compile Include="Model\Base de Datos\ConexionDataBase.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion.cs" />
+    <Compile Include="Model\Comunicacion\Comunicacion_Examen.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
+    <Compile Include="Model\Modelo\Asignatura.cs" />
     <Compile Include="Model\Modelo\Facultad.cs" />
     <Compile Include="Model\Modelo\MensajesTablonEventArgs.cs" />
     <Compile Include="Model\Modelo\MensajeTablon.cs" />
+    <Compile Include="Model\Modelo\Pregunta.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
+    <Compile Include="Model\Modelo\Tema.cs" />
     <Compile Include="Model\Modelo\Universidad.cs" />
     <Compile Include="Utiles\DeviceInfoHelper.cs" />
     <Compile Include="Utiles\Uri_Get.cs" />

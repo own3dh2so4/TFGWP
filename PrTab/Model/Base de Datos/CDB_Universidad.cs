@@ -23,7 +23,9 @@ namespace PrTab.Model.Base_de_Datos
 
         public void insert(Universidad uni)
         {
-            dbConn.Insert(uni);
+            List<Universidad> unis = dbConn.Query<Universidad>("select * from Universidad where identificador =" + uni.identificador);
+            if (unis.Count==0)
+                dbConn.Insert(uni);
         }
     }
 }

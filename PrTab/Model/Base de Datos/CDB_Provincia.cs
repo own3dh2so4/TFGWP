@@ -23,7 +23,9 @@ namespace PrTab.Model.Base_de_Datos
 
         public void insert(Provincia provincia)
         {
-            dbConn.Insert(provincia);
+            List<Provincia> prov = dbConn.Query<Provincia>("select * from Provincia where identificador =" +provincia.identificador);
+            if (prov.Count==0)  
+                dbConn.Insert(provincia);
         }
     }
 }

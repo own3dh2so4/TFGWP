@@ -7,21 +7,18 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    public class Universidad
+    class Tema
     {
         [PrimaryKey]
-        public int identificador{get;set;}
+        public int identificador { get; set; }
         public string nombre { get; set; }
-        public int idProvincia { get; set; }
-        
+        public int idAsignatura { get; set; }
 
-        public Universidad(string name, int id, int idProv)
+        public Tema(int id, string name, int idAsig)
         {
+            identificador=id;
             nombre = name;
-            idProvincia = idProv;
-            identificador = id;
+            idAsignatura = idAsig;
         }
-
-        public Universidad() { }
     }
 }

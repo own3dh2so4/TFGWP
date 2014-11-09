@@ -22,7 +22,9 @@ namespace PrTab.Model.Base_de_Datos
 
         public void insert(Facultad facultad)
         {
-            dbConn.Insert(facultad);
+            List<Facultad> fac = dbConn.Query<Facultad>("select * from Facultad where identificador =" + facultad.identificador);
+            if (fac.Count==0)
+                dbConn.Insert(facultad);
         }
     }
 }

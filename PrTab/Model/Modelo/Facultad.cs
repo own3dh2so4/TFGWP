@@ -21,5 +21,10 @@ namespace PrTab.Model.Modelo
             idUniversidad = idUni;
             identificador = id;
         }
+
+        public Facultad()
+        {
+
+        }
     }
 }
