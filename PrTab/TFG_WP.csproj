@@ -113,6 +113,7 @@
     <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
     <Compile Include="Model\Modelo\Asignatura.cs" />
+    <Compile Include="Model\Modelo\ExamenEventArgs.cs" />
     <Compile Include="Model\Modelo\Facultad.cs" />
     <Compile Include="Model\Modelo\MensajesTablonEventArgs.cs" />
     <Compile Include="Model\Modelo\MensajeTablon.cs" />
@@ -126,8 +127,12 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="Utiles\AplicationSettings.cs" />
+    <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
     <Compile Include="ViewModel\NotificationenabledObject.cs" />
+    <Compile Include="View\Examen.xaml.cs">
+      <DependentUpon>Examen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Inicial.xaml.cs">
       <DependentUpon>Inicial.xaml</DependentUpon>
     </Compile>
@@ -158,6 +163,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="View\Examen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Inicial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +235,10 @@
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+    <Content Include="View\icons\appbar.arrow.left.png" />
+    <Content Include="View\icons\appbar.arrow.right.png" />
+    <Content Include="View\icons\appbar.check.png" />
+    <Content Include="View\icons\appbar.close.png" />
     <Content Include="View\fotos\archivos_sinfondo.png" />
     <Content Include="View\fotos\chat_sinfondo.png" />
     <Content Include="View\fotos\foto.jpg" />

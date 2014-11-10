@@ -59,9 +59,9 @@
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     
-    <shell:SystemTray.ProgressIndicator>
+    <!--<shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator x:Name="BarraDeProgreso" IsIndeterminate="True"/>
-    </shell:SystemTray.ProgressIndicator>
+    </shell:SystemTray.ProgressIndicator>-->
 
 
 <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
