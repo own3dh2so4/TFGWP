@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class Asignatura
+    public class Asignatura
     {
         [PrimaryKey]
         public int identificador{get;set;}
@@ -24,6 +24,9 @@ namespace PrTab.Model.Modelo
             idFacultad = idFacul;
             año = anno;
         }
+
+        public Asignatura()
+        { }
 
     }
 }

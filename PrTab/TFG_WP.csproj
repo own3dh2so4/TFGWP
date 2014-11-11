@@ -103,12 +103,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Model\Base de Datos\CDB_AsignaturaExamen.cs" />
     <Compile Include="Model\Base de Datos\CDB_Facultad.cs" />
     <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
     <Compile Include="Model\Base de Datos\CDB_Provincia.cs" />
     <Compile Include="Model\Base de Datos\CDB_Universidad.cs" />
     <Compile Include="Model\Base de Datos\ConexionDataBase.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion.cs" />
+    <Compile Include="Model\Comunicacion\Comunicacion_Asignatura.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Examen.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
@@ -127,9 +129,16 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="Utiles\AplicationSettings.cs" />
+    <Compile Include="ViewModel\AsignaturasExamenViewModel.cs" />
     <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
     <Compile Include="ViewModel\NotificationenabledObject.cs" />
+    <Compile Include="View\AgregarAsignaturaExamen.xaml.cs">
+      <DependentUpon>AgregarAsignaturaExamen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AsignaturasExamen.xaml.cs">
+      <DependentUpon>AsignaturasExamen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Examen.xaml.cs">
       <DependentUpon>Examen.xaml</DependentUpon>
     </Compile>
@@ -163,6 +172,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="View\AgregarAsignaturaExamen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AsignaturasExamen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Examen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -235,6 +252,7 @@
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+    <Content Include="View\icons\appbar.add.png" />
     <Content Include="View\icons\appbar.arrow.left.png" />
     <Content Include="View\icons\appbar.arrow.right.png" />
     <Content Include="View\icons\appbar.check.png" />
@@ -243,9 +261,11 @@
     <Content Include="View\fotos\chat_sinfondo.png" />
     <Content Include="View\fotos\foto.jpg" />
     <Content Include="View\fotos\tablon_sinfondo.png" />
+    <Content Include="View\icons\appbar.delete.png" />
     <Content Include="View\icons\appbar.message.smiley.png" />
     <Content Include="View\icons\appbar.people.profile.png" />
     <Content Include="View\icons\appbar.refresh.png" />
+    <Content Include="View\icons\appbar.settings.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">

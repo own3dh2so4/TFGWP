@@ -18,7 +18,7 @@
     <!--Definicion de recursos a nivel más bajo-->
     <phone:PhoneApplicationPage.Resources>
         <!--Creamos el objeto de tipo MensajeTablonViewModel que vamos a observar-->
-        <vm:MensajesTablonViewModel x:Key="ViewModelTablon" />
+        <!--<vm:MensajesTablonViewModel x:Key="ViewModelTablon" />-->
         <!--Definimos un template para mostrar los mensajes del tablon.-->
         <DataTemplate x:Key="MensajesTablonDataTemplate">
             <Grid>
@@ -79,7 +79,7 @@
                     </StackPanel>
                 </phone:PivotItem.Header>
                 <!--Cuerpo de la primera pestaña-->
-                <Grid DataContext="{Binding Source = {StaticResource ViewModelTablon}}">
+                <Grid x:Name="GridMensajes"> <!--DataContext="{Binding Source = {StaticResource ViewModelTablon}}"-->
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -166,9 +166,10 @@
                         <TextBlock Text=" Apuntes" FontSize="48" />
                     </StackPanel>
                 </phone:PivotItem.Header>
-                <Grid>
+                <StackPanel>
                     <TextBlock Text="Pestaña3" />
-                </Grid>
+                    <Button x:Name="NavegaExamen" Content="Ir a examen" Click="NavegaExamen_Click"/>
+                </StackPanel>
             </phone:PivotItem>
 
 

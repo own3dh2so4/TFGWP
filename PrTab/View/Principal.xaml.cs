@@ -31,11 +31,18 @@ namespace PrTab
         public MainPage()
         {
             InitializeComponent();
-            _viewModelTablonMensaje = (MensajesTablonViewModel)Resources["ViewModelTablon"];
+            //_viewModelTablonMensaje = (MensajesTablonViewModel)Resources["ViewModelTablon"];
+            this.Loaded += InicializarViewModel;
             
 
             // Código de ejemplo para traducir ApplicationBar
             //BuildLocalizedApplicationBar();
+        }
+
+        private void InicializarViewModel(object sender, RoutedEventArgs e)
+        {
+            _viewModelTablonMensaje = new MensajesTablonViewModel();
+            GridMensajes.DataContext = _viewModelTablonMensaje;
         }
 
 
@@ -116,6 +123,11 @@ namespace PrTab
         private void recargarMensajesTablon_Click(object sender, EventArgs e)
         {
             _viewModelTablonMensaje.CargarMensajesTablon();
+        }
+
+        private void NavegaExamen_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/AsignaturasExamen.xaml", UriKind.Relative));
         }
 
        

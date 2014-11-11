@@ -99,6 +99,7 @@ namespace PrTab.Model.Comunicacion
                     AplicationSettings.setIdTablonMensaje((string)o.SelectToken("faculty").SelectToken("pk"));
                     CDB_Facultad bdFacultad = new CDB_Facultad();
                     bdFacultad.insert(facultad);
+                    AplicationSettings.setIdFacultadUsuario((string)o.SelectToken("faculty").SelectToken("pk"));
                 }
                 //Guardar universidad 
                 {
@@ -107,6 +108,7 @@ namespace PrTab.Model.Comunicacion
                         Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
                     CDB_Universidad bdUniversidad = new CDB_Universidad();
                     bdUniversidad.insert(universidad);
+                    AplicationSettings.setIdUniversidadUsuario((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk"));
                 }
                 //Guardar provincia
                 {

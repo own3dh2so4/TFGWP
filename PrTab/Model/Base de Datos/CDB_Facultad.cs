@@ -17,14 +17,18 @@ namespace PrTab.Model.Base_de_Datos
 
         public void insertAll(List<Facultad> list)
         {
-            dbConn.InsertAll(list);
+            foreach (var facultad in list)
+                dbConn.InsertOrReplace(list);
         }
 
         public void insert(Facultad facultad)
         {
-            List<Facultad> fac = dbConn.Query<Facultad>("select * from Facultad where identificador =" + facultad.identificador);
-            if (fac.Count==0)
-                dbConn.Insert(facultad);
+            dbConn.InsertOrReplace(facultad);
+        }
+
+        public Facultad selectById(int id)
+        {
+            return dbConn.Query<Facultad>("select * from Facultad where identificador = " + id)[0];
         }
     }
 }

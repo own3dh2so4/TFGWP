@@ -23,6 +23,10 @@ namespace PrTab.Utiles
 
         const string idTablonMensajes = "TablonMensajesID";
 
+        const string idFacultadUsuario = "FacultadID";
+
+        const string idUniversidadUsuario = "UniversidadID";
+
         const string idUsuarioRegistrado = "UsuarioID";
 
         //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
@@ -56,6 +60,40 @@ namespace PrTab.Utiles
                 IsolatedStorageSettings.ApplicationSettings.Remove(idTablonMensajes);
             }
             IsolatedStorageSettings.ApplicationSettings.Add(idTablonMensajes, id);
+        }
+
+        public static string getIdFacultadUsuario()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idFacultadUsuario))
+                ret = IsolatedStorageSettings.ApplicationSettings[idFacultadUsuario].ToString();
+            return ret;
+        }
+
+        public static void setIdFacultadUsuario(string id)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idFacultadUsuario))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(idFacultadUsuario);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(idFacultadUsuario, id);
+        }
+
+        public static string getIdUniversidadUsuario()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idUniversidadUsuario))
+                ret = IsolatedStorageSettings.ApplicationSettings[idUniversidadUsuario].ToString();
+            return ret;
+        }
+
+        public static void setIdUniversidadUsuario(string id)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idUniversidadUsuario))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(idUniversidadUsuario);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(idUniversidadUsuario, id);
         }
 
         public static string getIdUsuario()
