@@ -20,7 +20,7 @@
         <!--<vm:AsignaturasExamenViewModel x:Key="ViewModelAsignaturas" />-->
         
         <DataTemplate x:Key="AsignaturasExamenDataTemplate">
-            <TextBlock Text="{Binding nombre}"></TextBlock>
+            <TextBlock Text="{Binding nombre}" FontSize="24" ></TextBlock>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
