@@ -18,19 +18,23 @@
             <!--<shell:ApplicationBarIconButton Text="Mensaje" 
                                             IconUri="/View/icons/appbar.message.smiley.png"
                                             Click="escribirMensajeTablon_Click"/>-->
-            <shell:ApplicationBarIconButton Text="Anterior" 
-                                            IconUri="/View/icons/appbar.arrow.left.png"/>
-            <shell:ApplicationBarIconButton Text="Siguiente" 
-                                            IconUri="/View/icons/appbar.arrow.right.png"/>
-            <shell:ApplicationBarIconButton Text="corregir" 
+            <shell:ApplicationBarIconButton x:Name="AppBarAnterior"
+                                            Text="Anterior" 
+                                            IconUri="/View/icons/appbar.arrow.left.png" Click="AppBarAnterior_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AppBarSiguiente"
+                                            Text="Siguiente" 
+                                            IconUri="/View/icons/appbar.arrow.right.png" Click="AppBarSiguiente_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AppBarCorregir"
+                                            Text="corregir" 
                                             IconUri="/View/icons/appbar.check.png"/>
-            <shell:ApplicationBarIconButton Text="salir" 
+            <shell:ApplicationBarIconButton x:Name="AppBarSalir"
+                                            Text="salir" 
                                             IconUri="/View/icons/appbar.close.png"/>
             <shell:ApplicationBar.MenuItems>
                 <!--<shell:ApplicationBarMenuItem Text="Escribir tablon"
                                               Click="escribirMensajeTablon_Click"/>-->
-                <shell:ApplicationBarMenuItem Text="Pregunta anterior"/>
-                <shell:ApplicationBarMenuItem Text="Pregunta siguiente"/>
+                <shell:ApplicationBarMenuItem Text="Pregunta anterior" Click="AppBarAnterior_Click"/>
+                <shell:ApplicationBarMenuItem Text="Pregunta siguiente" Click="AppBarSiguiente_Click"/>
                 <shell:ApplicationBarMenuItem Text="Corregir examen"/>
                 <shell:ApplicationBarMenuItem Text="Salir del examen"/>
             </shell:ApplicationBar.MenuItems>
@@ -39,23 +43,25 @@
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Text="Enunciado muy largo en el que se pregunta algo, pero que muy muy largo" FontSize="36" TextWrapping="Wrap"/>
-        <Grid Grid.Row="1">
+        <Grid x:Name="GridPregunta">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Respuesta 1"/>
-            <Button Grid.Row="1" Content="Respuesta 2"/>
-            <Button Grid.Row="2" Content="Respuesta 3"/>
-            <Button Grid.Row="3" Content="Respuesta 4"/>
+
+            <TextBlock Text="{Binding PreguntaMostrada.enunciado}" FontSize="36" TextWrapping="Wrap"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="Respuesta1" Grid.Row="0" Content="{Binding PreguntaMostrada.respuesta1}" Background="{Binding ColorBoton1}" Click="Respuesta1_Click"/>
+                <Button x:Name="Respuesta2" Grid.Row="1" Content="{Binding PreguntaMostrada.respuesta2}" Background="{Binding ColorBoton2}" Click="Respuesta2_Click"/>
+                <Button x:Name="Respuesta3" Grid.Row="2" Content="{Binding PreguntaMostrada.respuesta3}" Background="{Binding ColorBoton3}" Click="Respuesta3_Click"/>
+                <Button x:Name="Respuesta4" Grid.Row="3" Content="{Binding PreguntaMostrada.respuesta4}" Background="{Binding ColorBoton4}" Click="Respuesta4_Click"/>
+            </Grid>
         </Grid>
     </Grid>
 

@@ -57,7 +57,7 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getMensajeIdLastMensaje = "idmessage";
         const string parametro_getMensajeIdFaculty = "idfaculty";
 
-        const string getExamenAsignatura = "getexamen";
+        const string getExamenAsignatura = "getexams";
         const string parametro_getExamenAsignaturaToken = "token";
         const string parametro_getExamenAsignaturaAsignatura = "subject";
         const string parametro_getExamenAsignaturaNumeroPreguntas = "numberofquestions";
@@ -67,6 +67,15 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getAsignaturaToken = "token";
         const string parametro_getAsignaturaAño = "year";
         const string parametro_getAsignaturaFacultad = "idfaculty";
+
+        public static async Task<string> getExamSubject(string token, string asignatura, string numPreguntas)
+        {
+            Uri_Get url = new Uri_Get(baseURL + getExamenAsignatura);
+            url.GetData(parametro_getExamenAsignaturaToken, token);
+            url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
+            url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numPreguntas);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> getAsignaturas (string token, string año, string facultad)
         {

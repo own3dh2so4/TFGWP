@@ -20,7 +20,10 @@
         <!--<vm:AsignaturasExamenViewModel x:Key="ViewModelAsignaturas" />-->
         
         <DataTemplate x:Key="AsignaturasExamenDataTemplate">
-            <TextBlock Text="{Binding nombre}" FontSize="24" ></TextBlock>
+            <StackPanel x:Name="GridVistaAsignatura">
+                <TextBlock Text="{Binding nombre}" FontSize="35" Margin="20" TextWrapping="Wrap"></TextBlock>
+                <Line X1="0" Y1="0" X2="1" Y2="0" Stretch="Fill" Stroke="White" />
+            </StackPanel>            
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
@@ -55,6 +58,7 @@
         <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="MIS ASIGNATURAS" Style="{StaticResource PhoneTextNormalStyle}"/>
+            
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
@@ -63,7 +67,7 @@
             <phone:LongListSelector
                 x:Name="ListaAsignaturasExamen"
                 ItemsSource="{Binding Asignaturas}"
-                ItemTemplate="{StaticResource AsignaturasExamenDataTemplate}">
+                ItemTemplate="{StaticResource AsignaturasExamenDataTemplate}" SelectionChanged="ListaAsignaturasExamen_SelectionChanged">
                 
             </phone:LongListSelector>
         </Grid>
