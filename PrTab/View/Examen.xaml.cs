@@ -15,8 +15,7 @@ namespace PrTab.View
         public Examen()
         {
             InitializeComponent();
-            //Le decimos que no nos guarde en cache esta vista
-            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+           
         }
     }
 }

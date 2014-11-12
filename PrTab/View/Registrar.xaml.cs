@@ -36,8 +36,6 @@ namespace PrTab.View
         public Registrar()
         {
             InitializeComponent();
-            //Le decimos que no nos guarde en cache esta vista
-            this.NavigationCacheMode = NavigationCacheMode.Disabled;
             this.Loaded += InicializaProvincias;
         }
 

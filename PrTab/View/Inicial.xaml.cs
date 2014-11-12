@@ -28,8 +28,6 @@ namespace PrTab.View
         public Inicial()
         {
             InitializeComponent();
-            //Le decimos que no nos guarde en cache esta vista
-            this.NavigationCacheMode = NavigationCacheMode.Disabled;
             //Cuando la vista esta cargada se ejeuta la funcion "Redireciona".
             this.Loaded += Redireciona;
         }
