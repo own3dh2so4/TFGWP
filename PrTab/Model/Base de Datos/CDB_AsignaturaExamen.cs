@@ -18,7 +18,7 @@ namespace PrTab.Model.Base_de_Datos
         public void insertAll(List<Asignatura> list)
         {
             foreach (var asignatura in list)
-                dbConn.InsertOrReplace(list);
+                dbConn.InsertOrReplace(asignatura);
         }
 
         public void insert(Asignatura asignatura)

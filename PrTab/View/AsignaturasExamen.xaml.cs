@@ -41,7 +41,7 @@ namespace PrTab.View
         private void ListaAsignaturasExamen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var myAsignatura = ((LongListSelector)sender).SelectedItem as Asignatura;
-            string targetUri = string.Format("/View/Examen.xaml?idAsignatura={0}", myAsignatura.identificador);
+            string targetUri = string.Format("/View/TemasAsignaturasExamen.xaml?idAsignatura={0}", myAsignatura.identificador);
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
     }

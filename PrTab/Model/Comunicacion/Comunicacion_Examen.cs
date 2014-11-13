@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using PrTab.Model.Base_de_Datos;
 using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using System;
@@ -13,7 +14,45 @@ namespace PrTab.Model.Comunicacion
     {
         public event EventHandler<ExamenEventArgs> getExanenCompletado;
 
-        //Aqui creare el metodo para pedir examen y cuando este lanzare el evento.
+        public event EventHandler<TemaEventArgs> getTemasCompletado;
+
+        private CDB_TemaExamen DB_Tema = new CDB_TemaExamen();
+
+        public void getThemeFromDataBase(string asignatura)
+        {
+            List<Tema> temasAsignaturas = DB_Tema.getTemasDeAsignaturas(asignatura);
+            if (getTemasCompletado != null)
+            {
+                getTemasCompletado(this, new TemaEventArgs(temasAsignaturas));
+            }
+        }
+
+        public async Task<bool> getThemeFromServer (string asignatura)
+        {
+            List<Tema> temasAsignatura = new List<Tema>();
+            string response = await Comunicacion.getTemaAsignatura(AplicationSettings.getToken(), asignatura);
+            JObject o = JObject.Parse(response);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                JArray temas = (JArray)o.SelectToken("data");
+                foreach(var t in temas)
+                {
+                    temasAsignatura.Add(new Tema(Convert.ToInt32((string)t.SelectToken("pk")),
+                        (string)t.SelectToken("nombre"),
+                        Convert.ToInt32(asignatura)));
+                }
+
+                if (getTemasCompletado != null)
+                {
+                    getTemasCompletado(this, new TemaEventArgs(temasAsignatura));
+                }
+
+                DB_Tema.insertAll(temasAsignatura);
+
+                return true;
+            }
+            return false;
+        }
 
         public async Task<bool> getExamen (string asignatura, string numPreguguntas)
         {
@@ -39,9 +78,43 @@ namespace PrTab.Model.Comunicacion
                 {
                     getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
                 }
+
+                return true;
             }
 
             return false;
         }
+
+        public async Task<bool> getExamen(string asignatura, string tema, string numPreguguntas)
+        {
+            List<Pregunta> preguntasExamen = new List<Pregunta>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, tema, numPreguguntas);
+            JObject o = JObject.Parse(response);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                JArray preguntas = (JArray)o.SelectToken("questions");
+                foreach (var p in preguntas)
+                {
+                    preguntasExamen.Add(new Pregunta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("respuesta1"),
+                        (string)p.SelectToken("respuesta2"),
+                        (string)p.SelectToken("respuesta3"),
+                        (string)p.SelectToken("respuesta4"),
+                        Convert.ToInt32((string)p.SelectToken("respuestaCorrecta")),
+                        Convert.ToInt32(tema)));
+                }
+
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

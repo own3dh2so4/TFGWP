@@ -68,14 +68,19 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getAsignaturaAño = "year";
         const string parametro_getAsignaturaFacultad = "idfaculty";
 
-        public static async Task<string> getExamSubject(string token, string asignatura, string numPreguntas)
+        const string getThemes = "gethemes";
+        const string parametro_getThemeToken = "token";
+        const string parametro_getThemeAsignatura = "subject";
+
+        public static async Task<string> getTemaAsignatura(string token, string asignatura)
         {
-            Uri_Get url = new Uri_Get(baseURL + getExamenAsignatura);
-            url.GetData(parametro_getExamenAsignaturaToken, token);
-            url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
-            url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numPreguntas);
+            Uri_Get url = new Uri_Get(baseURL + getThemes);
+            url.GetData(parametro_getThemeToken, token);
+            url.GetData(parametro_getThemeAsignatura, asignatura);
             return await client.GetStringAsync(url.getUri());
         }
+        
+        
 
         public static async Task<string> getAsignaturas (string token, string año, string facultad)
         {
@@ -92,6 +97,16 @@ namespace PrTab.Model.Comunicacion
             Uri_Get url = new Uri_Get(baseURL+getExamenAsignatura);
             url.GetData(parametro_getExamenAsignaturaToken, token);
             url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
+            url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
+            return await client.GetStringAsync(url.getUri());
+        }
+
+        public static async Task<string> getExamen(string token, string asignatura,string tema, string numeroPreguntas)
+        {
+            Uri_Get url = new Uri_Get(baseURL + getExamenAsignatura);
+            url.GetData(parametro_getExamenAsignaturaToken, token);
+            url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
+            url.GetData(parametroOpcional_getExamenAsignaturaTema, tema);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
             return await client.GetStringAsync(url.getUri());
         }

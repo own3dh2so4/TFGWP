@@ -20,5 +20,8 @@ namespace PrTab.Model.Modelo
             nombre = name;
             idAsignatura = idAsig;
         }
+
+        public Tema()
+        { }
     }
 }

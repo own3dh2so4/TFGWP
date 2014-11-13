@@ -107,6 +107,7 @@
     <Compile Include="Model\Base de Datos\CDB_Facultad.cs" />
     <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
     <Compile Include="Model\Base de Datos\CDB_Provincia.cs" />
+    <Compile Include="Model\Base de Datos\CDB_TemaExamen.cs" />
     <Compile Include="Model\Base de Datos\CDB_Universidad.cs" />
     <Compile Include="Model\Base de Datos\ConexionDataBase.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Model\Modelo\Pregunta.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
     <Compile Include="Model\Modelo\Tema.cs" />
+    <Compile Include="Model\Modelo\TemaEventArgs.cs" />
     <Compile Include="Model\Modelo\Universidad.cs" />
     <Compile Include="Utiles\DeviceInfoHelper.cs" />
     <Compile Include="Utiles\Uri_Get.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
     <Compile Include="ViewModel\NotificationenabledObject.cs" />
+    <Compile Include="ViewModel\TemasAsignaturaViewModel.cs" />
     <Compile Include="View\AgregarAsignaturaExamen.xaml.cs">
       <DependentUpon>AgregarAsignaturaExamen.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,9 @@
     </Compile>
     <Compile Include="View\RegistroLogin.xaml.cs">
       <DependentUpon>RegistroLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TemasAsignaturasExamen.xaml.cs">
+      <DependentUpon>TemasAsignaturasExamen.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegistroLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TemasAsignaturasExamen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,6 +275,7 @@
     <Content Include="View\icons\appbar.message.smiley.png" />
     <Content Include="View\icons\appbar.people.profile.png" />
     <Content Include="View\icons\appbar.refresh.png" />
+    <Content Include="View\icons\appbar.section.expand.all.png" />
     <Content Include="View\icons\appbar.settings.png" />
   </ItemGroup>
   <ItemGroup>

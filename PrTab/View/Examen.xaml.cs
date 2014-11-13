@@ -15,6 +15,7 @@ namespace PrTab.View
     public partial class Examen : PhoneApplicationPage
     {
         string idAsignatura;
+        string idTema;
         ExamenViewModel _viewModel;
         public Examen()
         {
@@ -27,13 +28,17 @@ namespace PrTab.View
         {
             _viewModel = new ExamenViewModel();
             GridPregunta.DataContext = _viewModel;
-            _viewModel.setAsignatura(idAsignatura);
+            if (idTema == "")
+                _viewModel.setAsignatura(idAsignatura);
+            else
+                _viewModel.setTema(idAsignatura, idTema);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             idAsignatura = NavigationContext.QueryString["idAsignatura"];
+            idTema = NavigationContext.QueryString["idTema"];
         }
 
         private void Respuesta1_Click(object sender, RoutedEventArgs e)
