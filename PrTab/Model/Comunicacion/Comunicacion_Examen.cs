@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace PrTab.Model.Comunicacion
 {
@@ -120,12 +121,13 @@ namespace PrTab.Model.Comunicacion
 
         public async Task<bool> sendResultadoExamen(string asignatura, int numRespuestasCorrectas, int numeroPreguntas, List<RespuestaFallidaPregunta> listaFallos )
         {
-            MemoryStream stream = new MemoryStream();
+            /*MemoryStream stream = new MemoryStream();
             DataContractJsonSerializer jsonList = new DataContractJsonSerializer(typeof(List<RespuestaFallidaPregunta>));
             jsonList.WriteObject(stream, listaFallos);
             stream.Position = 0;
             StreamReader sr = new StreamReader(stream);
-            var json = sr.ReadToEnd();
+            var json = sr.ReadToEnd();*/
+            var json = JsonConvert.SerializeObject(listaFallos);
             string response = await Comunicacion.sendResults(AplicationSettings.getToken(), asignatura, numRespuestasCorrectas + "", numeroPreguntas + "", json);
 
             //Continuar por aqui...

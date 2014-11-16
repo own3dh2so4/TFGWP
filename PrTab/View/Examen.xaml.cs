@@ -75,6 +75,13 @@ namespace PrTab.View
             _viewModel.siguientePregunta();
         }
 
+        private void AppBarCorregir_Click(object sender, EventArgs e)
+        {
+            var nota = _viewModel.evaluarExamen();
+            string targetUri = string.Format("/View/EvaluacionExamen.xaml?numCorrectas={0}&numPreguntas={1}", nota,_viewModel.getNumberOfQuestion());
+            NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
+        }
+
 
     }
 }

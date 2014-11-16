@@ -17,6 +17,22 @@ namespace PrTab.ViewModel
         private SolidColorBrush[,] colorBotones;
         public Pregunta preguntaMostrada;
         private int posicion;
+        private string textoPreguntas="";
+        private string idAsignatura = "";
+
+
+        public string NumeroPregunta
+        {
+            get
+            {
+                return textoPreguntas;
+            }
+            private set
+            {
+                textoPreguntas = value;
+                this.OnPropertyChanged("NumeroPregunta");
+            }
+        }
 
         public SolidColorBrush ColorBoton1
         {
@@ -99,6 +115,7 @@ namespace PrTab.ViewModel
                           ColorBoton3 = ColorBoton1;
                           ColorBoton4 = ColorBoton1;*/
                       }
+                      NumeroPregunta=1+"/"+preguntasExamen.Count;
                       respuestas = new int[preguntasExamen.Count];
                       colorBotones = new SolidColorBrush[preguntasExamen.Count,4];
                       for (int i=0; i<respuestas.Length; i++)
@@ -117,12 +134,15 @@ namespace PrTab.ViewModel
         {
             //Aun que el visual se queja de esto, asi esta bien.
             servicioExamen.getExamen(asignatura, AplicationSettings.getNumeroDePreguntasExamen());
+            idAsignatura = asignatura;
+
 
         }
 
         public void setTema(string asignatura,string idTema)
         {
             servicioExamen.getExamen(asignatura, idTema, AplicationSettings.getNumeroDePreguntasExamen());
+            idAsignatura = asignatura;        
         }
 
         public void contestarPregunta(int resp)
@@ -171,6 +191,7 @@ namespace PrTab.ViewModel
                 ColorBoton2 = colorBotones[posicion, 1];
                 ColorBoton3 = colorBotones[posicion, 2];
                 ColorBoton4 = colorBotones[posicion, 3];
+                NumeroPregunta = (posicion + 1) + "/" + preguntasExamen.Count;
 
             }
         }
@@ -185,10 +206,11 @@ namespace PrTab.ViewModel
                 ColorBoton2 = colorBotones[posicion, 1];
                 ColorBoton3 = colorBotones[posicion, 2];
                 ColorBoton4 = colorBotones[posicion, 3];
+                NumeroPregunta = (posicion + 1) + "/" + preguntasExamen.Count;
             }
         }
 
-        public void evaluarExamen()
+        public int evaluarExamen()
         {
             int nota = 0;
             List<RespuestaFallidaPregunta> failresponse = new List<RespuestaFallidaPregunta>();
@@ -199,7 +221,14 @@ namespace PrTab.ViewModel
                 else
                     failresponse.Add(new RespuestaFallidaPregunta(preguntasExamen[i].identificador, respuestas[i]));
             }
+            //servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, failresponse);
 
+            return nota;
+        }
+
+        public int getNumberOfQuestion()
+        {
+            return preguntasExamen.Count;
         }
 
 

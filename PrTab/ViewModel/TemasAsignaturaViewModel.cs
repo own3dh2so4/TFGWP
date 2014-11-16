@@ -33,7 +33,12 @@ namespace PrTab.ViewModel
             temasAsignatura = new List<Tema>();
             servicioTema.getTemasCompletado += (s, a) =>
                 {
-                    Temas = a.temas;
+                    if(a.temas.Count!=0)
+                        Temas = a.temas;
+                    else
+                    {
+
+                    }
                 };
             servicioTema.getThemeFromDataBase(tema);
         }

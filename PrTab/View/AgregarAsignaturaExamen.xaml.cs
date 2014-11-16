@@ -98,6 +98,7 @@ namespace PrTab.View
         {
             BD_AsignaturaExamen.insert(elementoSelecionadoAsignatura());
             BotonAgregarAsignatura.IsEnabled = false;
+            MessageBox.Show(elementoSelecionadoAsignatura().nombre + "se añadio");
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
