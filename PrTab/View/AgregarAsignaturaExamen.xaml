@@ -14,6 +14,8 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
+  
+
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -52,7 +54,13 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Asignatura" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <toolkit:ListPicker Grid.Column="1" x:Name="ListItemAsignatura" SelectionChanged="ListPicker_AsignaturaSelecionada" IsEnabled="False" />
+                <toolkit:ListPicker Grid.Column="1" x:Name="ListItemAsignatura" SelectionChanged="ListPicker_AsignaturaSelecionada" IsEnabled="False" >
+                    <toolkit:ListPicker.FullModeItemTemplate>
+                        <DataTemplate x:Name="ListPickerFullItemTemplate">
+                            <TextBlock FontSize="50" Text="{Binding}"/>
+                        </DataTemplate>
+                    </toolkit:ListPicker.FullModeItemTemplate>
+                </toolkit:ListPicker>
             </Grid>
             <Grid Grid.Row="4" >
                 <Grid.ColumnDefinitions>

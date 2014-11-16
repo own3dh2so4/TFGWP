@@ -31,5 +31,10 @@ namespace PrTab.Model.Base_de_Datos
             return dbConn.Query<Asignatura>("select * from Asignatura");
         }
 
+        public Asignatura getAsignaturaExamen(string id)
+        {
+            return dbConn.Query<Asignatura>("select * from Asignatura where identificador= " + id)[0];
+        }
+
     }
 }

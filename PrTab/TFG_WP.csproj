@@ -122,6 +122,7 @@
     <Compile Include="Model\Modelo\MensajeTablon.cs" />
     <Compile Include="Model\Modelo\Pregunta.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
+    <Compile Include="Model\Modelo\RespuestaFallidaPregunta.cs" />
     <Compile Include="Model\Modelo\Tema.cs" />
     <Compile Include="Model\Modelo\TemaEventArgs.cs" />
     <Compile Include="Model\Modelo\Universidad.cs" />
@@ -305,8 +306,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.WP80, Version=3.8.7">
-      <Name>SQLite for Windows Phone</Name>
+    <SDKReference Include="SQLite.WP80, Version=3.8.7.1">
+      <Name>SQLite for Windows Phone %28SQLite.WP80, Version=3.8.7.1%29</Name>
     </SDKReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

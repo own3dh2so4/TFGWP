@@ -122,7 +122,7 @@ namespace PrTab.ViewModel
 
         public void setTema(string asignatura,string idTema)
         {
-            //Aqui llamo para coger las cositas del tema.
+            servicioExamen.getExamen(asignatura, idTema, AplicationSettings.getNumeroDePreguntasExamen());
         }
 
         public void contestarPregunta(int resp)
@@ -191,11 +191,15 @@ namespace PrTab.ViewModel
         public void evaluarExamen()
         {
             int nota = 0;
+            List<RespuestaFallidaPregunta> failresponse = new List<RespuestaFallidaPregunta>();
             for (int i=0; i<preguntasExamen.Count; i++)
             {
                 if (preguntasExamen[i].respuestaCorrecta == respuestas[i])
                     nota++;
+                else
+                    failresponse.Add(new RespuestaFallidaPregunta(preguntasExamen[i].identificador, respuestas[i]));
             }
+
         }
 
 

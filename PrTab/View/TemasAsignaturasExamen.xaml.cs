@@ -9,12 +9,14 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PrTab.ViewModel;
 using PrTab.Model.Modelo;
+using PrTab.Model.Base_de_Datos;
 
 namespace PrTab.View
 {
     public partial class TemasAsignaturasExamen : PhoneApplicationPage
     {
         TemasAsignaturaViewModel _viewModel;
+        CDB_AsignaturaExamen BD_AE = new CDB_AsignaturaExamen();
         string idAsignatura;
 
         public TemasAsignaturasExamen()
@@ -27,6 +29,9 @@ namespace PrTab.View
         {
             _viewModel = new TemasAsignaturaViewModel(idAsignatura);
             ContentPanel.DataContext = _viewModel;
+            var asignatura = BD_AE.getAsignaturaExamen(idAsignatura);
+            NombreAsignatura.Text = asignatura.nombre;
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

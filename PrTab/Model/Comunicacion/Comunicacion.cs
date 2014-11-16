@@ -68,9 +68,30 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getAsignaturaAño = "year";
         const string parametro_getAsignaturaFacultad = "idfaculty";
 
-        const string getThemes = "gethemes";
+        const string getThemes = "getthemes";
         const string parametro_getThemeToken = "token";
         const string parametro_getThemeAsignatura = "subject";
+
+        const string setResults = "sendresult";
+        const string parametro_sendResultsToken = "token";
+        const string parametro_sendResultsSubject = "subject";
+        const string parametro_sendResultsRightQuestions = "rightquestions";
+        const string parametro_sendResultNumberOfQuestions = "numberofquestions";
+        const string parametro_sendResultFailQuestions = "failquestions";
+
+
+
+        public static async Task<string> sendResults(string token, string asignatura, string respuestasCorrectas, string numeroPreguntas, string JSonPeeguntasFalladas)
+        {
+            Uri_Get url = new Uri_Get(baseURL + setResults);
+            url.GetData(parametro_sendResultsToken, token);
+            url.GetData(parametro_sendResultsSubject, asignatura);
+            url.GetData(parametro_sendResultsRightQuestions, respuestasCorrectas);
+            url.GetData(parametro_sendResultNumberOfQuestions, numeroPreguntas);
+            url.GetData(parametro_sendResultFailQuestions, JSonPeeguntasFalladas);
+            return await client.GetStringAsync(url.getUri());
+        }
+
 
         public static async Task<string> getTemaAsignatura(string token, string asignatura)
         {
@@ -78,8 +99,7 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_getThemeToken, token);
             url.GetData(parametro_getThemeAsignatura, asignatura);
             return await client.GetStringAsync(url.getUri());
-        }
-        
+        }        
         
 
         public static async Task<string> getAsignaturas (string token, string año, string facultad)

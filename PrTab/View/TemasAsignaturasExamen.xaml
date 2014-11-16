@@ -52,7 +52,7 @@
 
         <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="Nombre Asignatura" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" TextWrapping="Wrap"/>
+            <TextBlock x:Name="NombreAsignatura" Text="Nombre Asignatura" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" TextWrapping="Wrap"/>
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace PrTab.Model.Comunicacion
 {
@@ -61,7 +63,7 @@ namespace PrTab.Model.Comunicacion
             JObject o = JObject.Parse(response);
             if ((string)o.SelectToken("error") == "200")
             {
-                JArray preguntas = (JArray)o.SelectToken("questions");
+                JArray preguntas = (JArray)o.SelectToken("data");
                 foreach (var p in preguntas)
                 {
                     preguntasExamen.Add(new Pregunta(Convert.ToInt32((string)p.SelectToken("pk")),
@@ -92,7 +94,7 @@ namespace PrTab.Model.Comunicacion
             JObject o = JObject.Parse(response);
             if ((string)o.SelectToken("error") == "200")
             {
-                JArray preguntas = (JArray)o.SelectToken("questions");
+                JArray preguntas = (JArray)o.SelectToken("data");
                 foreach (var p in preguntas)
                 {
                     preguntasExamen.Add(new Pregunta(Convert.ToInt32((string)p.SelectToken("pk")),
@@ -112,6 +114,21 @@ namespace PrTab.Model.Comunicacion
 
                 return true;
             }
+
+            return false;
+        }
+
+        public async Task<bool> sendResultadoExamen(string asignatura, int numRespuestasCorrectas, int numeroPreguntas, List<RespuestaFallidaPregunta> listaFallos )
+        {
+            MemoryStream stream = new MemoryStream();
+            DataContractJsonSerializer jsonList = new DataContractJsonSerializer(typeof(List<RespuestaFallidaPregunta>));
+            jsonList.WriteObject(stream, listaFallos);
+            stream.Position = 0;
+            StreamReader sr = new StreamReader(stream);
+            var json = sr.ReadToEnd();
+            string response = await Comunicacion.sendResults(AplicationSettings.getToken(), asignatura, numRespuestasCorrectas + "", numeroPreguntas + "", json);
+
+            //Continuar por aqui...
 
             return false;
         }
