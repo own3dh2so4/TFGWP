@@ -36,7 +36,18 @@
             <TextBlock Text="Tu calificacion es..." FontSize="48" />
             <TextBlock x:Name="Nota" Grid.Row="1" Text="0/0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="170"/>
             <TextBlock x:Name="MensajeAnimo" Grid.Row="2" Text="Mensaje de animo" Margin="20"/>
-            <Button Grid.Row="3" Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" />
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" />
+                <Button Grid.Column="2" Content="Solucion" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_1"/>
+            </Grid>
+            
+            
         </Grid>
     </Grid>
 

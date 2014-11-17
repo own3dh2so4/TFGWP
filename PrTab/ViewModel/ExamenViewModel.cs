@@ -1,4 +1,5 @@
-﻿using PrTab.Model.Comunicacion;
+﻿using PrTab.Model.Base_de_Datos;
+using PrTab.Model.Comunicacion;
 using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using System;
@@ -19,6 +20,7 @@ namespace PrTab.ViewModel
         private int posicion;
         private string textoPreguntas="";
         private string idAsignatura = "";
+        private CDB_PreguntasExamenRealizado bd_preguntasrespuestas = new CDB_PreguntasExamenRealizado();
 
 
         public string NumeroPregunta
@@ -161,10 +163,10 @@ namespace PrTab.ViewModel
                 //Le doy color a la nueva
                 switch(resp)
                 {
-                    case 1: ColorBoton1 = new SolidColorBrush(Colors.Green); break;
-                    case 2: ColorBoton2 = new SolidColorBrush(Colors.Green); break;
-                    case 3: ColorBoton3 = new SolidColorBrush(Colors.Green); break;
-                    case 4: ColorBoton4 = new SolidColorBrush(Colors.Green); break;
+                    case 1: ColorBoton1 = new SolidColorBrush(Colors.Orange); break;
+                    case 2: ColorBoton2 = new SolidColorBrush(Colors.Orange); break;
+                    case 3: ColorBoton3 = new SolidColorBrush(Colors.Orange); break;
+                    case 4: ColorBoton4 = new SolidColorBrush(Colors.Orange); break;
                 }
             }
             else
@@ -214,14 +216,23 @@ namespace PrTab.ViewModel
         {
             int nota = 0;
             List<RespuestaFallidaPregunta> failresponse = new List<RespuestaFallidaPregunta>();
+            List<PreguntaRespondida> preguntasRespondidas = new List<PreguntaRespondida>();
+            bd_preguntasrespuestas.deleteAll();
             for (int i=0; i<preguntasExamen.Count; i++)
             {
                 if (preguntasExamen[i].respuestaCorrecta == respuestas[i])
                     nota++;
                 else
+                {
                     failresponse.Add(new RespuestaFallidaPregunta(preguntasExamen[i].identificador, respuestas[i]));
+                }
+                preguntasRespondidas.Add(new PreguntaRespondida(preguntasExamen[i].identificador, preguntasExamen[i].enunciado,
+                    preguntasExamen[i].respuesta1, preguntasExamen[i].respuesta2, preguntasExamen[i].respuesta3, preguntasExamen[i].respuesta4,
+                    preguntasExamen[i].respuestaCorrecta, preguntasExamen[i].idTema, respuestas[i]));
             }
             //servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, failresponse);
+
+            bd_preguntasrespuestas.insertAll(preguntasRespondidas);
 
             return nota;
         }

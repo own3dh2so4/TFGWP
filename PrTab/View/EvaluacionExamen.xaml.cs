@@ -55,5 +55,10 @@ namespace PrTab.View
         {
             NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/ExamenResuelto.xaml", UriKind.Relative));
+        }
     }
 }

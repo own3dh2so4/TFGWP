@@ -14,8 +14,8 @@ namespace PrTab.Model.Comunicacion
     public static class Comunicacion
     {
         static HttpClient client = new HttpClient();
-        const string baseURL = "http://192.168.0.2:80/";
-        //const string baseURL = "http://www.bsodsoftware.me/";
+        //const string baseURL = "http://192.168.0.2:80/";
+        const string baseURL = "http://www.bsodsoftware.me/";
 
         const string logearUsuario = "loginuser";
         const string parametro_NombreUsuario = "user";

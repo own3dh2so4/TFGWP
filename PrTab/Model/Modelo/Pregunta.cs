@@ -30,5 +30,10 @@ namespace PrTab.Model.Modelo
             respuestaCorrecta = rc;
             idTema = idT;
         }
+
+        public Pregunta()
+        {
+
+        }
     }
 }

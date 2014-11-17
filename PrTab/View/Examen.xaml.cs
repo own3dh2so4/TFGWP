@@ -17,6 +17,7 @@ namespace PrTab.View
         string idAsignatura;
         string idTema;
         ExamenViewModel _viewModel;
+
         public Examen()
         {
             InitializeComponent();
