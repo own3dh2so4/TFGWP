@@ -70,8 +70,10 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="2" x:Name="BotonAgregarAsignatura" Content="Añadir" VerticalAlignment="Center" IsEnabled="False" Click="BotonAgregarAsignatura_Click"/>
-            </Grid>
+           </Grid>
+            <TextBlock Margin="20" Text="" Grid.Row="5" x:Name="Notificacion" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </Grid>
+        
     </Grid>
 
 </phone:PhoneApplicationPage>
