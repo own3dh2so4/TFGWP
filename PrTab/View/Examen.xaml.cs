@@ -29,6 +29,7 @@ namespace PrTab.View
         {
             _viewModel = new ExamenViewModel();
             GridPregunta.DataContext = _viewModel;
+            GridCargando.DataContext = _viewModel;
             if (idTema == "")
                 _viewModel.setAsignatura(idAsignatura);
             else

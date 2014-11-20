@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using PrTab.Model;
 using PrTab.Model.Comunicacion;
 using PrTab.Utiles;
+using Windows.Networking.Connectivity;
+using System.IO.IsolatedStorage;
 
 namespace PrTab.View
 {
@@ -35,11 +37,31 @@ namespace PrTab.View
         //Funcion que decide cual es la vista que el usuario debe ver, segun si ya se ha registrado o no.
         private async void Redireciona(object sender, RoutedEventArgs e)
         {
-            Task<bool> existUser = ExisteUsuarioRegistrado();
-            if (await existUser)
-                NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
-            else
-                NavigationService.Navigate(new Uri("/View/RegistroLogin.xaml", UriKind.Relative));
+            ConnectionProfile InternetConnectionProfile;
+            do{
+                InternetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
+
+                if (InternetConnectionProfile == null)
+                {
+                    var mensaje = MessageBox.Show("No hay conexion a Internet","Problema de conexion",MessageBoxButton.OKCancel);
+                    if(mensaje == MessageBoxResult.Cancel)
+                    {
+                        IsolatedStorageSettings.ApplicationSettings.Save();
+                        Application.Current.Terminate();
+                    }
+
+                }
+                else
+                {
+                    Task<bool> existUser = ExisteUsuarioRegistrado();
+                    if (await existUser)
+                        NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
+                    else
+                        NavigationService.Navigate(new Uri("/View/RegistroLogin.xaml", UriKind.Relative));
+                }
+            } while (InternetConnectionProfile == null);
+            
+            
         }
 
         //Esta funcion mira si ya hay un usuario registrado en la aplicacion.

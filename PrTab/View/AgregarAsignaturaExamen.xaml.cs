@@ -19,6 +19,7 @@ namespace PrTab.View
         private CDB_Facultad BD_Facultad = new CDB_Facultad();
         private CDB_Universidad BD_Universidad = new CDB_Universidad();
         private CDB_AsignaturaExamen BD_AsignaturaExamen = new CDB_AsignaturaExamen();
+        private CDB_AsignaturaCursoAgregar BD_AsignaturaCurso = new CDB_AsignaturaCursoAgregar();
         private List<Asignatura> asignaturas = new List<Asignatura>();
 
         public AgregarAsignaturaExamen()
@@ -30,16 +31,21 @@ namespace PrTab.View
 
         private void Inicilizar(object sender, RoutedEventArgs e)
         {
-            //Empezamos rellenado el ListItem del curso
-            ListItemCurso.Items.Add("");
-            ListItemCurso.Items.Add("1");
-            ListItemCurso.Items.Add("2");
-            ListItemCurso.Items.Add("3");
-            ListItemCurso.Items.Add("4");
-            //Asignamos El nombre de la facultad
-            nombreFacultad.Text = BD_Facultad.selectById(Convert.ToInt32(AplicationSettings.getIdFacultadUsuario())).nombre;
-            //Asignamos el nombre de la universidad
-            nombreUniversidad.Text = BD_Universidad.selectById(Convert.ToInt32(AplicationSettings.getIdUniversidadUsuario())).nombre;
+            
+            if(ListItemCurso.Items.Count==0)// Este if evita el problema de que salga mucash veces el 1 2 3 4 
+            {
+                //Empezamos rellenado el ListItem del curso
+                ListItemCurso.Items.Add("");
+                ListItemCurso.Items.Add("1");
+                ListItemCurso.Items.Add("2");
+                ListItemCurso.Items.Add("3");
+                ListItemCurso.Items.Add("4");
+                //Asignamos El nombre de la facultad
+                nombreFacultad.Text = BD_Facultad.selectById(Convert.ToInt32(AplicationSettings.getIdFacultadUsuario())).nombre;
+                //Asignamos el nombre de la universidad
+                nombreUniversidad.Text = BD_Universidad.selectById(Convert.ToInt32(AplicationSettings.getIdUniversidadUsuario())).nombre;
+            }
+            
         }
 
         private async void ListPicker_CursoSelecionado(object sender, SelectionChangedEventArgs e)
@@ -48,7 +54,9 @@ namespace PrTab.View
             {
                 List<string> asig = new List<string>();
                 asig.Add("");
-                asignaturas = await Comunicacion_Asignatura.getAsignaturas(AplicationSettings.getToken(), ListItemCurso.SelectedItem.ToString(), AplicationSettings.getIdFacultadUsuario());
+                asignaturas = BD_AsignaturaCurso.getAsignaturasDelCurso(ListItemCurso.SelectedItem.ToString());
+                if (asignaturas.Count==0)
+                    asignaturas = await Comunicacion_Asignatura.getAsignaturas(AplicationSettings.getToken(), ListItemCurso.SelectedItem.ToString(), AplicationSettings.getIdFacultadUsuario());
                 foreach (var a in asignaturas)
                 {
                     asig.Add(a.abreviatura);
@@ -98,11 +106,7 @@ namespace PrTab.View
         {
             BD_AsignaturaExamen.insert(elementoSelecionadoAsignatura());
             BotonAgregarAsignatura.IsEnabled = false;
-            //Notificacion.Text = elementoSelecionadoAsignatura().nombre + " se añadio";
-            ShellToast toast = new ShellToast();
-            toast.Title = "[title]";
-            toast.Content = "[content]";
-            toast.Show();
+            Notificacion.Text = elementoSelecionadoAsignatura().nombre + " se añadio";
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace PrTab.ViewModel
@@ -132,19 +133,22 @@ namespace PrTab.ViewModel
                   };
         }
 
-        public void setAsignatura(string asignatura)
+        public async void setAsignatura(string asignatura)
         {
+            mostarMensaje("Cargando Examen");
             //Aun que el visual se queja de esto, asi esta bien.
-            servicioExamen.getExamen(asignatura, AplicationSettings.getNumeroDePreguntasExamen());
+            await servicioExamen.getExamen(asignatura, AplicationSettings.getNumeroDePreguntasExamen());
             idAsignatura = asignatura;
-
+            ocultarMensaje();
 
         }
 
-        public void setTema(string asignatura,string idTema)
+        public async void setTema(string asignatura,string idTema)
         {
-            servicioExamen.getExamen(asignatura, idTema, AplicationSettings.getNumeroDePreguntasExamen());
-            idAsignatura = asignatura;        
+            mostarMensaje("Cargando Examen");
+            await servicioExamen.getExamen(asignatura, idTema, AplicationSettings.getNumeroDePreguntasExamen());
+            idAsignatura = asignatura;
+            ocultarMensaje();
         }
 
         public void contestarPregunta(int resp)
@@ -240,6 +244,53 @@ namespace PrTab.ViewModel
         public int getNumberOfQuestion()
         {
             return preguntasExamen.Count;
+        }
+
+
+
+        System.Windows.Visibility visibilidadMensaje;
+        public System.Windows.Visibility VisibilidadMensaje
+        {
+            get
+            {
+                return visibilidadMensaje;
+            }
+            private set
+            {
+                visibilidadMensaje = value;
+
+            }
+        }
+
+        string mensajeMostrar = "";
+
+        public string MensajeMostrar
+        {
+            get
+            {
+                return mensajeMostrar;
+            }
+            private set
+            {
+                mensajeMostrar = value;
+
+            }
+        }
+
+        private void mostarMensaje(string menssage)
+        {
+            VisibilidadMensaje = Visibility.Visible;
+            mensajeMostrar = menssage;
+            this.OnPropertyChanged("VisibilidadMensaje");
+            this.OnPropertyChanged("MensajeMostrar");
+        }
+
+        private void ocultarMensaje()
+        {
+            visibilidadMensaje = Visibility.Collapsed;
+            mensajeMostrar = "";
+            this.OnPropertyChanged("VisibilidadMensaje");
+            this.OnPropertyChanged("MensajeMostrar");
         }
 
 

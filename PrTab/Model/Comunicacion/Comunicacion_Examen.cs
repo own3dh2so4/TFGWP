@@ -19,6 +19,8 @@ namespace PrTab.Model.Comunicacion
 
         public event EventHandler<TemaEventArgs> getTemasCompletado;
 
+        public event EventHandler<TemaEventServerArgs> getTemasServerCompletado;
+
         private CDB_TemaExamen DB_Tema = new CDB_TemaExamen();
 
         public void getThemeFromDataBase(string asignatura)
@@ -45,9 +47,9 @@ namespace PrTab.Model.Comunicacion
                         Convert.ToInt32(asignatura)));
                 }
 
-                if (getTemasCompletado != null)
+                if (getTemasServerCompletado != null)
                 {
-                    getTemasCompletado(this, new TemaEventArgs(temasAsignatura));
+                    getTemasServerCompletado(this, new TemaEventServerArgs(temasAsignatura));
                 }
 
                 DB_Tema.insertAll(temasAsignatura);

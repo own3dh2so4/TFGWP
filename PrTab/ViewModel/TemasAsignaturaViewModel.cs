@@ -37,9 +37,15 @@ namespace PrTab.ViewModel
                         Temas = a.temas;
                     else
                     {
-
+                        servicioTema.getThemeFromServer(idAsignatura);
                     }
                 };
+            servicioTema.getTemasServerCompletado += (s, a) =>
+            {
+                if (a.temas.Count != 0)
+                    Temas = a.temas;
+            };
+
             servicioTema.getThemeFromDataBase(tema);
         }
 

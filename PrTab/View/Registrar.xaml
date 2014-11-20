@@ -59,7 +59,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Provincia" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <toolkit:ListPicker Grid.Column="1" x:Name="ListItemProvincias" SelectionChanged="ListPicker_ProvicniaSeleccionada" >
-                        
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
                     </toolkit:ListPicker>
                 </Grid>
                 <Grid>
@@ -69,7 +73,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Universidad" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <toolkit:ListPicker Grid.Column="1" x:Name="ListItemUniversidad" SelectionChanged="ListPicker_UniversidadSeleccionada"  IsEnabled="False">
-
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
                     </toolkit:ListPicker>
                 </Grid>
                 <Grid>
@@ -79,7 +87,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Facultad" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <toolkit:ListPicker Grid.Column="1" x:Name="ListItemFacultades" SelectionChanged="ListPicker_FacultadSeleccionada" IsEnabled="False" >
-
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
                     </toolkit:ListPicker>
                 </Grid>
                                 

@@ -96,7 +96,7 @@ namespace PrTab.ViewModel
 
        
         //Comando que se ejecuta al pulsar el boton
-        public ICommand getMensajesTablon
+        /*public ICommand getMensajesTablon
         {
             get;
             private set;
@@ -106,7 +106,7 @@ namespace PrTab.ViewModel
         {
             get;
             private set;
-        }
+        }*/
         /*public ICommand GetMensajesTablon
         {
             get
@@ -131,11 +131,18 @@ namespace PrTab.ViewModel
             {
                 //mensajes = new ObservableCollection<MensajeTablon>(a.mensajes);
                 insertarNuevosMensajes(a.mensajes);
+                servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
+                //this.OnPropertyChanged("Mensajes");
+            };
+
+            servicioMensajes.getMensajesTablonServerCompletado += (s, a) =>
+            {
+                insertarNuevosMensajes(a.mensajes);
                 this.OnPropertyChanged("Mensajes");
             };
-            this.getMensajesTablon = new ActionCommand<string>(this.onGetMensajesTablon);
-            this.postMensajesTablon = new ActionCommand<string>(this.onPostMensajesTablon);
-            //Aqui continuar.
+            /*this.getMensajesTablon = new ActionCommand<string>(this.onGetMensajesTablon);
+            this.postMensajesTablon = new ActionCommand<string>(this.onPostMensajesTablon);*/
+
             visibilidadMensaje =  Visibility.Collapsed;
             servicioMensajes.getMensajesTablon();
 

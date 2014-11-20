@@ -20,4 +20,15 @@ namespace PrTab.Model.Modelo
             this.mensajes = listaMensajes;
         }
     }
+
+
+    public class MensajesTablonServerEventArgs :EventArgs
+    {
+        public IList<MensajeTablon> mensajes { get; set; }
+        //Constructor de la clase.
+        public MensajesTablonServerEventArgs(IList<MensajeTablon> listaMensajes)
+        {
+            this.mensajes = listaMensajes;
+        }
+    }
 }

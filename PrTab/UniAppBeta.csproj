@@ -103,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Model\Base de Datos\CDB_AsignaturaCursoAgregar.cs" />
     <Compile Include="Model\Base de Datos\CDB_AsignaturaExamen.cs" />
     <Compile Include="Model\Base de Datos\CDB_Facultad.cs" />
     <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
@@ -254,6 +255,11 @@
     </Content>
     <Content Include="Assets\BadgeLogo.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\logos\logo150.png" />
+    <Content Include="Assets\logos\logo44.png" />
+    <Content Include="Assets\logos\logo71.png" />
+    <Content Include="Assets\logos\splash.png" />
+    <Content Include="Assets\logos\storeLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\SquareTile150x150.png" />
     <Content Include="Assets\SquareTile71x71.png" />
@@ -274,6 +280,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\WideLogo.png" />
+    <Content Include="Baby-icon.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

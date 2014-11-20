@@ -23,6 +23,8 @@ namespace PrTab.Model.Comunicacion
         //Evento que lanza cuando tiene todos los mensajes disponibles.
         public event EventHandler<MensajesTablonEventArgs> getMensajesTablonCompletado;
 
+        public event EventHandler<MensajesTablonServerEventArgs> getMensajesTablonServerCompletado;
+
         //public static string DB_PATH = Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "MensajesTablon.sqlite"));
         //private SQLiteConnection dbConn;
         private CDB_MensajeTablon  dataBase = new CDB_MensajeTablon();
@@ -100,9 +102,9 @@ namespace PrTab.Model.Comunicacion
                 //dbConn.InsertAll(mensajesNuevos);
                 dataBase.insertAll(mensajesNuevos);
 
-                if (getMensajesTablonCompletado != null)
+                if (getMensajesTablonServerCompletado != null)
                 {
-                    getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevos));
+                    getMensajesTablonServerCompletado(this, new MensajesTablonServerEventArgs(mensajesNuevos));
                 }
                 return true;
             }
@@ -133,9 +135,9 @@ namespace PrTab.Model.Comunicacion
                 //dbConn.InsertAll(mensajesNuevos);
                 dataBase.insertAll(mensajesNuevos);
 
-                if (getMensajesTablonCompletado != null)
+                if (getMensajesTablonServerCompletado != null)
                 {
-                    getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajesNuevos));
+                    getMensajesTablonServerCompletado(this, new MensajesTablonServerEventArgs(mensajesNuevos));
                 }
 
                 return true;

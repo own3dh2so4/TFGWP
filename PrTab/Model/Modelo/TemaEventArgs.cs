@@ -16,4 +16,15 @@ namespace PrTab.Model.Modelo
             this.temas = listaTemas;
         }
     }
+
+    class TemaEventServerArgs : EventArgs
+    {
+
+        public List<Tema> temas { get; set; }
+
+        public TemaEventServerArgs(List<Tema> listaTemas)
+        {
+            this.temas = listaTemas;
+        }
+    }
 }

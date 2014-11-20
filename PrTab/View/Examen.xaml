@@ -64,6 +64,26 @@
                 <Button x:Name="Respuesta4" Grid.Row="3" Content="{Binding PreguntaMostrada.respuesta4}" Background="{Binding ColorBoton4}" Click="Respuesta4_Click"/>
             </Grid>
         </Grid>
+        
+        <Grid x:Name="GridCargando" Visibility="{Binding VisibilidadMensaje}" Background="#7F808080">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Rectangle Margin="10" Height="auto" Width="auto" Fill="Black" MaxHeight="250" MaxWidth="450" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="MensajeCargando" Text="{Binding MensajeMostrar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
+                    <ProgressBar x:Name="myProgressRing" IsIndeterminate="True" Height="90" Width="300" Grid.Row="1"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        
     </Grid>
 
 </phone:PhoneApplicationPage>
