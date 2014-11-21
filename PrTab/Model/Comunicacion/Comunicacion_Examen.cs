@@ -66,6 +66,8 @@ namespace PrTab.Model.Comunicacion
             JObject o = JObject.Parse(response);
             if ((string)o.SelectToken("error") == "200")
             {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+
                 JArray preguntas = (JArray)o.SelectToken("data");
                 foreach (var p in preguntas)
                 {

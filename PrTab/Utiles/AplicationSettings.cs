@@ -31,6 +31,8 @@ namespace PrTab.Utiles
 
         const string numeroPreguntasExamen = "NumeroPreguntasExamen";
 
+        const string idTestHaciendo = "TestID";
+
         //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
         //para no volver a pedirlos.
         public static void RegistrarUsuario(string usuario, string contraseña)
@@ -69,6 +71,23 @@ namespace PrTab.Utiles
             string ret = null;
             if (IsolatedStorageSettings.ApplicationSettings.Contains(idTablonMensajes))
                 ret = IsolatedStorageSettings.ApplicationSettings[idTablonMensajes].ToString();
+            return ret;
+        }
+
+        public static void setIdTest(string idTest)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idTestHaciendo))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(idTestHaciendo);
+            }
+            IsolatedStorageSettings.ApplicationSettings.Add(idTestHaciendo, idTest);
+        }
+
+        public static string getIdTest()
+        {
+            string ret = null;
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(idTestHaciendo))
+                ret = IsolatedStorageSettings.ApplicationSettings[idTestHaciendo].ToString();
             return ret;
         }
 
