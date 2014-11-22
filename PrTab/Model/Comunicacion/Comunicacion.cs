@@ -13,6 +13,11 @@ namespace PrTab.Model.Comunicacion
 {
     public static class Comunicacion
     {
+        //para evirtar que windows phone me cache las llamadas tengo que poner esto
+        const string unixTime = "tiempo";
+        private static string unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds+"";
+
+
         static HttpClient client = new HttpClient();
         const string baseURL = "http://192.168.0.2:80/";
         //const string baseURL = "http://www.bsodsoftware.me/";
@@ -74,21 +79,21 @@ namespace PrTab.Model.Comunicacion
 
         const string setResults = "sendresult";
         const string parametro_sendResultsToken = "token";
-        const string parametro_sendResultsSubject = "subject";
-        const string parametro_sendResultsRightQuestions = "rightquestions";
-        const string parametro_sendResultNumberOfQuestions = "numberofquestions";
-        const string parametro_sendResultFailQuestions = "failquestions";
+        const string parametro_sendResultIdTest = "idtest";
+        const string parametro_sendResultQuestions = "questions";
+        const string parametro_sendResultaTime = "time";
 
 
 
-        public static async Task<string> sendResults(string token, string asignatura, string respuestasCorrectas, string numeroPreguntas, string JSonPeeguntasFalladas)
+        public static async Task<string> sendResults(string token, string idTest, string questionsJSon, string time)
         {
             Uri_Get url = new Uri_Get(baseURL + setResults);
             url.GetData(parametro_sendResultsToken, token);
-            url.GetData(parametro_sendResultsSubject, asignatura);
-            url.GetData(parametro_sendResultsRightQuestions, respuestasCorrectas);
-            url.GetData(parametro_sendResultNumberOfQuestions, numeroPreguntas);
-            url.GetData(parametro_sendResultFailQuestions, JSonPeeguntasFalladas);
+            url.GetData(parametro_sendResultIdTest, idTest);
+            url.GetData(parametro_sendResultQuestions, questionsJSon);
+            url.GetData(parametro_sendResultaTime, time);
+            //Evitar cache
+            url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 
@@ -118,6 +123,8 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_getExamenAsignaturaToken, token);
             url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
+            //Evitar cache
+            url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 
@@ -128,6 +135,8 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
             url.GetData(parametroOpcional_getExamenAsignaturaTema, tema);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
+            //Evitar cache
+            url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 
@@ -137,6 +146,8 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_getMensajeToken, token);
             url.GetData(parametro_getMensajeIdLastMensaje, idMensaje);
             url.GetData(parametro_getMensajeIdFaculty, idFacultad);
+            //Evitar cache
+            url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 
@@ -147,6 +158,8 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_postMensajeToken, token);
             url.GetData(parametro_postMensajeMensaje, mensaje);
             url.GetData(parametro_postMensajeFacultad, facultad);
+            //Evitar cache
+            url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 

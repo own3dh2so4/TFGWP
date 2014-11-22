@@ -125,7 +125,7 @@
     <Compile Include="Model\Modelo\Pregunta.cs" />
     <Compile Include="Model\Modelo\PreguntaRespondida.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
-    <Compile Include="Model\Modelo\RespuestaFallidaPregunta.cs" />
+    <Compile Include="Model\Modelo\RespuestaPregunta.cs" />
     <Compile Include="Model\Modelo\Tema.cs" />
     <Compile Include="Model\Modelo\TemaEventArgs.cs" />
     <Compile Include="Model\Modelo\Universidad.cs" />

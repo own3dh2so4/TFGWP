@@ -123,7 +123,7 @@ namespace PrTab.Model.Comunicacion
             return false;
         }
 
-        public async Task<bool> sendResultadoExamen(string asignatura, int numRespuestasCorrectas, int numeroPreguntas, List<RespuestaFallidaPregunta> listaFallos )
+        public async Task<bool> sendResultadoExamen(string asignatura, int numRespuestasCorrectas, int numeroPreguntas, List<PreguntaRespondida> lista, long tiempo )
         {
             /*MemoryStream stream = new MemoryStream();
             DataContractJsonSerializer jsonList = new DataContractJsonSerializer(typeof(List<RespuestaFallidaPregunta>));
@@ -131,8 +131,9 @@ namespace PrTab.Model.Comunicacion
             stream.Position = 0;
             StreamReader sr = new StreamReader(stream);
             var json = sr.ReadToEnd();*/
+            var listaFallos = RespuestaPregunta.parseRespuestaPregunta(lista);
             var json = JsonConvert.SerializeObject(listaFallos);
-            string response = await Comunicacion.sendResults(AplicationSettings.getToken(), asignatura, numRespuestasCorrectas + "", numeroPreguntas + "", json);
+            string response = await Comunicacion.sendResults(AplicationSettings.getToken(),AplicationSettings.getIdTest(),json,tiempo+"");
 
             //Continuar por aqui...
 

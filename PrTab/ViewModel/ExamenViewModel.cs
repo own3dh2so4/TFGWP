@@ -4,6 +4,7 @@ using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace PrTab.ViewModel
         private string textoPreguntas="";
         private string idAsignatura = "";
         private CDB_PreguntasExamenRealizado bd_preguntasrespuestas = new CDB_PreguntasExamenRealizado();
+        private Stopwatch tiempoTranscurrido;
 
 
         public string NumeroPregunta
@@ -105,6 +107,7 @@ namespace PrTab.ViewModel
         {
             preguntasExamen = new List<Pregunta>();
             posicion = -1;
+            tiempoTranscurrido = new Stopwatch();
             servicioExamen.getExanenCompletado += (s, a) =>
                   {
                       preguntasExamen = a.preguntas;
@@ -140,6 +143,7 @@ namespace PrTab.ViewModel
             await servicioExamen.getExamen(asignatura, AplicationSettings.getNumeroDePreguntasExamen());
             idAsignatura = asignatura;
             ocultarMensaje();
+            tiempoTranscurrido.Start();
 
         }
 
@@ -149,6 +153,7 @@ namespace PrTab.ViewModel
             await servicioExamen.getExamen(asignatura, idTema, AplicationSettings.getNumeroDePreguntasExamen());
             idAsignatura = asignatura;
             ocultarMensaje();
+            tiempoTranscurrido.Start();
         }
 
         public void contestarPregunta(int resp)
@@ -218,23 +223,21 @@ namespace PrTab.ViewModel
 
         public int evaluarExamen()
         {
+            tiempoTranscurrido.Stop();
             int nota = 0;
-            List<RespuestaFallidaPregunta> failresponse = new List<RespuestaFallidaPregunta>();
+            //List<RespuestaFallidaPregunta> failresponse = new List<RespuestaFallidaPregunta>();
             List<PreguntaRespondida> preguntasRespondidas = new List<PreguntaRespondida>();
             bd_preguntasrespuestas.deleteAll();
             for (int i=0; i<preguntasExamen.Count; i++)
             {
                 if (preguntasExamen[i].respuestaCorrecta == respuestas[i])
                     nota++;
-                else
-                {
-                    failresponse.Add(new RespuestaFallidaPregunta(preguntasExamen[i].identificador, respuestas[i]));
-                }
                 preguntasRespondidas.Add(new PreguntaRespondida(preguntasExamen[i].identificador, preguntasExamen[i].enunciado,
                     preguntasExamen[i].respuesta1, preguntasExamen[i].respuesta2, preguntasExamen[i].respuesta3, preguntasExamen[i].respuesta4,
                     preguntasExamen[i].respuestaCorrecta, preguntasExamen[i].idTema, respuestas[i]));
             }
-            //servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, failresponse);
+
+            servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, preguntasRespondidas, tiempoTranscurrido.ElapsedMilliseconds);
 
             bd_preguntasrespuestas.insertAll(preguntasRespondidas);
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class PreguntaRespondida:Pregunta
+    public class PreguntaRespondida:Pregunta
     {
         public int Respuesta { get; set; }
 
