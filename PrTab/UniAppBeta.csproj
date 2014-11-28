@@ -147,6 +147,9 @@
     <Compile Include="View\AsignaturasExamen.xaml.cs">
       <DependentUpon>AsignaturasExamen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\BorrarAsignaturaExamen.xaml.cs">
+      <DependentUpon>BorrarAsignaturaExamen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EvaluacionExamen.xaml.cs">
       <DependentUpon>EvaluacionExamen.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AsignaturasExamen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BorrarAsignaturaExamen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

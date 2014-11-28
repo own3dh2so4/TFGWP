@@ -1,5 +1,7 @@
 ﻿using PrTab.Model.Base_de_Datos;
+using PrTab.Model.Comunicacion;
 using PrTab.Model.Modelo;
+using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,13 +44,29 @@ namespace PrTab.ViewModel
             obtenerAsignaturas();
         }
 
-        private void obtenerAsignaturas()
+        private async void obtenerAsignaturas()
         {
             var asignaturasFromDB = BD_Asignaturas.getAsignaturasExamen();
+            if (asignaturasFromDB.Count == 0)
+            {
+                asignaturasFromDB = await Comunicacion_Asignatura.getAsignaturaFavoritasFromServer(AplicationSettings.getToken());
+            }
+            
             foreach (var asignaturaInsertar in asignaturasFromDB)
             {
                 Asignaturas.Add(asignaturaInsertar);
             }
+        }
+
+        public async void sincronizarFavConServer()
+        {
+            var asignaturasFromDB = await Comunicacion_Asignatura.getAsignaturaFavoritasFromServer(AplicationSettings.getToken());
+            var a = new ObservableCollection<Asignatura>();
+            foreach (var asignaturaInsertar in asignaturasFromDB)
+            {
+                a.Add(asignaturaInsertar);
+            }
+            Asignaturas = a;
         }
     }
 }

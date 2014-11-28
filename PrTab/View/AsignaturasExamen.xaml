@@ -34,10 +34,13 @@
                                             Text="Añadir" 
                                             IconUri="/View/icons/appbar.add.png"
                                             Click="AddAplicationBar_Click"/>
+            <shell:ApplicationBarIconButton x:Name="RefreshAplicationBar"
+                                            Text="sincronizar" 
+                                            IconUri="/View/icons/appbar.refresh.png" Click="RefreshAplicationBar_Click"/>
             <shell:ApplicationBarIconButton Text="Configurar" 
                                             IconUri="/View/icons/appbar.settings.png"/>
             <shell:ApplicationBarIconButton Text="Borar" 
-                                            IconUri="/View/icons/appbar.delete.png" />
+                                            IconUri="/View/icons/appbar.delete.png" Click="ApplicationBarIconButton_Click" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Añadir asignatura"
                                               Click="AddAplicationBar_Click"/>

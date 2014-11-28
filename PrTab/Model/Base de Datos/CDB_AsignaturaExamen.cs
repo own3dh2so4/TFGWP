@@ -28,12 +28,22 @@ namespace PrTab.Model.Base_de_Datos
 
         public List<Asignatura> getAsignaturasExamen()
         {
-            return dbConn.Query<Asignatura>("select * from Asignatura");
+            return dbConn.Query<Asignatura>("select * from Asignatura order by nombre");
         }
 
         public Asignatura getAsignaturaExamen(string id)
         {
             return dbConn.Query<Asignatura>("select * from Asignatura where identificador= " + id)[0];
+        }
+
+        public void borrarTodas()
+        {
+            dbConn.DeleteAll<Asignatura>();
+        }
+
+        public void deleteAsignatura(Asignatura a)
+        {
+            dbConn.Query<Asignatura>("delete from Asignatura where identificador = " + a.identificador);
         }
 
     }

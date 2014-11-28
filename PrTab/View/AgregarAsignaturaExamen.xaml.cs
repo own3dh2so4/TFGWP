@@ -104,7 +104,8 @@ namespace PrTab.View
 
         private void BotonAgregarAsignatura_Click(object sender, RoutedEventArgs e)
         {
-            BD_AsignaturaExamen.insert(elementoSelecionadoAsignatura());
+            //BD_AsignaturaExamen.insert(elementoSelecionadoAsignatura());
+            Comunicacion_Asignatura.addAsingaturaFavorito(AplicationSettings.getToken(), elementoSelecionadoAsignatura());
             BotonAgregarAsignatura.IsEnabled = false;
             Notificacion.Text = elementoSelecionadoAsignatura().nombre + " se añadio";
         }

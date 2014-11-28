@@ -83,7 +83,50 @@ namespace PrTab.Model.Comunicacion
         const string parametro_sendResultQuestions = "questions";
         const string parametro_sendResultaTime = "time";
 
+        const string addfavsubject = "addfavsubject";
+        const string parametro_addfavsubjectToken = "token";
+        const string parametro_addfavsubjectIdSubject = "idsubject";
 
+        const string getfavsubjects = "getfavsubjects";
+        const string parametro_getfavsubjectsToken = "token";
+
+        const string deletefavsubject = "removefavsubject";
+        const string parametro_deletefavsubjectToken = "token";
+        const string parametro_deletefavsubjectIdSubject = "idsubject";
+
+        public static async Task<string> borrarAsignaturasFavoritas(string token, string idAsignatura)
+        {
+            Uri_Get url = new Uri_Get(baseURL + deletefavsubject);
+            url.GetData(parametro_deletefavsubjectToken, token);
+            url.GetData(parametro_deletefavsubjectIdSubject, idAsignatura);
+            //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            url.GetData(unixTime, unixTimestamp);
+            return await client.GetStringAsync(url.getUri());
+        } 
+
+
+        public static async Task<string> getAsignaturasFavoritas(string token)
+        {
+            Uri_Get url = new Uri_Get(baseURL + getfavsubjects);
+            url.GetData(parametro_addfavsubjectToken, token);
+            //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            url.GetData(unixTime, unixTimestamp);
+            return await client.GetStringAsync(url.getUri());
+        }
+
+
+        public static async Task<string> añadirAsignaturaFavoritos (string token, string idasignatura)
+        {
+            Uri_Get url = new Uri_Get(baseURL + addfavsubject);
+            url.GetData(parametro_addfavsubjectToken, token);
+            url.GetData(parametro_addfavsubjectIdSubject, idasignatura);
+            //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            url.GetData(unixTime, unixTimestamp);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> sendResults(string token, string idTest, string questionsJSon, string time)
         {
@@ -93,6 +136,7 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_sendResultQuestions, questionsJSon);
             url.GetData(parametro_sendResultaTime, time);
             //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
@@ -124,6 +168,7 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
             //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
@@ -136,6 +181,7 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametroOpcional_getExamenAsignaturaTema, tema);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
             //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
@@ -147,6 +193,7 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_getMensajeIdLastMensaje, idMensaje);
             url.GetData(parametro_getMensajeIdFaculty, idFacultad);
             //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
@@ -159,6 +206,7 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_postMensajeMensaje, mensaje);
             url.GetData(parametro_postMensajeFacultad, facultad);
             //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }

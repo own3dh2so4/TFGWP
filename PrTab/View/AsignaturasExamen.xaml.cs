@@ -44,5 +44,15 @@ namespace PrTab.View
             string targetUri = string.Format("/View/TemasAsignaturasExamen.xaml?idAsignatura={0}", myAsignatura.identificador);
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
+
+        private void RefreshAplicationBar_Click(object sender, EventArgs e)
+        {
+            _viewModel.sincronizarFavConServer();
+        }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/BorrarAsignaturaExamen.xaml", UriKind.Relative));
+        }
     }
 }
