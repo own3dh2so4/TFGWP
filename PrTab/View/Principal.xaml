@@ -48,7 +48,7 @@
             <shell:ApplicationBarIconButton Text="Cargar" 
                                             IconUri="/View/icons/appbar.refresh.png"
                                             Click="recargarMensajesTablon_Click"/>            
-            <shell:ApplicationBarIconButton Text="Perfil" IconUri="/View/icons/appbar.people.profile.png"/>            
+            <shell:ApplicationBarIconButton Text="Perfil" IconUri="/View/icons/appbar.people.profile.png" Click="ApplicationBarIconButton_Click"/>            
             <shell:ApplicationBar.MenuItems>
                 <!--<shell:ApplicationBarMenuItem Text="Escribir tablon"
                                               Click="escribirMensajeTablon_Click"/>-->

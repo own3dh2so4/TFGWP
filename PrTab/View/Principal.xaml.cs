@@ -130,6 +130,11 @@ namespace PrTab
             NavigationService.Navigate(new Uri("/View/AsignaturasExamen.xaml", UriKind.Relative));
         }
 
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/EditarPerfil.xaml", UriKind.Relative));
+        }
+
 
        
     }
