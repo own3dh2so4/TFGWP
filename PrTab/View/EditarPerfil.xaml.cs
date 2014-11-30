@@ -14,6 +14,8 @@ using Windows.Storage.Streams;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using System.Threading.Tasks;
+using PrTab.Model.Comunicacion;
+using PrTab.Utiles;
 
 namespace PrTab.View
 {
@@ -63,10 +65,8 @@ namespace PrTab.View
                         byte[] b = ReadFully(photoStream);
                         stream.Write(b, 0, b.Length);
                     } 
-                  
-
-
                 ponerFoto();
+                sendImagePerfilServer();
             }
         }
 
@@ -106,6 +106,37 @@ namespace PrTab.View
                     a.SetSource(stream);
                     imagenPerfil.Source = a;
                 }
+            }
+        }
+
+        private async void sendImagePerfilServer()
+        {
+            //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+            //// Get the file.
+            //var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+
+            //using (Stream stream = await file.OpenStreamForReadAsync())
+            //{
+            //    if (stream.Length>0)
+            //        Comunicacion.sendImagePerfil(AplicationSettings.getToken(),stream);
+            //}
+            //await Comunicacion.sendImagePerfil(AplicationSettings.getToken(), folderName, fileName);
+
+
+            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+            // Get the file.
+            var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+
+            using (Stream stream = await file.OpenStreamForReadAsync())
+            {
+                if (stream.Length > 0)
+                {
+                    byte[] bytes = ReadFully(stream);
+                    Comunicacion.sendImagePerfil(AplicationSettings.getToken(), bytes);
+                }
+                    
             }
         }
 

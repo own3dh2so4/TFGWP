@@ -4,10 +4,14 @@ using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace PrTab.Model.Comunicacion
 {
@@ -93,6 +97,13 @@ namespace PrTab.Model.Comunicacion
         const string deletefavsubject = "removefavsubject";
         const string parametro_deletefavsubjectToken = "token";
         const string parametro_deletefavsubjectIdSubject = "idsubject";
+
+
+        const string sendImage = "uploadimageuser";
+        const string parametroPOST_sendimageToken = "token";
+        const string parametroPOST_sendimageImagen = "image";
+
+
 
         public static async Task<string> borrarAsignaturasFavoritas(string token, string idAsignatura)
         {
@@ -319,6 +330,136 @@ namespace PrTab.Model.Comunicacion
             return facultades;
         }
 
-        
+
+
+        public static async void sendImagePerfil(string token, byte[] imagen)
+        {
+
+            //HttpContent bytes = new ByteArrayContent(imagen);
+            //HttpContent tokenString = new StringContent(token);
+
+            //Uri_Get url = new Uri_Get(baseURL + sendImage);
+
+            //using (var client = new HttpClient())
+            //{
+            //    var formData = new MultipartFormDataContent();
+                
+            //        formData.Add(tokenString, parametroPOST_sendimageToken, parametroPOST_sendimageToken);
+            //        //formData.Add(bytes, parametroPOST_sendimageImagen, parametroPOST_sendimageImagen);
+            //        formData.Add(CreateFileContent(imagen, parametroPOST_sendimageImagen, "image/jpeg"));
+            //        var response = await client.PostAsync(url.getUri(), formData);
+            //        if (!response.IsSuccessStatusCode)
+            //        {
+            //            var a = 1;
+            //        }
+                
+            //}
+            
+
+           // StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+           // var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+           // // Get the file.
+           // var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+
+           // using (Stream stream = await file.OpenStreamForReadAsync())
+           // {
+           //     if (stream.Length > 0)
+           //     {
+           //         HttpContent fileStream = new StreamContent(stream);
+           //         HttpContent tokenString = new StringContent(token);
+
+           //         Uri_Get url = new Uri_Get(baseURL + sendImage);
+
+           //         using (var client = new HttpClient())
+           //         {
+           //             using (var formData = new MultipartFormDataContent())
+           //             {
+           //                 formData.Add(tokenString, parametroPOST_sendimageToken);
+           //                 formData.Add(fileStream, parametroPOST_sendimageImagen);
+
+           //                 if (stream.CanRead)
+           //                 {
+           //                     var response = await client.PostAsync(url.getUri(), formData);
+
+           //                     if (!response.IsSuccessStatusCode)
+           //                     {
+           //                         var a = 1;
+           //                     }
+           //                 }
+           //             }
+           //         }
+           //     }
+           //}
+
+           
+
+
+            //HttpContent fileStream = new StreamContent(file);
+            //HttpContent tokenString = new StringContent(token);
+
+            //Uri_Get url = new Uri_Get(baseURL + sendImage);
+
+            //using(var client = new HttpClient())
+            //{
+            //    using(var formData = new MultipartFormDataContent())
+            //    {
+            //        formData.Add(tokenString, parametroPOST_sendimageToken);
+            //        formData.Add(fileStream, parametroPOST_sendimageImagen);
+
+            //        var response =  await client.PostAsync(url.getUri(), formData);
+
+            //        if (!response.IsSuccessStatusCode)
+            //        {
+            //            var a = 1;
+            //        }
+            //    }
+            //}
+
+            HttpClient httpClient = new HttpClient();
+            MultipartFormDataContent form = new MultipartFormDataContent();
+
+            form.Add(new StringContent(token), "token");
+            //  form.Add(new FormUrlEncodedContent(data), "profile_pic");
+
+            var imagenForm =new ByteArrayContent(imagen, 0, imagen.Count());
+            imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+            form.Add(imagenForm, "image", "nameholder.jpg");
+            
+            HttpResponseMessage response = await httpClient.PostAsync(baseURL + sendImage, form);
+
+            response.EnsureSuccessStatusCode();
+            httpClient.Dispose();
+            string sd = response.Content.ReadAsStringAsync().Result;
+
+
+            //Estio de abajo mas o menos funca
+            //using (var client = new HttpClient())
+            //{
+            //    var values = new List<KeyValuePair<string, string>>();
+            //    values.Add(new KeyValuePair<string, string>("token", token));
+            //    values.Add(new KeyValuePair<string, string>("image", Convert.ToString(imagen)));
+
+            //    var content = new FormUrlEncodedContent(values);
+
+            //    var response = await client.PostAsync(baseURL + sendImage, content);
+
+            //    var responseString = await response.Content.ReadAsStringAsync();
+            //}
+            
+        }
+
+
+        private static HttpContent CreateFileContent(byte[] stream, string fileName, string contentType)
+        {
+            var fileContent = new ByteArrayContent(stream);
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "\"files\"",
+                FileName = "\"" + fileName + "\""
+            };
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            return fileContent;
+        }
     }
 }
