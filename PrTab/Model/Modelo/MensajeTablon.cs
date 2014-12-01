@@ -38,7 +38,10 @@ namespace PrTab.Model.Modelo
             identificadorUsuario = idUsuario;
             nombre = nombreUsuario;
             mensaje = mensajeUsuario;
-            foto = fotoUsuario;
+            if (fotoUsuario != "")
+                foto = fotoUsuario;
+            else
+                foto = "noimage.png";
             //Recibe fecha en formato UNIX y lo pasa a DateTime
             fecha = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             fecha = fecha.AddSeconds( fechamensaje ).ToLocalTime();
@@ -51,7 +54,10 @@ namespace PrTab.Model.Modelo
             identificadorUsuario = idUsuario;
             nombre = nombreUsuario;
             mensaje = mensajeUsuario;
-            foto = fotoUsuario;
+            if (fotoUsuario != "")
+                foto = fotoUsuario;
+            else
+                foto = "noimage.png";
             fecha = fechamensaje;
             identificadorTablon = idTablon;
         }

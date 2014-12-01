@@ -23,8 +23,10 @@ namespace PrTab.Model.Comunicacion
 
 
         static HttpClient client = new HttpClient();
-        const string baseURL = "http://192.168.0.2:80/";
-        //const string baseURL = "http://www.bsodsoftware.me/";
+        public const string baseURL = "http://192.168.0.2:80/";
+        //public const string baseURL = "http://www.bsodsoftware.me/";
+
+        public const string imagenesPerfil = "media";
 
         const string logearUsuario = "loginuser";
         const string parametro_NombreUsuario = "user";
@@ -418,13 +420,13 @@ namespace PrTab.Model.Comunicacion
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
 
-            form.Add(new StringContent(token), "token");
+            form.Add(new StringContent(token), parametroPOST_sendimageToken);
             //  form.Add(new FormUrlEncodedContent(data), "profile_pic");
 
             var imagenForm =new ByteArrayContent(imagen, 0, imagen.Count());
-            imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
 
-            form.Add(imagenForm, "image", "nameholder.jpg");
+            form.Add(imagenForm, parametroPOST_sendimageImagen, "nameholder.jpg");
             
             HttpResponseMessage response = await httpClient.PostAsync(baseURL + sendImage, form);
 

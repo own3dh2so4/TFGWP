@@ -76,17 +76,27 @@ namespace PrTab.Model.Comunicacion
             JObject json = JObject.Parse(response);
             if ((string)json.SelectToken("error") == "200")
             {
+                List<int> idUsuariosDistintos = new List<int>();
+
                 JArray jArray = (JArray)json["data"];
                 foreach(var mensaje in jArray)
                 {
                     JObject userInfo = (JObject)mensaje.SelectToken("usuario");
-                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensaje.SelectToken("pk")),  
-                        Convert.ToInt32((string)userInfo.SelectToken("pk")),
+                    string asdasdasdsa = (string)userInfo.SelectToken("image");
+                    int idUsuarioActual = Convert.ToInt32((string)userInfo.SelectToken("pk"));
+                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensaje.SelectToken("pk")),
+                        idUsuarioActual,
                         (string)userInfo.SelectToken("username"),
                         (string)mensaje.SelectToken("texto"),
-                        "fotos/foto.jpg",
+                        Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + (string)userInfo.SelectToken("image"),
                         Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
                         Convert.ToInt32(idFacultad)));
+                    if (idUsuariosDistintos.Contains(idUsuarioActual))
+                    {
+                        idUsuariosDistintos.Add(idUsuarioActual);
+
+                    }
+
                     
                 }
 
@@ -127,7 +137,7 @@ namespace PrTab.Model.Comunicacion
                         Convert.ToInt32((string)mensajeJson.SelectToken("usuario").SelectToken("pk")),
                         AplicationSettings.getUsuario(),                                    
                         mensaje,
-                        "fotos/foto.jpg",
+                        Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + "pic_image_" + (string)mensajeJson.SelectToken("usuario").SelectToken("pk") + ".jpg",
                         Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")), 
                         Convert.ToInt32(idFacultad)));
 

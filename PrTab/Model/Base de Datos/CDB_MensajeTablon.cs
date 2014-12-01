@@ -35,5 +35,6 @@ namespace PrTab.Model.Base_de_Datos
         {
             dbConn.Insert(mensaje);
         }
+
     }
 }

@@ -26,7 +26,11 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Width="100" Source="{Binding foto}" Grid.Column="0" Margin="5"/>
+                <Image MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding foto}" CreateOptions="BackgroundCreation"/>
+                    </Image.Source>
+                </Image>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
