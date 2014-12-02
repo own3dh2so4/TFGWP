@@ -24,15 +24,19 @@ namespace PrTab.Model.Modelo
         public string mensaje { get; set; }
         //String con la direcion local de donde se ha guardado la foto del usuario.
         public string foto { get; set; }
-        public DateTime fecha { get; set; }
+        public int fecha { get; set; }
         public int identificadorTablon { get; set; }
+
+        public int numFav { get; set; }
+
+        public bool userFav { get; set; }
 
         public MensajeTablon()
         {
 
         }
 
-        public MensajeTablon(int id, int idUsuario, string nombreUsuario, string mensajeUsuario, string fotoUsuario, int fechamensaje, int idTablon)
+        public MensajeTablon(int id, int idUsuario, string nombreUsuario, string mensajeUsuario, string fotoUsuario,  int fechamensaje, int idTablon, int nFav, bool uFav)
         {
             identificador = id;
             identificadorUsuario = idUsuario;
@@ -43,23 +47,26 @@ namespace PrTab.Model.Modelo
             else
                 foto = "noimage.png";
             //Recibe fecha en formato UNIX y lo pasa a DateTime
-            fecha = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            fecha = fecha.AddSeconds( fechamensaje ).ToLocalTime();
-            identificadorTablon = idTablon;
-        }
-
-        public MensajeTablon(int id, int idUsuario, string nombreUsuario, string mensajeUsuario, string fotoUsuario, DateTime fechamensaje, int idTablon)
-        {
-            identificador = id;
-            identificadorUsuario = idUsuario;
-            nombre = nombreUsuario;
-            mensaje = mensajeUsuario;
-            if (fotoUsuario != "")
-                foto = fotoUsuario;
-            else
-                foto = "noimage.png";
+            //fecha = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            //fecha = fecha.AddSeconds( fechamensaje ).ToLocalTime();
             fecha = fechamensaje;
             identificadorTablon = idTablon;
+            numFav = nFav;
+            userFav = uFav;
         }
+
+        //public MensajeTablon(int id, int idUsuario, string nombreUsuario, string mensajeUsuario, string fotoUsuario, DateTime fechamensaje, int idTablon)
+        //{
+        //    identificador = id;
+        //    identificadorUsuario = idUsuario;
+        //    nombre = nombreUsuario;
+        //    mensaje = mensajeUsuario;
+        //    if (fotoUsuario != "")
+        //        foto = fotoUsuario;
+        //    else
+        //        foto = "noimage.png";
+        //    fecha = fechamensaje;
+        //    identificadorTablon = idTablon;
+        //}
     }
 }

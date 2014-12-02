@@ -106,6 +106,22 @@ namespace PrTab.Model.Comunicacion
         const string parametroPOST_sendimageImagen = "image";
 
 
+        const string favoritemessage = "favoritemessage";
+        const string parametro_FavMesToken = "token";
+        const string parametro_FavMesIdMessage = "idmessage";
+
+
+
+
+        public static async Task<string> favoriteMessage(string token, string idMessage)
+        {
+            Uri_Get url = new Uri_Get(baseURL + favoritemessage);
+            url.GetData(parametro_FavMesToken, token);
+            url.GetData(parametro_FavMesIdMessage, idMessage);
+            return await client.GetStringAsync(url.getUri());
+        }
+
+
 
         public static async Task<string> borrarAsignaturasFavoritas(string token, string idAsignatura)
         {

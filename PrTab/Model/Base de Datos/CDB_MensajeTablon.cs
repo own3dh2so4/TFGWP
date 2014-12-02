@@ -36,5 +36,10 @@ namespace PrTab.Model.Base_de_Datos
             dbConn.Insert(mensaje);
         }
 
+        public void updateMessage(MensajeTablon m)
+        {
+            dbConn.InsertOrReplace(m);
+        }
+
     }
 }

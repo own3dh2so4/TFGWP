@@ -150,6 +150,8 @@
     <Compile Include="View\BorrarAsignaturaExamen.xaml.cs">
       <DependentUpon>BorrarAsignaturaExamen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\convert\BoolToHeart.cs" />
+    <Compile Include="View\convert\UnixTimeToStringConverter.cs" />
     <Compile Include="View\EditarPerfil.xaml.cs">
       <DependentUpon>EditarPerfil.xaml</DependentUpon>
     </Compile>
@@ -311,6 +313,8 @@
     <Content Include="View\fotos\foto.jpg" />
     <Content Include="View\fotos\tablon_sinfondo.png" />
     <Content Include="View\icons\appbar.delete.png" />
+    <Content Include="View\icons\heart.red.png" />
+    <Content Include="View\icons\heart.white.png" />
     <Content Include="View\icons\appbar.message.smiley.png" />
     <Content Include="View\icons\appbar.people.profile.png" />
     <Content Include="View\icons\appbar.refresh.png" />

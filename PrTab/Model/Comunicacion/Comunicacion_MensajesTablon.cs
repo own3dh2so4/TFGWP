@@ -84,13 +84,16 @@ namespace PrTab.Model.Comunicacion
                     JObject userInfo = (JObject)mensaje.SelectToken("usuario");
                     string asdasdasdsa = (string)userInfo.SelectToken("image");
                     int idUsuarioActual = Convert.ToInt32((string)userInfo.SelectToken("pk"));
-                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensaje.SelectToken("pk")),
+                    mensajesNuevos.Add(new MensajeTablon(
+                        Convert.ToInt32((string)mensaje.SelectToken("pk")),
                         idUsuarioActual,
                         (string)userInfo.SelectToken("username"),
                         (string)mensaje.SelectToken("texto"),
                         Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + (string)userInfo.SelectToken("image"),
                         Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
-                        Convert.ToInt32(idFacultad)));
+                        Convert.ToInt32(idFacultad),
+                        Convert.ToInt32((string)userInfo.SelectToken("num_fav")),
+                        Convert.ToBoolean((string)mensaje.SelectToken("user_favorited"))));
                     if (idUsuariosDistintos.Contains(idUsuarioActual))
                     {
                         idUsuariosDistintos.Add(idUsuarioActual);
@@ -139,7 +142,9 @@ namespace PrTab.Model.Comunicacion
                         mensaje,
                         Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + "pic_image_" + (string)mensajeJson.SelectToken("usuario").SelectToken("pk") + ".jpg",
                         Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")), 
-                        Convert.ToInt32(idFacultad)));
+                        Convert.ToInt32(idFacultad),
+                        0,
+                        false));
 
                 //dbConn = new SQLiteConnection(DB_PATH);
                 //dbConn.InsertAll(mensajesNuevos);
@@ -152,6 +157,21 @@ namespace PrTab.Model.Comunicacion
 
                 return true;
             }
+            return false;
+        }
+
+
+        public async Task<bool> favMesajeTablon (MensajeTablon message)
+        {
+            string response = await Comunicacion.favoriteMessage(AplicationSettings.getToken(), message.identificador+"");
+            JObject json = JObject.Parse(response);
+            if ((string)json.SelectToken("error") == "200")
+            {
+                dataBase.updateMessage(message);
+                return true;
+            }
+                
+
             return false;
         }
     }

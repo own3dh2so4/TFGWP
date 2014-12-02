@@ -77,11 +77,7 @@ namespace PrTab.ViewModel
                 {
                     mensajes = new ObservableCollection<MensajeTablon>();
                 }
-                if (DesignerProperties.IsInDesignTool)
-                {
-                    for (int i = 0; i < 10; i++)
-                        mensajes.Add(new MensajeTablon { nombre = "David" + i.ToString(), mensaje = "Hola" + i.ToString(), foto = "fotos/foto.jpg" });
-                }
+                
                 return mensajes;
             }
             set
@@ -186,6 +182,26 @@ namespace PrTab.ViewModel
             mostarMensaje("Enviando mensaje");
             await servicioMensajes.postMensajeTablon(message, AplicationSettings.getIdTablonMensajes());
             ocultarMensaje();
+        }
+
+        public async Task<bool> addFavMessage(MensajeTablon m)
+        {
+            foreach (var men in mensajes)
+            {
+                if (men.identificador == m.identificador)
+                {
+                    if (men.userFav)
+                        men.numFav--;
+                    else
+                        men.numFav++;
+                    men.userFav = !men.userFav;
+                    await servicioMensajes.favMesajeTablon(men);
+                    this.OnPropertyChanged("Mensajes");
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -12,6 +12,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     xmlns:vm ="clr-namespace:PrTab.ViewModel"
+    xmlns:valueConverter="clr-namespace:PrTab.View.convert"
     shell:SystemTray.IsVisible="True">
 
 
@@ -20,6 +21,8 @@
         <!--Creamos el objeto de tipo MensajeTablonViewModel que vamos a observar-->
         <!--<vm:MensajesTablonViewModel x:Key="ViewModelTablon" />-->
         <!--Definimos un template para mostrar los mensajes del tablon.-->
+        <valueConverter:UnixTimeToStringConverter x:Key="DateToStringConvert"  />
+        <valueConverter:BoolToHeart x:Key="BoolToHeart"  />
         <DataTemplate x:Key="MensajesTablonDataTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -30,17 +33,44 @@
                     <Image.Source>
                         <BitmapImage UriSource="{Binding foto}" CreateOptions="BackgroundCreation"/>
                     </Image.Source>
+                    <Image.OpacityMask>
+                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
+                            <GradientStop Color="#ffffffff" Offset="0.5" />
+                            <GradientStop Color="#00ffffff" Offset="0.8" />
+                        </RadialGradientBrush>
+                    </Image.OpacityMask>
                 </Image>
+
+                <!--<Ellipse MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding foto}" />
+                        </Ellipse.Fill>
+                    </Ellipse>-->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="{Binding nombre}" Grid.Row="0" FontSize="20"/>
-                    <TextBlock Text="{Binding mensaje}" Grid.Row="1" FontSize="35"/>
+                    <TextBlock Text="{Binding fecha, Converter={StaticResource DateToStringConvert}}" VerticalAlignment="Top" HorizontalAlignment="Right" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="95"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding mensaje}" Grid.Column="0" FontSize="35" TextWrapping="Wrap"/>
+                        <Button MaxHeight="85" MaxWidth="95" MinHeight="85" MinWidth="95" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"  Click="Button_Click" BorderBrush="Transparent">
+                            <Button.Content>
+                                <Image x:Name="imagenFav" MaxHeight="75" MaxWidth="75" MinHeight="75" MinWidth="75" 
+                                       Source="{Binding userFav, Converter={StaticResource BoolToHeart}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Button.Content>
+                        </Button>                        
+                    </Grid>
                 </Grid>
             </Grid>
         </DataTemplate>
+
+
 
     </phone:PhoneApplicationPage.Resources>
 
