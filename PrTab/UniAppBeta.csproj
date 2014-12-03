@@ -129,6 +129,8 @@
     <Compile Include="Model\Modelo\Tema.cs" />
     <Compile Include="Model\Modelo\TemaEventArgs.cs" />
     <Compile Include="Model\Modelo\Universidad.cs" />
+    <Compile Include="Model\Modelo\UpdateMensajesEventArgs.cs" />
+    <Compile Include="Model\Modelo\UpdateMensajeTablon.cs" />
     <Compile Include="Utiles\DeviceInfoHelper.cs" />
     <Compile Include="Utiles\Uri_Get.cs" />
     <Compile Include="SQLite.cs" />

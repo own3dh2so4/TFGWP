@@ -23,8 +23,8 @@ namespace PrTab.Model.Comunicacion
 
 
         static HttpClient client = new HttpClient();
-        public const string baseURL = "http://192.168.0.2:80/";
-        //public const string baseURL = "http://www.bsodsoftware.me/";
+        //public const string baseURL = "http://192.168.0.2:80/";
+        public const string baseURL = "http://www.bsodsoftware.me/";
 
         public const string imagenesPerfil = "media";
 
@@ -110,7 +110,45 @@ namespace PrTab.Model.Comunicacion
         const string parametro_FavMesToken = "token";
         const string parametro_FavMesIdMessage = "idmessage";
 
+        const string changepassword = "changepassword";
+        const string parametro_changepasswordToken = "token";
+        const string parametro_changepasswordOldPassword = "oldpass";
+        const string parametro_changepasswordNewPassword = "newpass";
 
+
+        const string changefaculty = "";
+
+
+        const string updatemensajes = "updatemessages";
+        const string parametro_updateMensajesToken = "token";
+        const string parametro_updateMensajesInit = "idmsgstart";
+        const string parametro_updateMensajesEnd = "idmsgend";
+        const string parametro_updateMensajesIdFaculty = "idfaculty";
+
+
+        public static async Task<string> updateMessages(string token, string idInit, string idEnd, string idFaculty)
+        {
+            Uri_Get url = new Uri_Get(baseURL + updatemensajes);
+            url.GetData(parametro_updateMensajesToken , token);
+            url.GetData(parametro_updateMensajesInit, idInit);
+            url.GetData(parametro_updateMensajesEnd, idEnd);
+            url.GetData(parametro_updateMensajesIdFaculty, idFaculty);
+            //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            url.GetData(unixTime, unixTimestamp);
+            return await client.GetStringAsync(url.getUri());
+        }
+
+
+
+        public static async Task<string> cambiarContraseña(string token, string oldPassword, string newPassword)
+        {
+            Uri_Get url = new Uri_Get(baseURL + changepassword);
+            url.GetData(parametro_changepasswordToken, token);
+            url.GetData(parametro_changepasswordOldPassword, oldPassword);
+            url.GetData(parametro_changepasswordNewPassword, newPassword);
+            return await client.GetStringAsync(url.getUri());
+        }
 
 
         public static async Task<string> favoriteMessage(string token, string idMessage)
@@ -118,6 +156,9 @@ namespace PrTab.Model.Comunicacion
             Uri_Get url = new Uri_Get(baseURL + favoritemessage);
             url.GetData(parametro_FavMesToken, token);
             url.GetData(parametro_FavMesIdMessage, idMessage);
+            //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 

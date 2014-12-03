@@ -25,6 +25,8 @@ namespace PrTab.Model.Comunicacion
 
         public event EventHandler<MensajesTablonServerEventArgs> getMensajesTablonServerCompletado;
 
+        public event EventHandler<UpdateMensajesEventArgs> updateMensajesTablonCompletado;
+
         //public static string DB_PATH = Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "MensajesTablon.sqlite"));
         //private SQLiteConnection dbConn;
         private CDB_MensajeTablon  dataBase = new CDB_MensajeTablon();
@@ -34,43 +36,18 @@ namespace PrTab.Model.Comunicacion
         public void getMensajesTablon()
         {
 
-            /// Create the database connection.
-            //dbConn = new SQLiteConnection(DB_PATH);
-            /// Create the table Task, if it doesn't exist.
-            //dbConn.CreateTable<MensajeTablon>();
-
-            //var mess = dbConn.Table<MensajeTablon>().Where(c => c.identificador != null).ToList();
-
-            //var mess = dbConn.Query<MensajeTablon>("select * from MensajeTablon order by identificador DESC;");
-
             var mess = dataBase.getAllOrderByIDDesc();
 
             if (getMensajesTablonCompletado != null)
             {
                 getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mess));
             }
-
-            /// Create the table Task, if it doesn't exist.
-            //dbConn.CreateTable<MensajeTablon>();
-
-            /*IList<MensajeTablon> mensajes =  new List<MensajeTablon>();
-            for (int i = 0; i < 20; i++)
-                mensajes.Add(new MensajeTablon {identificador=i, nombre = "David" + i.ToString(), mensaje = "Hola" + i.ToString(), foto = "fotos/foto.jpg" });
-            if(getMensajesTablonCompletado != null)
-            {
-                getMensajesTablonCompletado(this, new MensajesTablonEventArgs(mensajes));
-            }
-
-            dbConn.InsertAll(mensajes);*/
         }
 
         public async Task<bool> getMensajesTablonFromServer( string idFacultad)
         {
-            //dbConn = new SQLiteConnection(DB_PATH);
-            //var idMensaje = dbConn.Query<MensajeTablon>("select MAX(identificador) as identificador from MensajeTablon where identificadorTablon = "+ idFacultad + ";");
 
             List<MensajeTablon> mensajesNuevos = new List<MensajeTablon>();
-            //int idemax = idMensaje[0].identificador;
             var asd = dataBase.getMAXIdFormMensajeTablon(idFacultad);
             string response = await Comunicacion.getMensajes(AplicationSettings.getToken(),dataBase.getMAXIdFormMensajeTablon(idFacultad)+"",idFacultad);
             JObject json = JObject.Parse(response);
@@ -92,27 +69,15 @@ namespace PrTab.Model.Comunicacion
                         Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + (string)userInfo.SelectToken("image"),
                         Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
                         Convert.ToInt32(idFacultad),
-                        Convert.ToInt32((string)userInfo.SelectToken("num_fav")),
+                        Convert.ToInt32((string)mensaje.SelectToken("num_fav")),
                         Convert.ToBoolean((string)mensaje.SelectToken("user_favorited"))));
                     if (idUsuariosDistintos.Contains(idUsuarioActual))
                     {
                         idUsuariosDistintos.Add(idUsuarioActual);
 
-                    }
-
-                    
+                    }                   
                 }
 
-                //Dar la vuelta al array que recibes para mostrarlos en orden
-                /*List<MensajeTablon> mensajesNuevosVuelta = new List<MensajeTablon>();
-                for (int i = mensajesNuevos.Count - 1; i >= 0; i--)
-                {
-
-                    mensajesNuevosVuelta.Add(mensajesNuevos[i]);
-                }*/
-
-
-                //dbConn.InsertAll(mensajesNuevos);
                 dataBase.insertAll(mensajesNuevos);
 
                 if (getMensajesTablonServerCompletado != null)
@@ -121,9 +86,46 @@ namespace PrTab.Model.Comunicacion
                 }
                 return true;
             }
+            else if ((string)json.SelectToken("error") == "201")
+            {
+                if (getMensajesTablonServerCompletado != null)
+                {
+                    getMensajesTablonServerCompletado(this, new MensajesTablonServerEventArgs(mensajesNuevos));
+                }
+            }
             return false;
             
         }
+
+        public async Task<bool> updateMensajesTablon (int idInit, int idFin, int idFaculty)
+        {
+            string response = await Comunicacion.updateMessages(AplicationSettings.getToken(), idInit+"", idFin+"",idFaculty+"");
+            JObject json = JObject.Parse(response);
+            if ((string)json.SelectToken("error") == "200")
+            {
+                List<UpdateMensajeTablon> listUpdate = new List<UpdateMensajeTablon>();
+                JArray mensajeJArray = (JArray)json.SelectToken("data");
+                foreach (var m in mensajeJArray)
+                {
+                    listUpdate.Add(new UpdateMensajeTablon(Convert.ToInt32((string)m.SelectToken("pk")),
+                        Convert.ToInt32((string)m.SelectToken("num_fav")),
+                        Convert.ToBoolean((string)m.SelectToken("user_favorited")),
+                        Convert.ToBoolean((string)m.SelectToken("borrado"))));
+                }
+
+                dataBase.updateInfoMensajesTablon(listUpdate);
+
+                if (updateMensajesTablonCompletado != null)
+                {
+                    updateMensajesTablonCompletado(this, new UpdateMensajesEventArgs(listUpdate));
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
 
         public async Task<bool> postMensajeTablon (string mensaje, string idFacultad)
         {

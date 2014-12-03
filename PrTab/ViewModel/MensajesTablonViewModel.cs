@@ -127,17 +127,24 @@ namespace PrTab.ViewModel
             {
                 //mensajes = new ObservableCollection<MensajeTablon>(a.mensajes);
                 insertarNuevosMensajes(a.mensajes);
+                //if (a.mensajes.Count > 0)
+                //    servicioMensajes.updateMensajesTablon(a.mensajes[a.mensajes.Count - 1].identificador, a.mensajes[0].identificador, a.mensajes[0].identificadorTablon);
                 servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
                 //this.OnPropertyChanged("Mensajes");
             };
 
             servicioMensajes.getMensajesTablonServerCompletado += (s, a) =>
             {
+                if (mensajes.Count > 0)
+                    servicioMensajes.updateMensajesTablon(mensajes[mensajes.Count - 1].identificador, mensajes[0].identificador, mensajes[0].identificadorTablon);
                 insertarNuevosMensajes(a.mensajes);
                 this.OnPropertyChanged("Mensajes");
             };
-            /*this.getMensajesTablon = new ActionCommand<string>(this.onGetMensajesTablon);
-            this.postMensajesTablon = new ActionCommand<string>(this.onPostMensajesTablon);*/
+
+            servicioMensajes.updateMensajesTablonCompletado += (s, a) =>
+            {
+                //Hacer lo que sea cuando toque
+            };
 
             visibilidadMensaje =  Visibility.Collapsed;
             servicioMensajes.getMensajesTablon();
@@ -196,7 +203,7 @@ namespace PrTab.ViewModel
                         men.numFav++;
                     men.userFav = !men.userFav;
                     await servicioMensajes.favMesajeTablon(men);
-                    this.OnPropertyChanged("Mensajes");
+                    this.OnPropertyChanged("userFav");
                     return true;
                 }
             }

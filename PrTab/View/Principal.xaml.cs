@@ -27,7 +27,7 @@ namespace PrTab
     {
         MensajesTablonViewModel _viewModelTablonMensaje;
 
-        private bool botonFavPulsado = false;
+        //private bool botonFavPulsado = false;
 
         // Constructor
         public MainPage()
@@ -77,25 +77,25 @@ namespace PrTab
 
         private void MensajeTablonSelected(object sender, SelectionChangedEventArgs e)
         {
-            if(botonFavPulsado)
-            {
+            //if(botonFavPulsado)
+            //{
                 
-                var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
-                _viewModelTablonMensaje.addFavMessage(myItem);
-                botonFavPulsado = false;
+            //    var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
+            //    await _viewModelTablonMensaje.addFavMessage(myItem);
+            //    botonFavPulsado = false;
 
                 //var res = (sender as LongListSelector).SelectedItem as MensajeTablon;
                 //int index = _viewModelTablonMensaje.mensajes.IndexOf(res);
                 //var newData = new MensajeTablon(res.identificador, res.identificadorUsuario, res.nombre, res.mensaje, res.foto, res.fecha, res.identificadorTablon, res.numFav ,!res.userFav);
                 //_viewModelTablonMensaje.mensajes.RemoveAt(index);
                 //_viewModelTablonMensaje.mensajes.Insert(index, newData);
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
                 //MessageBox.Show(myItem.mensaje);
-                NavigationService.Navigate(new Uri("/View/MensajeTablon.xaml?name=" + myItem.nombre + "&message=" + myItem.mensaje + "&photo=" + myItem.foto, UriKind.Relative));
-            }
+                NavigationService.Navigate(new Uri("/View/MensajeTablon.xaml?idMessage=" + myItem.identificador /*+ "&message=" + myItem.mensaje + "&photo=" + myItem.foto*/, UriKind.Relative));
+            //}
             
         }
 
@@ -154,10 +154,10 @@ namespace PrTab
             NavigationService.Navigate(new Uri("/View/EditarPerfil.xaml", UriKind.Relative));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            botonFavPulsado = true;
-        }
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    botonFavPulsado = true;
+        //}
 
 
        

@@ -36,9 +36,37 @@ namespace PrTab.Model.Base_de_Datos
             dbConn.Insert(mensaje);
         }
 
+        public MensajeTablon getForId(string idMessage)
+        {
+            return dbConn.Query<MensajeTablon>("select * from MensajeTablon where identificador = " + idMessage + ";")[0];
+        }
+
         public void updateMessage(MensajeTablon m)
         {
             dbConn.InsertOrReplace(m);
+        }
+
+
+        public void updateInfoMensajesTablon (List<UpdateMensajeTablon> list)
+        {
+
+            foreach (var l in list)
+            {
+                if (!l.deleted)
+                {
+                    var m = dbConn.Query<MensajeTablon>("select * from MensajeTablon where identificador = " + l.id + ";")[0];
+                    m.numFav = l.numFav;
+                    m.userFav = l.userFav;
+                    dbConn.InsertOrReplace(m);
+                    //dbConn.Execute("update MensajeTablon set" +
+                    //                            " numFav = " + l.numFav +
+                    //                            " userFav = " + l.userFav +
+                    //                            " where identificador = " + l.id);
+                }
+                else
+                    dbConn.Execute("delete from MensajeTablon where identificador = " + l.id);
+
+            }
         }
 
     }
