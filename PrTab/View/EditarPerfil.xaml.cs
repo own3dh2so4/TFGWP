@@ -58,15 +58,18 @@ namespace PrTab.View
                     var dataFolder = await local.CreateFolderAsync(folderName,CreationCollisionOption.OpenIfExists);
 
                     StorageFile myfile = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+                    byte[] b;
 
                     using (Stream stream = await myfile.OpenStreamForWriteAsync())
                     {
                         
-                        byte[] b = ReadFully(photoStream);
+                        b = ReadFully(photoStream);
                         stream.Write(b, 0, b.Length);
+                        stream.Close();
                     } 
-                ponerFoto();
-                sendImagePerfilServer();
+                await ponerFoto();
+                if (b.Length>0)
+                    await sendImagePerfilServer(b);
             }
         }
 
@@ -91,7 +94,7 @@ namespace PrTab.View
             }
         }
 
-        private async void ponerFoto ()
+        private async Task<bool> ponerFoto ()
         {
             StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
             var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
@@ -105,11 +108,14 @@ namespace PrTab.View
                     BitmapImage a = new BitmapImage();
                     a.SetSource(stream);
                     imagenPerfil.Source = a;
+                    return true;
                 }
+                stream.Close();
             }
+            return false;
         }
 
-        private async void sendImagePerfilServer()
+        private async Task<bool> sendImagePerfilServer( byte[] b)
         {
             //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
             //var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
@@ -124,20 +130,29 @@ namespace PrTab.View
             //await Comunicacion.sendImagePerfil(AplicationSettings.getToken(), folderName, fileName);
 
 
-            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
-            // Get the file.
-            var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+            //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+            //// Get the file.
+            //var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
 
-            using (Stream stream = await file.OpenStreamForReadAsync())
-            {
-                if (stream.Length > 0)
-                {
-                    byte[] bytes = ReadFully(stream);
-                    Comunicacion.sendImagePerfil(AplicationSettings.getToken(), bytes);
-                }
+            //using (Stream stream = await file.OpenStreamForReadAsync())
+            //{
+            //    if (stream.Length > 0)
+            //    {
+            //        byte[] bytes = ReadFully(stream);
+            //        Comunicacion.sendImagePerfil(AplicationSettings.getToken(), bytes);
+            //        return true;
+            //    }
                     
+            //}
+            //return false;
+
+            if (b.Length>0)
+            {
+                Comunicacion.sendImagePerfil(AplicationSettings.getToken(), b);
+                return true;
             }
+            return false;
         }
 
     }

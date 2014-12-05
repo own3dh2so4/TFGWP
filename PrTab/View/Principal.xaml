@@ -30,25 +30,25 @@
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Ellipse MaxHeight="85" MaxWidth="85" MinHeight="85" MinWidth="85" Grid.Column="0" Margin="5" VerticalAlignment="Top">
+                    <!--<Ellipse MaxHeight="85" MaxWidth="85" MinHeight="85" MinWidth="85" Grid.Column="0" Margin="5" VerticalAlignment="Top">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding foto}"/>
                         </Ellipse.Fill>
-                    </Ellipse>
+                    </Ellipse>-->
 
-                    <!--<Image MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5">
+                    <Image MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5">
                         <Image.Source>
-                            <BitmapImage UriSource="{Binding foto}" />
+                            <BitmapImage UriSource="{Binding foto}" CreateOptions="BackgroundCreation"/>
                         </Image.Source>
 
-                        --><!--<Image.OpacityMask>
+                        <Image.OpacityMask>
                             <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
-                            <GradientStop Color="#ffffffff" Offset="0.5" />
-                            <GradientStop Color="#00ffffff" Offset="0.8" />
+                            <GradientStop Color="#ffffffff" Offset="0.7" />
+                            <GradientStop Color="#00ffffff" Offset="0.7" />
                             </RadialGradientBrush>
-                         </Image.OpacityMask>--><!--
+                         </Image.OpacityMask>
                     
-                    </Image>-->
+                    </Image>
 
                     <!--<Ellipse MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5">
                         <Ellipse.Fill>
