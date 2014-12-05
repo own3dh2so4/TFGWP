@@ -26,17 +26,26 @@ namespace PrTab.View.convert
             {
                 valor = valor / 60;
                 if (valor < 24)
-                    ret = "Enviado hace " + valor + " horas";
+                    if (valor == 1)
+                        ret = "Enviado hace " + valor + " hora";
+                    else
+                        ret = "Enviado hace " + valor + " horas";
                 else
                 {
                     valor = valor / 24;
                     if (valor < 31)
-                        ret = "Enviado hace " + valor + " dias";
+                        if (valor == 1)
+                            ret = "Enviado hace " + valor + " dia";
+                        else
+                            ret = "Enviado hace " + valor + " dias";
                     else
                     {
                         valor = valor / 30;
                         if (valor < 12)
-                            ret = "Enviado hace " + valor + "meses";
+                            if (valor == 1)
+                                ret = "Enviado hace " + valor + "mes";
+                            else
+                                ret = "Enviado hace " + valor + "meses";
                         else
                         {
                             valor = valor / 12;

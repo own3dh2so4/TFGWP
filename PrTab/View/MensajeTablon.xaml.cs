@@ -42,6 +42,7 @@ namespace PrTab.View
             NombreUsuario.Text = mensaje.nombre;
             MensajeUsuario.Text = mensaje.mensaje;
             numFav.Text = mensaje.numFav + "";
+            fecha.Text = calculoFecha();
 
             if (mensaje.userFav)
             {
@@ -64,6 +65,53 @@ namespace PrTab.View
             base.OnNavigatedTo(e);
             CDB_MensajeTablon BDMensajes = new CDB_MensajeTablon();
             mensaje = BDMensajes.getForId(NavigationContext.QueryString["idMessage"]);
+        }
+
+
+        private string calculoFecha()
+        {
+            string ret = "";
+            int unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            int messageTime = mensaje.fecha;
+            //int.TryParse(value.ToString(),out messageTime);
+            int valor = unixTimestamp - messageTime;
+            valor = valor / 60;
+            if (valor < 60)
+                ret = "Enviado hace " + valor + " min";
+            else
+            {
+                valor = valor / 60;
+                if (valor < 24)
+                    if (valor == 1)
+                        ret = "Enviado hace " + valor + " hora";
+                    else
+                        ret = "Enviado hace " + valor + " horas";
+                else
+                {
+                    valor = valor / 24;
+                    if (valor < 31)
+                        if (valor == 1)
+                            ret = "Enviado hace " + valor + " dia";
+                        else
+                            ret = "Enviado hace " + valor + " dias";
+                    else
+                    {
+                        valor = valor / 30;
+                        if (valor < 12)
+                            if (valor == 1)
+                                ret = "Enviado hace " + valor + "mes";
+                            else
+                                ret = "Enviado hace " + valor + "meses";
+                        else
+                        {
+                            valor = valor / 12;
+                            ret = "Enviado hace " + valor + " años";
+                        }
+                    }
+                }
+            }
+
+            return ret;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -93,5 +141,7 @@ namespace PrTab.View
 
            servicioMensajes.favMesajeTablon(mensaje);
         }
+
+
     }
 }

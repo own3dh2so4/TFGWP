@@ -17,6 +17,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -66,8 +67,8 @@
 
             </Grid>
        </Border>
-        
-       
+        <TextBlock x:Name="fecha" Grid.Row="1" Text="Fecha asdsadasd" HorizontalAlignment="Right" Foreground="#FF7A7676" />
+
     </Grid>
 
 </phone:PhoneApplicationPage>

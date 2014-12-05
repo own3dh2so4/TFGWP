@@ -191,7 +191,7 @@ namespace PrTab.ViewModel
             ocultarMensaje();
         }
 
-        public async Task<bool> addFavMessage(MensajeTablon m)
+        public  bool addFavMessage(MensajeTablon m)
         {
             foreach (var men in mensajes)
             {
@@ -202,7 +202,7 @@ namespace PrTab.ViewModel
                     else
                         men.numFav++;
                     men.userFav = !men.userFav;
-                    await servicioMensajes.favMesajeTablon(men);
+                    servicioMensajes.favMesajeTablon(men);
                     this.OnPropertyChanged("userFav");
                     return true;
                 }

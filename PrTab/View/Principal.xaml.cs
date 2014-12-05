@@ -16,6 +16,7 @@ using PrTab.ViewModel;
 using System.Windows.Data;
 using PrTab.Model.Modelo;
 using PrTab.Utiles;
+using System.Windows.Media.Imaging;
 
 namespace PrTab
 {
@@ -27,7 +28,9 @@ namespace PrTab
     {
         MensajesTablonViewModel _viewModelTablonMensaje;
 
-        //private bool botonFavPulsado = false;
+        private Button botonAmor;
+
+        private bool botonFavPulsado = false;
 
         // Constructor
         public MainPage()
@@ -77,25 +80,57 @@ namespace PrTab
 
         private void MensajeTablonSelected(object sender, SelectionChangedEventArgs e)
         {
-            //if(botonFavPulsado)
-            //{
-                
-            //    var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
-            //    await _viewModelTablonMensaje.addFavMessage(myItem);
-            //    botonFavPulsado = false;
 
-                //var res = (sender as LongListSelector).SelectedItem as MensajeTablon;
-                //int index = _viewModelTablonMensaje.mensajes.IndexOf(res);
-                //var newData = new MensajeTablon(res.identificador, res.identificadorUsuario, res.nombre, res.mensaje, res.foto, res.fecha, res.identificadorTablon, res.numFav ,!res.userFav);
-                //_viewModelTablonMensaje.mensajes.RemoveAt(index);
-                //_viewModelTablonMensaje.mensajes.Insert(index, newData);
-            //}
-            //else
-            //{
-                var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
-                //MessageBox.Show(myItem.mensaje);
-                NavigationService.Navigate(new Uri("/View/MensajeTablon.xaml?idMessage=" + myItem.identificador /*+ "&message=" + myItem.mensaje + "&photo=" + myItem.foto*/, UriKind.Relative));
-            //}
+            if (((LongListSelector)sender).SelectedItem != null)
+            {
+                if (botonFavPulsado)
+                {
+
+                    var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
+
+                    _viewModelTablonMensaje.addFavMessage(myItem);
+
+                    if (botonAmor != null)
+                    {
+                        if (myItem.userFav)
+                        {
+                            botonAmor.Content = new Image
+                            {
+                                Source = new BitmapImage(new Uri("icons/heart.red.png", UriKind.Relative)),
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                                ,
+                                MaxHeight = 75,
+                                MaxWidth = 75,
+                                MinHeight = 75,
+                                MinWidth = 75
+                            };
+                        }
+                        else
+                        {
+                            botonAmor.Content = new Image
+                            {
+                                Source = new BitmapImage(new Uri("icons/heart.white.png", UriKind.Relative)),
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                                ,
+                                MaxHeight = 75,
+                                MaxWidth = 75,
+                                MinHeight = 75,
+                                MinWidth = 75
+                            };
+                        }
+                    }
+                    botonFavPulsado = false;
+                    ((LongListSelector)sender).SelectedItem = null;
+                }
+                else
+                {               
+                    var myItem = ((LongListSelector)sender).SelectedItem as MensajeTablon;
+                    NavigationService.Navigate(new Uri("/View/MensajeTablon.xaml?idMessage=" + myItem.identificador , UriKind.Relative));
+                }
+            }
+            
             
         }
 
@@ -154,10 +189,11 @@ namespace PrTab
             NavigationService.Navigate(new Uri("/View/EditarPerfil.xaml", UriKind.Relative));
         }
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    botonFavPulsado = true;
-        //}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            botonFavPulsado = true;
+            botonAmor = ((Button)sender);
+        }
 
 
        
