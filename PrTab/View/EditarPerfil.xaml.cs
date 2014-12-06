@@ -29,6 +29,8 @@ namespace PrTab.View
         {
             InitializeComponent();
             this.photoChooserTask = new PhotoChooserTask();
+            this.photoChooserTask.PixelHeight = 300;
+            this.photoChooserTask.PixelWidth = 300;
             this.photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
 
             this.Loaded += Inicilizar;
@@ -41,7 +43,7 @@ namespace PrTab.View
 
         private void photoChooserTask_Completed(object sender, PhotoResult e)
         {
-            BitmapImage image = new BitmapImage();
+            
             saveImage(e);            
         }
 
