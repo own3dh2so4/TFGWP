@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace PrTab.Model.Modelo
 
         public CacheImagen(string u, string d)
         {
-            url = u;
+            url = HttpUtility.UrlDecode(u);
             date = d;
         }
     }

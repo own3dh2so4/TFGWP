@@ -22,7 +22,7 @@ namespace PrTab.Model.Base_de_Datos
 
         public CacheImagen getCacheImage(string url)
         {
-            var resp = dbConn.Query<CacheImagen>("select * from Asignatura where url = " + url);
+            var resp = dbConn.Query<CacheImagen>("select * from CacheImagen where url = '" + url + "'");
             if (resp.Count > 0)
                 return resp[0];
             else

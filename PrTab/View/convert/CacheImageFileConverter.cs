@@ -89,8 +89,9 @@ namespace PrTab.View.convert
 
             HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(imageFileUri);
             webRequest.Method="HEAD";
-            HttpWebResponse webResponse = ((HttpWebResponse)(await webRequest.GetResponseAsync()));
-            CacheImagen cache = new CacheImagen(imageFileUri.ToString(), webRequest.Headers["Last-Modified"]);
+            HttpWebResponse webResponse = ((HttpWebResponse)await webRequest.GetResponseAsync());
+            var fechaUltimaMod = webResponse.Headers["Last-Modified"];
+            CacheImagen cache = new CacheImagen(imageFileUri.ToString(), fechaUltimaMod.ToString());
             CacheImagen accesBDCache = bdCache.getCacheImage(cache.url);
             if (accesBDCache!=null)
             {
@@ -100,14 +101,16 @@ namespace PrTab.View.convert
                 }
                 else
                 {
+                    bdCache.insert(cache);
                     m_webClient.OpenReadAsync(imageFileUri);
                 }
             }
             else
             {
+                bdCache.insert(cache);
                 m_webClient.OpenReadAsync(imageFileUri);
             }
-
+            webResponse.Close();
             return bm;
         }
 

@@ -38,7 +38,7 @@
                         </Ellipse.Fill>
                     </Ellipse>-->
 
-                    <Image MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5"
+                    <Image Stretch="UniformToFill" MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5"
                            Source="{Binding foto, Converter={StaticResource ImageCache}}">
                         <!--<Image.Source>
                             <BitmapImage UriSource="{Binding foto}" CreateOptions="BackgroundCreation"/>
