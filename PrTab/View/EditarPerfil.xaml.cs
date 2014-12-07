@@ -119,36 +119,6 @@ namespace PrTab.View
 
         private async Task<bool> sendImagePerfilServer( byte[] b)
         {
-            //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
-            //var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
-            //// Get the file.
-            //var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
-
-            //using (Stream stream = await file.OpenStreamForReadAsync())
-            //{
-            //    if (stream.Length>0)
-            //        Comunicacion.sendImagePerfil(AplicationSettings.getToken(),stream);
-            //}
-            //await Comunicacion.sendImagePerfil(AplicationSettings.getToken(), folderName, fileName);
-
-
-            //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
-            //var dataFolder = await local.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
-            //// Get the file.
-            //var file = await dataFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
-
-            //using (Stream stream = await file.OpenStreamForReadAsync())
-            //{
-            //    if (stream.Length > 0)
-            //    {
-            //        byte[] bytes = ReadFully(stream);
-            //        Comunicacion.sendImagePerfil(AplicationSettings.getToken(), bytes);
-            //        return true;
-            //    }
-                    
-            //}
-            //return false;
-
             if (b.Length>0)
             {
                 Comunicacion.sendImagePerfil(AplicationSettings.getToken(), b);

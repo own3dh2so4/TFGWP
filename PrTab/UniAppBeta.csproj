@@ -27,7 +27,7 @@
     <ValidateXaml>true</ValidateXaml>
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <NuGetPackageImportStamp>fe09a3fd</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>d935f285</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <DefaultLanguage>es-ES</DefaultLanguage>
   </PropertyGroup>
@@ -105,6 +105,7 @@
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Model\Base de Datos\CDB_AsignaturaCursoAgregar.cs" />
     <Compile Include="Model\Base de Datos\CDB_AsignaturaExamen.cs" />
+    <Compile Include="Model\Base de Datos\CDB_CacheImagen.cs" />
     <Compile Include="Model\Base de Datos\CDB_Facultad.cs" />
     <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
     <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizado.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
     <Compile Include="Model\Modelo\Asignatura.cs" />
+    <Compile Include="Model\Modelo\CacheImagen.cs" />
     <Compile Include="Model\Modelo\ExamenEventArgs.cs" />
     <Compile Include="Model\Modelo\Facultad.cs" />
     <Compile Include="Model\Modelo\MensajesTablonEventArgs.cs" />
@@ -153,6 +155,7 @@
       <DependentUpon>BorrarAsignaturaExamen.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\convert\BoolToHeart.cs" />
+    <Compile Include="View\convert\CacheImageFileConverter.cs" />
     <Compile Include="View\convert\UnixTimeToStringConverter.cs" />
     <Compile Include="View\EditarPerfil.xaml.cs">
       <DependentUpon>EditarPerfil.xaml</DependentUpon>
@@ -305,6 +308,7 @@
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+    <Content Include="View\fotos\no_image.png" />
     <Content Include="View\icons\appbar.add.png" />
     <Content Include="View\icons\appbar.arrow.left.png" />
     <Content Include="View\icons\appbar.arrow.right.png" />
@@ -365,17 +369,14 @@
   </Target>
   -->
   <ProjectExtensions />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.props'))" />
     <Error Condition="!Exists('..\packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <Import Project="..\packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets" Condition="Exists('..\packages\sqlite-net-wp8.3.8.5\build\windowsphone8\sqlite-net-wp8.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
 </Project>

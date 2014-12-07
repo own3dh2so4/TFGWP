@@ -21,8 +21,10 @@
         <!--Creamos el objeto de tipo MensajeTablonViewModel que vamos a observar-->
         <!--<vm:MensajesTablonViewModel x:Key="ViewModelTablon" />-->
         <!--Definimos un template para mostrar los mensajes del tablon.-->
+        <valueConverter:CacheImageFileConverter x:Key="ImageCache" />
         <valueConverter:UnixTimeToStringConverter x:Key="DateToStringConvert"  />
         <valueConverter:BoolToHeart x:Key="BoolToHeart"  />
+        
         <DataTemplate x:Key="MensajesTablonDataTemplate">
             <StackPanel>
                 <Grid>
@@ -36,10 +38,11 @@
                         </Ellipse.Fill>
                     </Ellipse>-->
 
-                    <Image MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5">
-                        <Image.Source>
+                    <Image MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5"
+                           Source="{Binding foto, Converter={StaticResource ImageCache}}">
+                        <!--<Image.Source>
                             <BitmapImage UriSource="{Binding foto}" CreateOptions="BackgroundCreation"/>
-                        </Image.Source>
+                        </Image.Source>-->
 
                         <Image.OpacityMask>
                             <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
