@@ -22,7 +22,7 @@ namespace PrTab.View.convert
 {
     public class CacheImageFileConverter : IValueConverter
     {
-        
+        private static CDB_CacheImagen bdCache = new CDB_CacheImagen();
         private static IsolatedStorageFile _storage = IsolatedStorageFile.GetUserStoreForApplication();
         private const string imageStorageFolder = "TempImages";
 
@@ -30,9 +30,10 @@ namespace PrTab.View.convert
         {
             string path = value as string;
             if (String.IsNullOrEmpty(path)) return null;
-            string unixTime = "tiempo";
-            string unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds+"";
-            Uri imageFileUri = new Uri(path + "?" + unixTime + "=" + unixTimestamp);
+            //string unixTime = "tiempo";
+            //string unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds+"";
+            //Uri imageFileUri = new Uri(path + "?" + unixTime + "=" + unixTimestamp);
+            Uri imageFileUri = new Uri(path);
             ConnectionProfile InternetConnectionProfile;
             InternetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
             if (imageFileUri.Scheme == "http" || imageFileUri.Scheme == "https")
@@ -93,6 +94,9 @@ namespace PrTab.View.convert
                 }
                 else
                 {
+                    string unixTime = "tiempo";
+                    string unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+                    Uri path = new Uri(imageFileUri.ToString() + "?" + unixTime + "=" + unixTimestamp);
                     WebClient m_webClient = new WebClient();
                     m_webClient.OpenReadCompleted += (o, e) =>
                     {
@@ -100,8 +104,9 @@ namespace PrTab.View.convert
                         CacheImageFileConverter.WriteToIsolatedStorage(IsolatedStorageFile.GetUserStoreForApplication(), e.Result, CacheImageFileConverter.GetFileNameInIsolatedStorage(imageFileUri));
                         bm.SetSource(e.Result);
                         e.Result.Close();
+                        bdCache.insert(a.cache);
                     };
-                    m_webClient.OpenReadAsync(imageFileUri);
+                    m_webClient.OpenReadAsync(path);
 
                 }
             };
@@ -188,8 +193,12 @@ namespace PrTab.View.convert
             //    e.Result.Close();
             //};
             bool fs = false;
+            string unixTime = "tiempo";
+            string unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            Uri path = new Uri(imageFileUri.ToString() + "?" + unixTime + "=" + unixTimestamp);
 
-            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(imageFileUri);
+
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(path);
             webRequest.Method = "HEAD";
             HttpWebResponse webResponse = ((HttpWebResponse)await webRequest.GetResponseAsync());
             var fechaUltimaMod = webResponse.Headers["Last-Modified"];
@@ -218,7 +227,7 @@ namespace PrTab.View.convert
             webResponse.Close();
             if (fotoCargada!=null)
             {
-                fotoCargada(this, new FotoCargardaEventArgs(fs));
+                fotoCargada(this, new FotoCargardaEventArgs(fs, cache));
             }
         }
     }
@@ -227,11 +236,13 @@ namespace PrTab.View.convert
     {
         //public BitmapImage bitmap { get; set; }
         public bool fromServer;
+        public CacheImagen cache;
 
-        public FotoCargardaEventArgs( bool s)
+        public FotoCargardaEventArgs( bool s ,CacheImagen c)
         {
             //bitmap = a;
             fromServer = s;
+            cache = c;
         }
     }
 }
