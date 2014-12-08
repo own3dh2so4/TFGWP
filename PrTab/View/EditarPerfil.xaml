@@ -11,6 +11,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
@@ -27,23 +28,85 @@
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
-        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/> 
-                </Grid.ColumnDefinitions>
-                <Image x:Name="imagenPerfil" Grid.Column="0" MaxHeight="200" MaxWidth="200"/>
-                <Grid Grid.Column="1" Height="200">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Cambiar imagen " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" />
-                    <Button Grid.Row="1" Content="Seleccionar" x:Name="BotonCambiarImagen" Click="BotonCambiarImagen_Click" />
+        <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <StackPanel>          
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/> 
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="imagenPerfil" Grid.Column="0" MaxHeight="200" MaxWidth="200"/>
+                    <Grid Grid.Column="1" Height="200">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Cambiar imagen " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" />
+                        <Button Grid.Row="1" Content="Seleccionar" x:Name="BotonCambiarImagen" Click="BotonCambiarImagen_Click" />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Contraseña" FontSize="36"/>
+                    <TextBox Grid.Column="1" x:Name="NuevaContraseña"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Provincia" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemProvincias" SelectionChanged="ListPicker_ProvicniaSeleccionada" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Universidad" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemUniversidad" SelectionChanged="ListPicker_UniversidadSeleccionada"  IsEnabled="False">
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Facultad" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemFacultades" SelectionChanged="ListPicker_FacultadSeleccionada" IsEnabled="False" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <TextBlock Text="Por motivos de seguridad, para poder cambiar tus datos te pedimos tu antigua contraseña" TextWrapping="Wrap"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Contraseña" FontSize="36"/>
+                    <TextBox Grid.Column="1" x:Name="AntiguaContraseña"/>
+                </Grid>
+                <Button Margin="10" Content="Cambiar" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 
 </phone:PhoneApplicationPage>

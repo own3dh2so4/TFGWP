@@ -116,7 +116,10 @@ namespace PrTab.Model.Comunicacion
         const string parametro_changepasswordNewPassword = "newpass";
 
 
-        const string changefaculty = "";
+        const string changefaculty = "changefaculty";
+        const string parametro_changefacultyToken = "token";
+        const string parametro_changefacultyPass = "pass";
+        const string parametro_changefacultyIdFaculty = "idnewfaculty";
 
 
         const string updatemensajes = "updatemessages";
@@ -139,7 +142,14 @@ namespace PrTab.Model.Comunicacion
             return await client.GetStringAsync(url.getUri());
         }
 
-
+        public static async Task<string> cambiarFacultad(string token, string pass, string idFaculty)
+        {
+            Uri_Get url = new Uri_Get(baseURL + changefaculty);
+            url.GetData(parametro_changepasswordToken, token);
+            url.GetData(parametro_changefacultyPass, pass);
+            url.GetData(parametro_changefacultyIdFaculty, idFaculty);
+            return await client.GetStringAsync(url.getUri());
+        }
 
         public static async Task<string> cambiarContraseña(string token, string oldPassword, string newPassword)
         {

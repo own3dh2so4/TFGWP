@@ -16,6 +16,7 @@ using Windows.Storage.Pickers;
 using System.Threading.Tasks;
 using PrTab.Model.Comunicacion;
 using PrTab.Utiles;
+using PrTab.Model.Modelo;
 
 namespace PrTab.View
 {
@@ -24,6 +25,15 @@ namespace PrTab.View
         PhotoChooserTask photoChooserTask;
         string fileName = "perfil.jpg";
         string folderName = "fotos";
+
+
+        private List<Provincia> provincias = new List<Provincia>();
+        private List<Universidad> universidades = new List<Universidad>();
+        private List<Facultad> facultades = new List<Facultad>();
+
+        private int id_provincia = 0;
+        private int id_universidad = 0;
+        private int id_facultad = 0;
 
         public EditarPerfil()
         {
@@ -36,9 +46,15 @@ namespace PrTab.View
             this.Loaded += Inicilizar;
         }
 
-        private void Inicilizar(object sender, RoutedEventArgs e)
+        private async void Inicilizar(object sender, RoutedEventArgs e)
         {
-            ponerFoto();            
+            ponerFoto();
+            ListItemProvincias.Items.Add("");
+            provincias = await Comunicacion.getProvicias();
+            foreach (var provincia in provincias)
+            {
+                ListItemProvincias.Items.Add(provincia.nombre);
+            }
         }
 
         private void photoChooserTask_Completed(object sender, PhotoResult e)
@@ -125,6 +141,21 @@ namespace PrTab.View
                 return true;
             }
             return false;
+        }
+
+        private void ListPicker_ProvicniaSeleccionada(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListPicker_UniversidadSeleccionada(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListPicker_FacultadSeleccionada(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
     }

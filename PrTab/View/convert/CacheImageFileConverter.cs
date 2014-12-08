@@ -22,7 +22,7 @@ namespace PrTab.View.convert
 {
     public class CacheImageFileConverter : IValueConverter
     {
-        private static CDB_CacheImagen bdCache = new CDB_CacheImagen();
+        
         private static IsolatedStorageFile _storage = IsolatedStorageFile.GetUserStoreForApplication();
         private const string imageStorageFolder = "TempImages";
 
@@ -30,7 +30,9 @@ namespace PrTab.View.convert
         {
             string path = value as string;
             if (String.IsNullOrEmpty(path)) return null;
-            Uri imageFileUri = new Uri(path);
+            string unixTime = "tiempo";
+            string unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds+"";
+            Uri imageFileUri = new Uri(path + "?" + unixTime + "=" + unixTimestamp);
             ConnectionProfile InternetConnectionProfile;
             InternetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
             if (imageFileUri.Scheme == "http" || imageFileUri.Scheme == "https")
@@ -74,47 +76,45 @@ namespace PrTab.View.convert
             }
         }
 
-        private async static Task<object> DownloadFromWeb(Uri imageFileUri)
+        private static object DownloadFromWeb(Uri imageFileUri)
         {
-            WebClient m_webClient = new WebClient();                                //Load from internet
+                                          //Load from internet
             BitmapImage bm = new BitmapImage();
-
-            m_webClient.OpenReadCompleted += (o, e) =>
+            CarrgarFromServer carga = new CarrgarFromServer();
+            carga.fotoCargada += (s, a) =>
             {
-                if (e.Error != null || e.Cancelled) return;
-                WriteToIsolatedStorage(IsolatedStorageFile.GetUserStoreForApplication(), e.Result, GetFileNameInIsolatedStorage(imageFileUri));
-                bm.SetSource(e.Result);
-                e.Result.Close();
-            };
-
-            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(imageFileUri);
-            webRequest.Method="HEAD";
-            HttpWebResponse webResponse = ((HttpWebResponse)await webRequest.GetResponseAsync());
-            var fechaUltimaMod = webResponse.Headers["Last-Modified"];
-            CacheImagen cache = new CacheImagen(imageFileUri.ToString(), fechaUltimaMod.ToString());
-            CacheImagen accesBDCache = bdCache.getCacheImage(cache.url);
-            if (accesBDCache!=null)
-            {
-                if (cache.date==accesBDCache.date)
+                if (!a.fromServer)
                 {
-                    return ExtractFromLocalStorage(imageFileUri);
+                    string isolatedStoragePath = GetFileNameInIsolatedStorage(imageFileUri);       //Load from local storage
+                    using (var sourceFile = _storage.OpenFile(isolatedStoragePath, FileMode.Open, FileAccess.Read))
+                    {                       
+                        bm.SetSource(sourceFile);
+                    }
                 }
                 else
                 {
-                    bdCache.insert(cache);
+                    WebClient m_webClient = new WebClient();
+                    m_webClient.OpenReadCompleted += (o, e) =>
+                    {
+                        if (e.Error != null || e.Cancelled) return;
+                        CacheImageFileConverter.WriteToIsolatedStorage(IsolatedStorageFile.GetUserStoreForApplication(), e.Result, CacheImageFileConverter.GetFileNameInIsolatedStorage(imageFileUri));
+                        bm.SetSource(e.Result);
+                        e.Result.Close();
+                    };
                     m_webClient.OpenReadAsync(imageFileUri);
+
                 }
-            }
-            else
-            {
-                bdCache.insert(cache);
-                m_webClient.OpenReadAsync(imageFileUri);
-            }
-            webResponse.Close();
+            };
+
+            carga.getImageFromServer(imageFileUri);
+
+           
             return bm;
         }
 
-        private static object ExtractFromLocalStorage(Uri imageFileUri)
+        
+
+        public static object ExtractFromLocalStorage(Uri imageFileUri)
         {
             string isolatedStoragePath = GetFileNameInIsolatedStorage(imageFileUri);       //Load from local storage
             using (var sourceFile = _storage.OpenFile(isolatedStoragePath, FileMode.Open, FileAccess.Read))
@@ -130,7 +130,7 @@ namespace PrTab.View.convert
             throw new NotImplementedException();
         }
 
-        private static void WriteToIsolatedStorage(IsolatedStorageFile storage, System.IO.Stream inputStream, string fileName)
+        public static void WriteToIsolatedStorage(IsolatedStorageFile storage, System.IO.Stream inputStream, string fileName)
         {
             IsolatedStorageFileStream outputStream = null;
             try
@@ -144,7 +144,7 @@ namespace PrTab.View.convert
                     storage.DeleteFile(fileName);
                 }
                 outputStream = storage.CreateFile(fileName);
-                byte[] buffer = new byte[32768];
+                byte[] buffer = new byte[inputStream.Length];
                 int read;
                 while ((read = inputStream.Read(buffer, 0, buffer.Length)) > 0)
                 {
@@ -169,5 +169,69 @@ namespace PrTab.View.convert
             return imageStorageFolder + "\\" + uri.AbsoluteUri.GetHashCode() + ".png";
         }
 
+    }
+
+    class CarrgarFromServer
+    {
+        public EventHandler<FotoCargardaEventArgs> fotoCargada;
+        private static CDB_CacheImagen bdCache = new CDB_CacheImagen();
+
+        public async void getImageFromServer(Uri imageFileUri)
+        {
+            //BitmapImage bm = new BitmapImage();
+            //WebClient m_webClient = new WebClient();
+            //m_webClient.OpenReadCompleted += (o, e) =>
+            //{
+            //    if (e.Error != null || e.Cancelled) return;
+            //    CacheImageFileConverter.WriteToIsolatedStorage(IsolatedStorageFile.GetUserStoreForApplication(), e.Result, CacheImageFileConverter.GetFileNameInIsolatedStorage(imageFileUri));
+            //    bm.SetSource(e.Result);
+            //    e.Result.Close();
+            //};
+            bool fs = false;
+
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(imageFileUri);
+            webRequest.Method = "HEAD";
+            HttpWebResponse webResponse = ((HttpWebResponse)await webRequest.GetResponseAsync());
+            var fechaUltimaMod = webResponse.Headers["Last-Modified"];
+            CacheImagen cache = new CacheImagen(imageFileUri.ToString(), fechaUltimaMod.ToString());
+            CacheImagen accesBDCache = bdCache.getCacheImage(cache.url);
+            if (accesBDCache != null)
+            {
+                if (cache.date == accesBDCache.date)
+                {
+                    //bm = (BitmapImage)CacheImageFileConverter.ExtractFromLocalStorage(imageFileUri);
+                    fs = false;
+                }
+                else
+                {
+                    //bdCache.insert(cache);
+                    //m_webClient.OpenReadAsync(imageFileUri);
+                    fs = true;
+                }
+            }
+            else
+            {
+                //bdCache.insert(cache);
+                //m_webClient.OpenReadAsync(imageFileUri);
+                fs = true;
+            }
+            webResponse.Close();
+            if (fotoCargada!=null)
+            {
+                fotoCargada(this, new FotoCargardaEventArgs(fs));
+            }
+        }
+    }
+
+    class FotoCargardaEventArgs : EventArgs
+    {
+        //public BitmapImage bitmap { get; set; }
+        public bool fromServer;
+
+        public FotoCargardaEventArgs( bool s)
+        {
+            //bitmap = a;
+            fromServer = s;
+        }
     }
 }
