@@ -15,6 +15,37 @@ namespace PrTab.Model.Comunicacion
     public static class Comunicacion_Usuario
     {
 
+
+        public static async Task<bool> CambiarContraseña(string antiguaPass, string nuevaPass)
+        {
+            string result = await Comunicacion.cambiarContraseña(AplicationSettings.getToken(), antiguaPass, nuevaPass);
+            JObject o = JObject.Parse(result);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                return true;
+            }
+            else
+            {
+                AplicationSettings.setErrorServer((string)o.SelectToken("error_msg"));
+                return false;
+            }
+        }
+
+        public static async Task<bool> CambiarFacultad(string idFacultad, string pass)
+        {
+            string result = await Comunicacion.cambiarFacultad(AplicationSettings.getToken(), pass, idFacultad );
+            JObject o = JObject.Parse(result);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                return true;
+            }
+            else
+            {
+                AplicationSettings.setErrorServer((string)o.SelectToken("error_msg"));
+                return false;
+            }
+        }
+
         public static async Task<bool> LoguearUsuario (string usuario, string contraseña)
         {            
             string result = await Comunicacion.loguearUsuario(usuario, contraseña);
@@ -123,8 +154,7 @@ namespace PrTab.Model.Comunicacion
                 }
 
                 //Guardamos el token
-                AplicationSettings.setToken((string)(o.SelectToken("token").SelectToken("token")));
-                
+                AplicationSettings.setToken((string)(o.SelectToken("token").SelectToken("token")));                
         }
     }
 }

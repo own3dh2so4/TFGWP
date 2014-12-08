@@ -1,17 +1,17 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="PrTab.View.EditarPerfil"
+    x:Class="PrTab.View.EditarPerfilDatosPersonales"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
-    
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
@@ -23,8 +23,8 @@
 
         <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MI PERFIL" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="editar perfil" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            
+            <TextBlock Text="Cambiar datos" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
@@ -34,24 +34,10 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Image x:Name="imagenPerfil" Grid.Column="0" MaxHeight="200" MaxWidth="200"/>
-                <Grid Grid.Column="1" Height="200">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Cambiar imagen " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" />
-                    <Button Grid.Row="1" Content="Seleccionar" x:Name="BotonCambiarImagen" Click="BotonCambiarImagen_Click" />
-                </Grid>
+                <TextBlock Text="Contraseña" Grid.Column="0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <PasswordBox x:Name="NuevaContraseña" Grid.Column="1"/>
             </Grid>
-            <!--<Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Contraseña" FontSize="36"/>
-                <PasswordBox Grid.Column="1" x:Name="NuevaContraseña"/>
-            </Grid>
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -103,8 +89,7 @@
                 <TextBlock Text="Contraseña" FontSize="36"/>
                 <PasswordBox Grid.Column="1" x:Name="AntiguaContraseña"/>
             </Grid>
-            <Button Margin="10" Content="Cambiar" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_Click"/>-->
-            <Button Content="Cambiar Datos Personales" Click="Button_Click" />
+            <Button Margin="10" Content="Cambiar" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 

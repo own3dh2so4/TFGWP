@@ -160,6 +160,9 @@
     <Compile Include="View\EditarPerfil.xaml.cs">
       <DependentUpon>EditarPerfil.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditarPerfilDatosPersonales.xaml.cs">
+      <DependentUpon>EditarPerfilDatosPersonales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EvaluacionExamen.xaml.cs">
       <DependentUpon>EvaluacionExamen.xaml</DependentUpon>
     </Compile>
@@ -215,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditarPerfil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditarPerfilDatosPersonales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
