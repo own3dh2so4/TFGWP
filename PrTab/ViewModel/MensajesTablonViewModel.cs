@@ -152,6 +152,18 @@ namespace PrTab.ViewModel
                 servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
                 //Hacer lo que sea cuando toque
                 //En caso de poner el numero de likes a los corazones hacerlo aqui.
+                foreach(var m in a.mensajes)
+                {
+                    if (m.deleted)
+                    {
+                        for (int i = 0; i < mensajes.Count; i++)
+                        {
+                            if (m.id == mensajes[i].identificador)
+                                mensajes.RemoveAt(i);
+                        }
+                    }
+                        
+                }
                 
             };
 

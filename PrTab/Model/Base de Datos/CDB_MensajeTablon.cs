@@ -38,7 +38,10 @@ namespace PrTab.Model.Base_de_Datos
 
         public MensajeTablon getForId(string idMessage)
         {
-            return dbConn.Query<MensajeTablon>("select * from MensajeTablon where identificador = " + idMessage + ";")[0];
+            var mensajes = dbConn.Query<MensajeTablon>("select * from MensajeTablon where identificador = " + idMessage + ";");
+            if (mensajes.Count>0)
+                return mensajes[0];
+            return null;
         }
 
         public void updateMessage(MensajeTablon m)

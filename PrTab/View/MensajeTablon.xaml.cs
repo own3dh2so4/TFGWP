@@ -71,6 +71,10 @@ namespace PrTab.View
             base.OnNavigatedTo(e);
             CDB_MensajeTablon BDMensajes = new CDB_MensajeTablon();
             mensaje = BDMensajes.getForId(NavigationContext.QueryString["idMessage"]);
+            if (mensaje==null)
+            {
+                MessageBox.Show("El mensaje que estas intentando acceder ha sido borrado");
+            }
         }
 
 
