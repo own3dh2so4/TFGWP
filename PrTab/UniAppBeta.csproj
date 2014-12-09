@@ -326,6 +326,7 @@
     <Content Include="View\fotos\foto.jpg" />
     <Content Include="View\fotos\tablon_sinfondo.png" />
     <Content Include="View\icons\appbar.delete.png" />
+    <Content Include="View\icons\appbar.delete.white.png" />
     <Content Include="View\icons\heart.red.png" />
     <Content Include="View\icons\heart.white.png" />
     <Content Include="View\icons\appbar.message.smiley.png" />

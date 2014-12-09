@@ -21,7 +21,10 @@ namespace PrTab.View.convert
             int valor = unixTimestamp - messageTime;
             valor = valor / 60;
             if (valor < 60)
+            {
+                if (valor < 0) valor = 0;
                 ret = "Enviado hace " + valor + " min";
+            }
             else
             {
                 valor = valor / 60;

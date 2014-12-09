@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using PrTab.Model.Base_de_Datos;
 using PrTab.Model.Comunicacion;
+using PrTab.Utiles;
 
 namespace PrTab.View
 {
@@ -57,6 +58,11 @@ namespace PrTab.View
                 bi3.UriSource = new Uri("icons/heart.white.png", UriKind.Relative);
                 imagenFav.Stretch = Stretch.Fill;
                 imagenFav.Source = bi3;
+            }
+
+            if(mensaje.identificadorUsuario+"" == AplicationSettings.getIdUsuario())
+            {
+                BotonBorrar.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -141,6 +147,18 @@ namespace PrTab.View
 
            servicioMensajes.favMesajeTablon(mensaje);
         }
+
+        private async void BotonBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            Comunicacion_MensajesTablon cmt = new Comunicacion_MensajesTablon();
+            var borrado = await cmt.borrarMensaje(mensaje.identificador + "");
+            if(borrado)
+            {
+                TextoMensajeBorrado.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+        
+
 
 
     }

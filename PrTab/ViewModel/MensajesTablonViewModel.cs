@@ -125,25 +125,34 @@ namespace PrTab.ViewModel
             mensajes = new ObservableCollection<MensajeTablon>();
             servicioMensajes.getMensajesTablonCompletado += (s, a) =>
             {
-                //mensajes = new ObservableCollection<MensajeTablon>(a.mensajes);
-                insertarNuevosMensajes(a.mensajes);
+                //mensajes = new ObservableCollection<MensajeTablon>(a.mensajes);                
                 //if (a.mensajes.Count > 0)
-                //    servicioMensajes.updateMensajesTablon(a.mensajes[a.mensajes.Count - 1].identificador, a.mensajes[0].identificador, a.mensajes[0].identificadorTablon);
-                servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
+                //    servicioMensajes.updateMensajesTablon(a.mensajes[a.mensajes.Count - 1].identificador, a.mensajes[0].identificador, a.mensajes[0].identificadorTablon);                
                 //this.OnPropertyChanged("Mensajes");
+
+
+                insertarNuevosMensajes(a.mensajes);
+                //servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
+                if (mensajes.Count > 0)
+                    servicioMensajes.updateMensajesTablon(mensajes[mensajes.Count - 1].identificador, mensajes[0].identificador, mensajes[0].identificadorTablon);
+                this.OnPropertyChanged("Mensajes");
+
             };
 
             servicioMensajes.getMensajesTablonServerCompletado += (s, a) =>
             {
-                if (mensajes.Count > 0)
-                    servicioMensajes.updateMensajesTablon(mensajes[mensajes.Count - 1].identificador, mensajes[0].identificador, mensajes[0].identificadorTablon);
+                //if (mensajes.Count > 0)
+                    //servicioMensajes.updateMensajesTablon(mensajes[mensajes.Count - 1].identificador, mensajes[0].identificador, mensajes[0].identificadorTablon);
                 insertarNuevosMensajes(a.mensajes);
                 this.OnPropertyChanged("Mensajes");
             };
 
             servicioMensajes.updateMensajesTablonCompletado += (s, a) =>
             {
+                servicioMensajes.getMensajesTablonFromServer(AplicationSettings.getIdTablonMensajes());
                 //Hacer lo que sea cuando toque
+                //En caso de poner el numero de likes a los corazones hacerlo aqui.
+                
             };
 
             visibilidadMensaje =  Visibility.Collapsed;

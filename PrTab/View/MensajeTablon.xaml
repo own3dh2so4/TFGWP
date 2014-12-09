@@ -64,11 +64,15 @@
                 <Grid Grid.Row="1">
                     <TextBlock x:Name="MensajeUsuario" Text="Mensaje" FontSize="48" Margin="10" TextWrapping="Wrap"/>
                 </Grid>
-
             </Grid>
        </Border>
         <TextBlock x:Name="fecha" Grid.Row="1" Text="Fecha asdsadasd" HorizontalAlignment="Right" Foreground="#FF7A7676" />
-
+        <Grid Grid.Row="2" >
+            <TextBlock x:Name="TextoMensajeBorrado" Visibility="Collapsed" TextWrapping="Wrap" Text="Este mensaje ha sido borrado." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            <Button x:Name="BotonBorrar" Visibility="Collapsed" MaxHeight="100" MaxWidth="100" MinHeight="100" MinWidth="100" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Click="BotonBorrar_Click" >
+                <Image MaxHeight="100" MaxWidth="100" Source="icons/appbar.delete.white.png"></Image>
+            </Button>
+        </Grid>
     </Grid>
 
 </phone:PhoneApplicationPage>

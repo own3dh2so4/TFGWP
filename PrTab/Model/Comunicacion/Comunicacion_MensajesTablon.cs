@@ -172,8 +172,17 @@ namespace PrTab.Model.Comunicacion
                 dataBase.updateMessage(message);
                 return true;
             }
-                
+            return false;
+        }
 
+        public async Task<bool> borrarMensaje(string idMensaje)
+        {
+            string response = await Comunicacion.deleteMensaje(AplicationSettings.getToken(), idMensaje);
+            JObject json = JObject.Parse(response);
+            if((string)json.SelectToken("error")=="200")
+            {
+                return true;
+            }
             return false;
         }
     }

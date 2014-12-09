@@ -89,14 +89,14 @@ namespace PrTab.Model.Comunicacion
         const string parametro_sendResultQuestions = "questions";
         const string parametro_sendResultaTime = "time";
 
-        const string addfavsubject = "addfavsubject";
+        const string addfavsubject = "togglefavsubject";
         const string parametro_addfavsubjectToken = "token";
         const string parametro_addfavsubjectIdSubject = "idsubject";
 
         const string getfavsubjects = "getfavsubjects";
         const string parametro_getfavsubjectsToken = "token";
 
-        const string deletefavsubject = "removefavsubject";
+        const string deletefavsubject = "togglefavsubject";
         const string parametro_deletefavsubjectToken = "token";
         const string parametro_deletefavsubjectIdSubject = "idsubject";
 
@@ -127,6 +127,19 @@ namespace PrTab.Model.Comunicacion
         const string parametro_updateMensajesInit = "idmsgstart";
         const string parametro_updateMensajesEnd = "idmsgend";
         const string parametro_updateMensajesIdFaculty = "idfaculty";
+
+        const string deletemessage = "deletemessage";
+        const string parametro_deleteMessageToken = "token";
+        const string parametro_deleteMessageIdMessage = "idmessage";
+
+
+        public static async Task<string> deleteMensaje(string token, string idMensaje)
+        {
+            Uri_Get url = new Uri_Get(baseURL + deletemessage);
+            url.GetData(parametro_deleteMessageToken, token);
+            url.GetData(parametro_deleteMessageIdMessage, idMensaje);
+            return await client.GetStringAsync(url.getUri());
+        }
 
 
         public static async Task<string> updateMessages(string token, string idInit, string idEnd, string idFaculty)
