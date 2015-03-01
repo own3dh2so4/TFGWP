@@ -89,16 +89,16 @@ namespace PrTab.Model.Comunicacion
         const string parametro_sendResultQuestions = "questions";
         const string parametro_sendResultaTime = "time";
 
-        const string addfavsubject = "togglefavsubject";
+        const string addfavsubject = "favoritesubject";
         const string parametro_addfavsubjectToken = "token";
-        const string parametro_addfavsubjectIdSubject = "idsubject";
+        const string parametro_addfavsubjectIdSubject = "subject";
 
         const string getfavsubjects = "getfavsubjects";
         const string parametro_getfavsubjectsToken = "token";
 
-        const string deletefavsubject = "togglefavsubject";
+        const string deletefavsubject = "favoritesubject";
         const string parametro_deletefavsubjectToken = "token";
-        const string parametro_deletefavsubjectIdSubject = "idsubject";
+        const string parametro_deletefavsubjectIdSubject = "subject";
 
 
         const string sendImage = "uploadimageuser";
@@ -218,7 +218,8 @@ namespace PrTab.Model.Comunicacion
             //Evitar cache
             unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
-            return await client.GetStringAsync(url.getUri());
+            string posion = await client.GetStringAsync(url.getUri());
+            return posion;
         }
 
         public static async Task<string> sendResults(string token, string idTest, string questionsJSon, string time)

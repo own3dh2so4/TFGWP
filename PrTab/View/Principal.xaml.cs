@@ -48,6 +48,7 @@ namespace PrTab
         {
             _viewModelTablonMensaje = new MensajesTablonViewModel();
             GridMensajes.DataContext = _viewModelTablonMensaje;
+            _viewModelTablonMensaje.CargarMensajesTablon();
         }
 
 
