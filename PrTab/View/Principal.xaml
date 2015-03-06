@@ -205,10 +205,26 @@
                         <TextBlock Text="    Chat" FontSize="48" />
                     </Grid>
                 </phone:PivotItem.Header>
-                <StackPanel >
-                    <TextBlock Text="Pestaña2" />
-                    <Button x:Name="destrucion" Content="Salir" Click="destrucion_Click"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer x:Name="ScrollViewer" Grid.Row="0" Background="Red">
+                        <StackPanel x:Name="chat" >
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="Mensaje" ></TextBox>
+                        <Button Grid.Column="1" x:Name="Mandar" Click="Mandar_Click"></Button>
+                    </Grid>
+                </Grid>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}"  >
                 <phone:PivotItem.Header>

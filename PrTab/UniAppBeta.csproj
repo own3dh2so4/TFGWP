@@ -120,6 +120,8 @@
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
     <Compile Include="Model\Modelo\Asignatura.cs" />
     <Compile Include="Model\Modelo\CacheImagen.cs" />
+    <Compile Include="Model\Modelo\ChatMensaje.cs" />
+    <Compile Include="Model\Modelo\ChatRegister.cs" />
     <Compile Include="Model\Modelo\ExamenEventArgs.cs" />
     <Compile Include="Model\Modelo\Facultad.cs" />
     <Compile Include="Model\Modelo\MensajesTablonEventArgs.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Model\Modelo\UpdateMensajesEventArgs.cs" />
     <Compile Include="Model\Modelo\UpdateMensajeTablon.cs" />
     <Compile Include="Utiles\DeviceInfoHelper.cs" />
+    <Compile Include="Utiles\SocketClient.cs" />
     <Compile Include="Utiles\Uri_Get.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
