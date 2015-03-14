@@ -205,7 +205,7 @@
                         <TextBlock Text="    Chat" FontSize="48" />
                     </Grid>
                 </phone:PivotItem.Header>
-                <Grid>
+                <!--<Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="*"/>
@@ -223,6 +223,18 @@
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="Mensaje" ></TextBox>
                         <Button Grid.Column="1" x:Name="Mandar" Click="Mandar_Click"></Button>
+                    </Grid>
+                </Grid>-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ScrollViewer x:Name="ScrollViewer" Grid.Row="0" >
+                        <StackPanel x:Name="Chats"/>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Button>añadir</Button>
                     </Grid>
                 </Grid>
             </phone:PivotItem>

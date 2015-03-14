@@ -19,6 +19,8 @@ using PrTab.Utiles;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using System.Windows.Shapes;
+using PrTab.ComunicacionChat;
+using PrTab.Model.ComunicacionChat;
 
 namespace PrTab
 {
@@ -32,18 +34,21 @@ namespace PrTab
         /**
             Conexion al chat
         **/
-        const string dir = "192.168.0.2";
-        const int port = 8000;
-        SocketClient client = new SocketClient();
-        ChatMensaje newMsg = new ChatMensaje();
+        //const string dir = "192.168.0.2";
+        //const string dir = "178.62.194.33";
+        //const int port = 8000;
+        //SocketClient client = new SocketClient();
+        //ChatMensaje newMsg = new ChatMensaje();
         
-        private BackgroundWorker bw = new BackgroundWorker();
+        //private BackgroundWorker bw = new BackgroundWorker();
 
         MensajesTablonViewModel _viewModelTablonMensaje;
 
         private Button botonAmor;
 
         private bool botonFavPulsado = false;
+
+        private HiloChat hilo = HiloChat.getInstance();
 
         // Constructor
         public MainPage()
@@ -55,11 +60,47 @@ namespace PrTab
 
             // Código de ejemplo para traducir ApplicationBar
             //BuildLocalizedApplicationBar();
-            inicializaElHilo();
-            conectWithServer();
+            //inicializaElHilo();
+            //conectWithServer();
+            InicializaChats();
         }
 
-        public void conectWithServer()
+        private void InicializaChats()
+        {
+            var rooms = hilo.getRooms();
+            foreach (var r in rooms)
+            {
+                anadirSalas(r);
+            }
+        }
+
+        private void anadirSalas(string text)
+        {
+            Grid fondo = new Grid();
+            fondo.Height = 100;
+
+            SolidColorBrush yellowBrush = new SolidColorBrush();
+            yellowBrush.Color = Colors.Yellow;
+            SolidColorBrush blackBrush = new SolidColorBrush();
+            blackBrush.Color = Colors.Black;
+
+            fondo.Background = yellowBrush;
+
+            Button boton = new Button();
+            boton.Content = text;
+
+            boton.Foreground = blackBrush;
+
+            fondo.Children.Add(boton);
+            Chats.Children.Add(fondo);
+
+            boton.Click += (s, a) =>
+            {
+                NavigationService.Navigate(new Uri("/View/ChatRoom.xaml?room=" + text, UriKind.Relative));
+            };
+        }
+
+        /*public void conectWithServer()
         {
             string result = client.Connect(dir, port);
             if (result == "Success")
@@ -76,38 +117,38 @@ namespace PrTab
             }
             else
                 ponerMensaje(new ChatMensaje("Hay algun problema", "lalala", "System", 0), false);
-        }
+        }*/
 
-        public void inicializaElHilo()
+        /*public void inicializaElHilo()
         {
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-        }
+        }*/
 
-        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        /*private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             bool getMsg = false;
             while (worker.CancellationPending == false && !getMsg)
             {
                 /*string msg = client.Receive();
-                ponerMensaje(msg);*/
+                ponerMensaje(msg); AQUI COMENTAR
                 newMsg = client.Receive();
                 //if (newMsg != "Operation Timeout")
                 getMsg = true;
             }
-        }
+        }*/
 
-        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /*private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ponerMensaje(newMsg, false);
             if (!bw.IsBusy)
                 bw.RunWorkerAsync();
-        }
+        }*/
 
-        public void ponerMensaje(ChatMensaje mensaje, bool me)
+        /*public void ponerMensaje(ChatMensaje mensaje, bool me)
         {
             Grid panelTexto = new Grid();
             //panelTexto.Orientation = System.Windows.Controls.Orientation.Horizontal;
@@ -217,7 +258,7 @@ namespace PrTab
             ScrollViewer.UpdateLayout();
             ScrollViewer.ScrollToVerticalOffset(double.MaxValue);
 
-        }
+        }*/
 
         private void InicializarViewModel(object sender, RoutedEventArgs e)
         {
@@ -226,7 +267,7 @@ namespace PrTab
             _viewModelTablonMensaje.CargarMensajesTablon();
         }
 
-        private void Mandar_Click(object sender, RoutedEventArgs e)
+        /*private void Mandar_Click(object sender, RoutedEventArgs e)
         {
             if (Mensaje.Text != "")
             {
@@ -239,7 +280,7 @@ namespace PrTab
                 //if (!bw.IsBusy)
                 //bw.RunWorkerAsync();
             }
-        }
+        }*/
 
         
 

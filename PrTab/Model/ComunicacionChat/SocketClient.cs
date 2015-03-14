@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PrTab.Model.Modelo;
+using PrTab.Model.Modelo.ChatServer;
+using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PrTab.Utiles
+namespace PrTab.ComunicacionChat
 {
     class SocketClient
     {
@@ -85,14 +87,15 @@ namespace PrTab.Utiles
 
         public string Register()
         {
-            string response = "Operation Timeout";
+            string response = "Operation Timeout Register";
             char comunication = 'r';
 
             // We are re-using the _socket object initialized in the Connect method
             if (_socket != null)
             {
                 //Creo los credenciales del registro.
-                ChatRegister credenciales = new ChatRegister(AplicationSettings.getToken(), AplicationSettings.getIdUniversidadUsuario());
+                //ChatRegister credenciales = new ChatRegister(AplicationSettings.getToken(), AplicationSettings.getIdUniversidadUsuario());
+                MensajeMovilLogin credenciales = new MensajeMovilLogin(AplicationSettings.getToken(), AplicationSettings.getIdUniversidadUsuario());
 
                 //Paso la credencial a un string que tenga el JSON
                 string credencialesJSON = JsonConvert.SerializeObject(credenciales);
@@ -199,9 +202,9 @@ namespace PrTab.Utiles
         }
 
 
-        public string SendMessage(ChatMensaje data)
+        public string SendMessage(MensajeServerMensaje data)
         {
-            string response = "Operation Timeout";
+            string response = "Operation Timeout SendMessage";
             char comunication = 's';
 
             // We are re-using the _socket object initialized in the Connect method
@@ -257,13 +260,13 @@ namespace PrTab.Utiles
         /// Receive data from the server using the established socket connection
         /// </summary>
         /// <returns>The data received from the server</returns>
-        public ChatMensaje Receive()
+        public MensajeServer Receive()
         {
             //string response = "Operation Timeout";
             char comunication = 'r';
 
             //Creamos el mensaje que nos ha mandado el servidor
-            ChatMensaje msg = new ChatMensaje("Operation time out!","lala","SystemError",0);
+            MensajeServer msg = new MensajeServer("NoResponse");
 
             // We are receiving over an established socket connection
             if (_socket != null)
@@ -289,29 +292,27 @@ namespace PrTab.Utiles
                             respuesta = respuesta.Trim('\0');
                             //TODO: CONTINUAR AQUI.
                             JObject o = JObject.Parse(respuesta);
-                            if((string)o.SelectToken("error") == "201")
+                            if((string)o.SelectToken("type") == "message")
                             {
-                                msg = new ChatMensaje((string)o.SelectToken("message"),
+                                msg = new MensajeServerMensaje((string)o.SelectToken("message"),
                                                     (string)o.SelectToken("room"),
                                                     (string)o.SelectToken("name"),
                                                     Convert.ToInt32((string)o.SelectToken("user_id")));
                             }
-                            else if ((string)o.SelectToken("error") == "200")
+                            else if ((string)o.SelectToken("type") == "status")
                             {
-                                msg = new ChatMensaje("Tu estado ahora es: "+(string)o.SelectToken("state"),
-                                                    "room",
-                                                    "server",
-                                                    0);
+                                msg = new MensajeServerStatus((string)o.SelectToken("status"));
+                            }
+                            else if((string)o.SelectToken("type") == "error")
+                            {
+                                msg = new MensajeServerError((string)o.SelectToken("error_msg"));
                             }
 
                         }
                         else
                         {
                             //respuesta = e.SocketError.ToString();
-                            msg = new ChatMensaje(e.SocketError.ToString(),
-                                                    "room",
-                                                    "SystemRecivFail",
-                                                    0);
+                            msg = new MensajeServerError(e.SocketError.ToString());
                         }
 
                         _clientDone_recive.Set();
@@ -332,10 +333,11 @@ namespace PrTab.Utiles
             else
             {
                 //respuesta = "Socket is not initialized";
-                msg = new ChatMensaje("Socket is not initialized",
+                /*msg = new ChatMensaje("Socket is not initialized",
                                       "room",
                                       "SystemRecivFail",
-                                      0);
+                                      0);*/
+                msg = new MensajeServerError("Socket is not initialized");
             }
 
             //return respuesta;
