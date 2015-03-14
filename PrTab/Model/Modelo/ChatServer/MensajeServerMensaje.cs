@@ -10,12 +10,10 @@ namespace PrTab.Model.Modelo.ChatServer
     class MensajeServerMensaje : MensajeServer
     {
         [PrimaryKey]
+        public int pk{ get; set; }
         public string message { get; set; }
-        [PrimaryKey]
         public string room { get; set; }
-        [PrimaryKey]
         public string name { get; set; }
-        [PrimaryKey]
         public int userID { get; set; }
 
         public MensajeServerMensaje() { }
@@ -27,6 +25,7 @@ namespace PrTab.Model.Modelo.ChatServer
             this.name = name;
             this.userID = userID;
             type = "message";
+            pk = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
         }
     }
 }

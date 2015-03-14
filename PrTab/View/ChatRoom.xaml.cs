@@ -29,7 +29,7 @@ namespace PrTab.View
         public ChatRoom()
         {
             InitializeComponent();
-            inicializaRecepcion();
+            //inicializaRecepcion();
             
         }
 
@@ -86,6 +86,7 @@ namespace PrTab.View
             nombreSala.Text = "Sala: " + NavigationContext.QueryString["room"];
             sala = NavigationContext.QueryString["room"];
             cargarMensajes();
+            inicializaRecepcion();
             
         }
 
@@ -216,6 +217,14 @@ namespace PrTab.View
                 //bw.RunWorkerAsync();
             }
         }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            bw.CancelAsync();
+            NavigationService.GoBack();
+        }
+
+        
 
     }
 }

@@ -29,10 +29,11 @@ namespace PrTab.Model.Base_de_Datos
 
         public List<MensajeServerMensaje> getMessagesFromRoom(string room)
         {
-            var ret = dbConn.Query<MensajeServerMensaje>("select * from MensajeServerMensaje where room = "+ room);
+            var ret = dbConn.Query<MensajeServerMensaje>("select * from MensajeServerMensaje where room = '"+ room+"'");
             foreach (var b in ret)
             {
                 dbConn.Delete(b);
+                dbConn.Query<MensajeServerMensaje>("delete from MensajeServerMensaje where room = '" + room + "'");
             }
             return ret;
         }

@@ -65,6 +65,17 @@ namespace PrTab.Model.ComunicacionChat
         public bool sendMessage(MensajeServerMensaje m)
         {
             var ret = client.SendMessage(m);
+            if(ret == "Success")
+            {
+                salasConectado.Add(m.room);
+                return true;
+            }
+            return false;
+        }
+
+        public bool createRoom(string roomName)
+        {
+            var ret = client.SendRoom(new MensajeMovilRoom(roomName));
             return ret == "Success";
         }
 

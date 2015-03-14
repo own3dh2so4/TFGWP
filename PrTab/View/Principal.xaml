@@ -226,15 +226,44 @@
                     </Grid>
                 </Grid>-->
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="5*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <ScrollViewer x:Name="ScrollViewer" Grid.Row="0" >
-                        <StackPanel x:Name="Chats"/>
-                    </ScrollViewer>
-                    <Grid Grid.Row="1">
-                        <Button>añadir</Button>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ScrollViewer x:Name="ScrollViewer" Grid.Row="0" >
+                            <StackPanel x:Name="Chats"/>
+                        </ScrollViewer>
+                        <Grid Grid.Row="1">
+                            <Button Click="Button_Click_1">añadir</Button>
+                        </Grid>                        
+                    </Grid>
+                    <Grid x:Name="GridRoom" Visibility="Collapsed" Background="#7F808080">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Rectangle Margin="10" Height="auto" Width="auto" Fill="Black" MaxHeight="250" MaxWidth="450" />
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">Nueva sala:</TextBlock>
+                                <TextBox Grid.Row="1" x:Name="nombreNuevaSala" Margin="10,0,20,20"/>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="Aceptar" Grid.Column="0" x:Name="BotonNuevaSala" Margin="10,0,5,20" Click="BotonNuevaSala_Click"/>
+                                    <Button Content="Cancel" Grid.Column="1" x:Name="BotonCancelar" Margin="0,0,5,20" Click="BotonCancelar_Click"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </phone:PivotItem>

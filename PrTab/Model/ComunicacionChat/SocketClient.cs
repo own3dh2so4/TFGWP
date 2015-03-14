@@ -256,6 +256,60 @@ namespace PrTab.ComunicacionChat
             return response;
         }
 
+        public string SendRoom(MensajeMovilRoom data)
+        {
+            string response = "Operation Timeout SendMessage";
+            char comunication = 's';
+
+            // We are re-using the _socket object initialized in the Connect method
+            if (_socket != null)
+            {
+                // Create SocketAsyncEventArgs context object
+                SocketAsyncEventArgs socketEventArg = new SocketAsyncEventArgs();
+
+                // Set properties on context object
+                socketEventArg.RemoteEndPoint = _socket.RemoteEndPoint;
+                socketEventArg.UserToken = null;
+
+                // Inline event handler for the Completed event.
+                // Note: This event handler was implemented inline in order 
+                // to make this method self-contained.
+                socketEventArg.Completed += new EventHandler<SocketAsyncEventArgs>(delegate(object s, SocketAsyncEventArgs e)
+                {
+                    if (comunication == 's')
+                    {
+                        response = e.SocketError.ToString();
+
+                        // Unblock the UI thread
+                        _clientDone_send.Set();
+                    }
+                });
+
+                //Transformo el ChatMessage a JSON
+                string dataJSON = JsonConvert.SerializeObject(data);
+
+                // Add the data to be sent into the buffer
+                byte[] payload = Encoding.UTF8.GetBytes(dataJSON);
+                socketEventArg.SetBuffer(payload, 0, payload.Length);
+
+                // Sets the state of the event to nonsignaled, causing threads to block
+                _clientDone_send.Reset();
+
+                // Make an asynchronous Send request over the socket
+                _socket.SendAsync(socketEventArg);
+
+                // Block the UI thread for a maximum of TIMEOUT_MILLISECONDS milliseconds.
+                // If no response comes back within this time then proceed
+                _clientDone_send.WaitOne(TIMEOUT_MILLISECONDS);
+            }
+            else
+            {
+                response = "Socket is not initialized";
+            }
+
+            return response;
+        }
+
         /// <summary>
         /// Receive data from the server using the established socket connection
         /// </summary>

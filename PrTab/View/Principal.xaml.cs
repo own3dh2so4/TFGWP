@@ -426,6 +426,23 @@ namespace PrTab
             botonAmor = ((Button)sender);
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            GridRoom.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void BotonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            GridRoom.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void BotonNuevaSala_Click(object sender, RoutedEventArgs e)
+        {
+            GridRoom.Visibility = System.Windows.Visibility.Collapsed;
+            hilo.createRoom(nombreNuevaSala.Text);
+            anadirSalas(nombreNuevaSala.Text);
+        }
+
 
 
 
