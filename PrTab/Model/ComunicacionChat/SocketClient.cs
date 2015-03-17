@@ -345,21 +345,24 @@ namespace PrTab.ComunicacionChat
                             respuesta = Encoding.UTF8.GetString(e.Buffer, e.Offset, e.BytesTransferred);
                             respuesta = respuesta.Trim('\0');
                             //TODO: CONTINUAR AQUI.
-                            JObject o = JObject.Parse(respuesta);
-                            if((string)o.SelectToken("type") == "message")
+                            if (respuesta != "")
                             {
-                                msg = new MensajeServerMensaje((string)o.SelectToken("message"),
-                                                    (string)o.SelectToken("room"),
-                                                    (string)o.SelectToken("name"),
-                                                    Convert.ToInt32((string)o.SelectToken("user_id")));
-                            }
-                            else if ((string)o.SelectToken("type") == "status")
-                            {
-                                msg = new MensajeServerStatus((string)o.SelectToken("status"));
-                            }
-                            else if((string)o.SelectToken("type") == "error")
-                            {
-                                msg = new MensajeServerError((string)o.SelectToken("error_msg"));
+                                JObject o = JObject.Parse(respuesta);
+                                if ((string)o.SelectToken("type") == "message")
+                                {
+                                    msg = new MensajeServerMensaje((string)o.SelectToken("message"),
+                                                        (string)o.SelectToken("room"),
+                                                        (string)o.SelectToken("name"),
+                                                        Convert.ToInt32((string)o.SelectToken("user_id")));
+                                }
+                                else if ((string)o.SelectToken("type") == "status")
+                                {
+                                    msg = new MensajeServerStatus((string)o.SelectToken("status"));
+                                }
+                                else if ((string)o.SelectToken("type") == "error")
+                                {
+                                    msg = new MensajeServerError((string)o.SelectToken("error_msg"));
+                                }
                             }
 
                         }

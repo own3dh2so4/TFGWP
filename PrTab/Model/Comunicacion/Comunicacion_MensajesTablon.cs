@@ -138,15 +138,17 @@ namespace PrTab.Model.Comunicacion
                 JArray mensajeJArray = (JArray)json.SelectToken("data");
 
                 foreach (var mensajeJson in mensajeJArray)
-                    mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensajeJson.SelectToken("pk")),
-                        Convert.ToInt32((string)mensajeJson.SelectToken("usuario").SelectToken("pk")),
-                        AplicationSettings.getUsuario(),                                    
-                        mensaje,
-                        Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + "pic_image_" + (string)mensajeJson.SelectToken("usuario").SelectToken("pk") + ".jpg",
-                        Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")), 
-                        Convert.ToInt32(idFacultad),
-                        0,
-                        false));
+                {
+                        mensajesNuevos.Add(new MensajeTablon(Convert.ToInt32((string)mensajeJson.SelectToken("pk")),
+                            Convert.ToInt32((string)mensajeJson.SelectToken("usuario").SelectToken("pk")),
+                            (string)mensajeJson.SelectToken("usuario").SelectToken("username"),
+                            mensaje,
+                            Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + "pic_image_" + (string)mensajeJson.SelectToken("usuario").SelectToken("pk") + ".jpg",
+                            Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")),
+                            Convert.ToInt32(idFacultad),
+                            0,
+                            false));
+                }
 
                 //dbConn = new SQLiteConnection(DB_PATH);
                 //dbConn.InsertAll(mensajesNuevos);

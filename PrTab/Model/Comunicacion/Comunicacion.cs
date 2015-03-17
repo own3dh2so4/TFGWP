@@ -62,6 +62,7 @@ namespace PrTab.Model.Comunicacion
         const string parametro_postMensajeToken = "token";
         const string parametro_postMensajeMensaje = "message";
         const string parametro_postMensajeFacultad = "idfaculty";
+        const string parametro_postMensajeAnonimo = "anonymus";
 
         const string getMensajesTablon = "getmensajestablon";
         const string parametro_getMensajeToken = "token";
@@ -299,6 +300,10 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_postMensajeToken, token);
             url.GetData(parametro_postMensajeMensaje, mensaje);
             url.GetData(parametro_postMensajeFacultad, facultad);
+            if (AplicationSettings.GetAnonimo())
+                url.GetData(parametro_postMensajeAnonimo,"True");
+            else
+                url.GetData(parametro_postMensajeAnonimo, "False");
             //Evitar cache
             unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);

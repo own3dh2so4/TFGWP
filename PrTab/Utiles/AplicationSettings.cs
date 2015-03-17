@@ -33,6 +33,30 @@ namespace PrTab.Utiles
 
         const string idTestHaciendo = "TestID";
 
+        const string anonymus = "Anonymous";
+
+
+        public static void SetAnonimo(bool anoni)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(anonymus))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(anonymus);
+            }
+            if (anoni)
+                IsolatedStorageSettings.ApplicationSettings.Add(anonymus, "True");
+            else
+                IsolatedStorageSettings.ApplicationSettings.Add(anonymus, "False");
+        }
+
+        public static bool GetAnonimo()
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(anonymus))
+            {
+                return IsolatedStorageSettings.ApplicationSettings[anonymus].ToString() == "True";                   
+            }
+            return false;
+        }
+
         //Al logear un nuevo usuario y ser los datos correctos, estos se guardan en el movil
         //para no volver a pedirlos.
         public static void RegistrarUsuario(string usuario, string contraseña)

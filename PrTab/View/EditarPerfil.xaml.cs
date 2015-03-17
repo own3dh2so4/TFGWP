@@ -19,6 +19,7 @@ using PrTab.Utiles;
 using PrTab.Model.Modelo;
 using Windows.Web.Http;
 using Newtonsoft.Json.Linq;
+using System.Windows.Media;
 
 namespace PrTab.View
 {
@@ -59,6 +60,11 @@ namespace PrTab.View
             //    ListItemProvincias.Items.Add(provincia.nombre);
             //}
             await ponerFoto();
+            
+            if(AplicationSettings.GetAnonimo())
+            {
+                anonimo.Background = new SolidColorBrush(Colors.White);
+            }
         }
 
         private void photoChooserTask_Completed(object sender, PhotoResult e)
@@ -150,6 +156,24 @@ namespace PrTab.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/View/EditarPerfilDatosPersonales.xaml", UriKind.Relative));
+        }
+
+       
+
+   
+
+        private void anonimo_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (AplicationSettings.GetAnonimo())
+            {
+                anonimo.Background = new SolidColorBrush(Colors.Black);
+                AplicationSettings.SetAnonimo(false);
+            }
+            else
+            {
+                anonimo.Background = new SolidColorBrush(Colors.White);
+                AplicationSettings.SetAnonimo(true);
+            }
         }
 
         //private async void ListPicker_ProvicniaSeleccionada(object sender, SelectionChangedEventArgs e)
