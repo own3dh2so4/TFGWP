@@ -1,0 +1,116 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PrTab.View.SubirExamen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
+        <StackPanel Grid.Row="0" Margin="8,17,0,10">
+            <TextBlock Text="Subir examen"  Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="facultadNombre" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
+
+        <!--ContentPanel. Colocar aquí el contenido adicional-->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="ContentPanel"  Margin="12,0,12,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center">Curso</TextBlock>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemCurso" SelectionChanged="ListPicker_CursoSeleccioando" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center">Asignatura</TextBlock>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemAsignatura" SelectionChanged="ListPicker_AsignaturaSeleccioando" IsEnabled="False" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center">Año</TextBlock>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemAño" SelectionChanged="ListPicker_AñoSeleccioando" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center">Mes</TextBlock>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemMes" SelectionChanged="ListPicker_MesSeleccioando"  >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid x:Name="gridFotos">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Image  x:Name="Image1" Grid.Column="0" Grid.Row="0" Source="icons/appbar.add.png" Height="200" Width="150" GotFocus="Boton1_Click"/>
+                    <Button x:Name="Boton1" Grid.Column="0" Grid.Row="0" Click="Boton1_Click" ></Button>
+                    <Image Visibility="Collapsed" x:Name="Image2" Grid.Column="1" Grid.Row="0" Source="icons/appbar.add.png" GotFocus="Boton2_Click" Height="200" Width="150"></Image>
+                    <Button Visibility="Collapsed" x:Name="Boton2" Grid.Column="1" Grid.Row="0" Click="Boton2_Click" ></Button>
+                    <Image Visibility="Collapsed" x:Name="Image3" Grid.Column="2" Grid.Row="0" Source="icons/appbar.add.png" GotFocus="Boton3_Click" Height="200" Width="150"></Image>
+                    <Button Visibility="Collapsed" x:Name="Boton3" Grid.Column="2" Grid.Row="0" Click="Boton3_Click" ></Button>
+                    <Image Visibility="Collapsed" x:Name="Image4" Grid.Column="0" Grid.Row="1" Source="icons/appbar.add.png" GotFocus="Boton4_Click" Height="200" Width="150"></Image>
+                    <Button Visibility="Collapsed" x:Name="Boton4" Grid.Column="0" Grid.Row="1" Click="Boton4_Click" ></Button>
+                    <Image Visibility="Collapsed" x:Name="Image5" Grid.Column="1" Grid.Row="1" Source="icons/appbar.add.png" GotFocus="Boton5_Click" Height="200" Width="150"></Image>
+                    <Button Visibility="Collapsed" x:Name="Boton5" Grid.Column="1" Grid.Row="1" Click="Boton5_Click" ></Button>
+                    <Button  x:Name="Enviar" Grid.Column="2" Grid.Row="1" Height="80" Click="Enviar_Click" >Enviar</Button>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>

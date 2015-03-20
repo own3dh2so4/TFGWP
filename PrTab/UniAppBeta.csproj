@@ -211,6 +211,9 @@
     <Compile Include="View\RegistroLogin.xaml.cs">
       <DependentUpon>RegistroLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SubirExamen.xaml.cs">
+      <DependentUpon>SubirExamen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TemasAsignaturasExamen.xaml.cs">
       <DependentUpon>TemasAsignaturasExamen.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegistroLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubirExamen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -443,6 +443,11 @@ namespace PrTab
             anadirSalas(nombreNuevaSala.Text);
         }
 
+        private void SubirExamen_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/SubirExamen.xaml", UriKind.Relative));
+        }
+
 
 
 
