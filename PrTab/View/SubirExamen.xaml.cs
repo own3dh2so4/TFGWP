@@ -13,6 +13,7 @@ using PrTab.Model.Comunicacion;
 using PrTab.Utiles;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace PrTab.View
 {
@@ -20,15 +21,19 @@ namespace PrTab.View
     {
         private CDB_AsignaturaCursoAgregar BD_AsignaturaCurso = new CDB_AsignaturaCursoAgregar();
         private List<Asignatura> asignaturas = new List<Asignatura>();
+        private CDB_TemaExamen BD_TemasExamen = new CDB_TemaExamen();
+        private List<Tema> temas = new List<Tema>();
 
         //Seleccion de fotos
         PhotoChooserTask photoChooserTask;
         int botonPulsado = 0;
-        BitmapImage imagen1 = new BitmapImage();
-        BitmapImage imagen2 = new BitmapImage();
-        BitmapImage imagen3 = new BitmapImage();
-        BitmapImage imagen4 = new BitmapImage();
-        BitmapImage imagen5 = new BitmapImage();
+     
+
+        byte[] foto1;
+        byte[] foto2;
+        byte[] foto3;
+        byte[] foto4;
+        byte[] foto5;
 
         public SubirExamen()
         {
@@ -47,34 +52,45 @@ namespace PrTab.View
             }
             else
             {
+                BitmapImage a = new BitmapImage();
                 switch (botonPulsado)
                 {
-                    case 1: imagen1.SetSource(e.ChosenPhoto);
-                        Image1.Source = imagen1;
+                    case 1:
+                        foto1 = ReadFully(e.ChosenPhoto);                        
+                        a.SetSource(e.ChosenPhoto);
+                        Image1.Source = a;
                         Boton1.Visibility = System.Windows.Visibility.Collapsed;
                         Boton2.Visibility = System.Windows.Visibility.Visible;
                         Image2.Visibility = System.Windows.Visibility.Visible;
                         break;
-                    case 2: imagen2.SetSource(e.ChosenPhoto);
-                        Image2.Source = imagen2;
+                    case 2:
+                        foto2 = ReadFully(e.ChosenPhoto);
+                        a.SetSource(e.ChosenPhoto);
+                        Image2.Source = a;
                         Boton2.Visibility = System.Windows.Visibility.Collapsed;
                         Boton3.Visibility = System.Windows.Visibility.Visible;
                         Image3.Visibility = System.Windows.Visibility.Visible;
                         break;
-                    case 3: imagen3.SetSource(e.ChosenPhoto);
-                        Image3.Source = imagen3;
+                    case 3:
+                        foto3 = ReadFully(e.ChosenPhoto);
+                        a.SetSource(e.ChosenPhoto);
+                        Image3.Source = a;
                         Boton3.Visibility = System.Windows.Visibility.Collapsed;
                         Boton4.Visibility = System.Windows.Visibility.Visible;
                         Image4.Visibility = System.Windows.Visibility.Visible;
                         break;
-                    case 4: imagen4.SetSource(e.ChosenPhoto);
-                        Image4.Source = imagen4;
+                    case 4: 
+                        foto4 = ReadFully(e.ChosenPhoto);
+                        a.SetSource(e.ChosenPhoto);
+                        Image4.Source = a;
                         Boton4.Visibility = System.Windows.Visibility.Collapsed;
                         Boton5.Visibility = System.Windows.Visibility.Visible;
                         Image5.Visibility = System.Windows.Visibility.Visible;
                         break;
-                    case 5: imagen5.SetSource(e.ChosenPhoto);
-                        Image5.Source = imagen5;
+                    case 5: 
+                        foto5 = ReadFully(e.ChosenPhoto);
+                        a.SetSource(e.ChosenPhoto);
+                        Image5.Source = a;
                         Boton5.Visibility = System.Windows.Visibility.Collapsed;
                         break;
 
@@ -151,10 +167,51 @@ namespace PrTab.View
             }
         }
 
-        private void ListPicker_AsignaturaSeleccioando(object sender, SelectionChangedEventArgs e)
+        private async void ListPicker_AsignaturaSeleccioando(object sender, SelectionChangedEventArgs e)
         {
+            if (ListItemAsignatura.SelectedItem != null && ListItemAsignatura.SelectedItem.ToString() != "")
+            {
+                List<string> t = new List<string>();
+                t.Add("");
+                var i = searchIdAsignatrua();
+                temas = BD_TemasExamen.getTemasDeAsignaturas(i+"");
+                if(temas.Count == 0)
+                {
+                    Comunicacion_Examen ca = new Comunicacion_Examen();
+                    if(await ca.getThemeFromServer(i+""))
+                    {
+                        temas = BD_TemasExamen.getTemasDeAsignaturas(i + "");
+                    }
 
+                }
+                foreach (var te in temas)
+                {
+                    t.Add(te.nombre);
+                }
+                ListItemTema.ItemsSource = t;
+                ListItemTema.IsEnabled = true;
+            }
         }
+
+        private int searchIdAsignatrua()
+        {
+            foreach (var a in asignaturas)
+                if (a.abreviatura == ListItemAsignatura.SelectedItem.ToString())
+                    return a.identificador;
+            return -1;
+        }
+
+        private int searchIdTheme()
+        {
+            foreach (var a in temas)
+                if (a.nombre == ListItemTema.SelectedItem.ToString())
+                    return a.identificador;
+            return -1;
+        }
+
+        
+
+
 
         private void ListPicker_AñoSeleccioando(object sender, SelectionChangedEventArgs e)
         {
@@ -196,7 +253,7 @@ namespace PrTab.View
             photoChooserTask.Show(); 
         }
 
-        private void Enviar_Click(object sender, RoutedEventArgs e)
+        private async void Enviar_Click(object sender, RoutedEventArgs e)
         {
             if (ListItemCurso.SelectedItem == null || ListItemCurso.SelectedItem.ToString() == "")
             {
@@ -223,10 +280,95 @@ namespace PrTab.View
                 MessageBox.Show("Selecciona almenos una imagen (Pulsa el boton + )");
                 return;
             }
-            MessageBox.Show("Mandado.");
+            //MessageBox.Show("Mandado.");
+            GridCargando.Visibility = System.Windows.Visibility.Visible;
+            string eltema = null;
+            if (ListItemTema.SelectedItem != null && ListItemTema.SelectedItem.ToString() != "")
+                eltema = searchIdTheme() + "";
+           
+           string token = await Comunicacion.createExam(AplicationSettings.getToken(),
+                        searchIdAsignatrua() + "",
+                        eltema,
+                        ListItemAño.SelectedItem.ToString(),
+                        monthToNumber() + "",
+                        "False",
+                        foto1);
+          switch(botonPulsado)
+          {
+                        case 2:
+                            await Comunicacion.updateExam(token, "2", "True", foto2);
+                            break;
+                        case 3:
+                            await Comunicacion.updateExam(token, "2", "False", foto2);
+                            await Comunicacion.updateExam(token, "3", "True", foto3);
+                            break;
+                        case 4:
+                            await Comunicacion.updateExam(token, "2", "False", foto2);
+                            await Comunicacion.updateExam(token, "3", "False", foto3);
+                            await Comunicacion.updateExam(token, "4", "True", foto4);
+                            break;
+                        case 5:
+                            await Comunicacion.updateExam(token, "2", "False", foto2);
+                            await Comunicacion.updateExam(token, "3", "False", foto3);
+                            await Comunicacion.updateExam(token, "4", "False", foto4);
+                            await Comunicacion.updateExam(token, "5", "True", foto5);
+                            break;
+                    }
+             
+            GridCargando.Visibility = System.Windows.Visibility.Collapsed;
+            MessageBox.Show("Mensaje subido, gracias por tu colaboracion");
 
-            
+        }
 
+        public int monthToNumber()
+        {
+            int ret = 0;
+            if(ListItemMes.SelectedItem !=null && ListItemMes.SelectedItem.ToString()!= "")
+                switch(ListItemMes.SelectedItem.ToString())
+                {
+                    case "Enero": ret = 1; break;
+                    case "Febrero": ret = 2; break ;
+                    case "Marzo": ret = 3; break ;
+                    case "Abril": ret = 4; break ;
+                    case "Mayo": ret = 5; break ;
+                    case "Junio": ret = 6; break ;
+                    case "Julio": ret = 7; break ;
+                    case "Agosto": ret = 8; break;
+                    case "Septiembre": ret = 9; break;
+                    case "Octubre": ret = 10; break;
+                    case "Noviembre": ret = 11; break;
+                    case "Diciembre": ret = 12; break;
+                }
+            return ret;
+        }
+
+        public static byte[] ConvertToBytes( BitmapImage bitmapImage)
+        {  
+            using (MemoryStream ms = new MemoryStream())
+            {
+                WriteableBitmap btmMap = new WriteableBitmap
+                    (bitmapImage.PixelWidth, bitmapImage.PixelHeight);
+
+                // write an image into the stream
+                Extensions.SaveJpeg(btmMap, ms,
+                    bitmapImage.PixelWidth, bitmapImage.PixelHeight, 0, 100);
+
+                return ms.ToArray();
+            }
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
         }
 
 

@@ -25,8 +25,9 @@
         <StackPanel Grid.Row="0" Margin="8,17,0,10">
             <TextBlock Text="Subir examen"  Style="{StaticResource PhoneTextTitle1Style}"/>
             <TextBlock x:Name="facultadNombre" HorizontalAlignment="Center"></TextBlock>
-        </StackPanel>
-
+        </StackPanel>        
+        
+        
         <!--ContentPanel. Colocar aquí el contenido adicional-->
         <ScrollViewer Grid.Row="1">
             <StackPanel x:Name="ContentPanel"  Margin="12,0,12,0">
@@ -51,6 +52,20 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center">Asignatura</TextBlock>
                     <toolkit:ListPicker Grid.Column="1" x:Name="ListItemAsignatura" SelectionChanged="ListPicker_AsignaturaSeleccioando" IsEnabled="False" >
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate >
+                                <TextBlock FontSize="50" Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Center">Tema</TextBlock>
+                    <toolkit:ListPicker Grid.Column="1" x:Name="ListItemTema"  IsEnabled="False" >
                         <toolkit:ListPicker.FullModeItemTemplate>
                             <DataTemplate >
                                 <TextBlock FontSize="50" Text="{Binding}"/>
@@ -110,7 +125,26 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        
+
+        <Grid Grid.Row="1" x:Name="GridCargando" Visibility="Collapsed" Background="#7F808080">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Background="Black">
+                <Rectangle Margin="10" Height="auto" Width="auto"  MaxHeight="250" MaxWidth="450" Fill="Black" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="MensajeCargando" Text="Enviando examen" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
+                    <ProgressBar x:Name="myProgressRing" IsIndeterminate="True" Height="90" Width="300" Grid.Row="1"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
     </Grid>
 
 </phone:PhoneApplicationPage>

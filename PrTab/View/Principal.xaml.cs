@@ -48,7 +48,7 @@ namespace PrTab
 
         private bool botonFavPulsado = false;
 
-        private HiloChat hilo = HiloChat.getInstance();
+        private HiloChat hilo ;//= HiloChat.getInstance();
 
         // Constructor
         public MainPage()
@@ -62,7 +62,7 @@ namespace PrTab
             //BuildLocalizedApplicationBar();
             //inicializaElHilo();
             //conectWithServer();
-            InicializaChats();
+            //InicializaChats();
         }
 
         private void InicializaChats()

@@ -23,8 +23,8 @@ namespace PrTab.Model.Comunicacion
 
 
         static HttpClient client = new HttpClient();
-        //public const string baseURL = "http://192.168.0.2:80/";
-        public const string baseURL = "http://www.bsodsoftware.me/";
+        public const string baseURL = "http://192.168.0.2:80/";
+        //public const string baseURL = "http://www.bsodsoftware.me/";
 
         public const string imagenesPerfil = "media";
 
@@ -132,6 +132,21 @@ namespace PrTab.Model.Comunicacion
         const string deletemessage = "deletemessage";
         const string parametro_deleteMessageToken = "token";
         const string parametro_deleteMessageIdMessage = "idmessage";
+
+        const string crearExam = "createexam";
+        const string parametro_CreateExamPost_token = "token";
+        const string parametro_CreateExamPost_idSubject = "idsubject";
+        const string parametro_CreateExamPost_idTheme = "idtheme";
+        const string parametro_CreateExamPost_year = "year";
+        const string parametro_CreateExamPost_month = "month";
+        const string parametro_CreateExamPost_image = "image";
+        const string parametro_CreateExamPost_lastone = "lastone";
+
+        const string actualizarExamen = "uploadexam";
+        const string parametro_ActualizarExamen_token = "token";
+        const string parametro_ActualizarExamen_number = "number";
+        const string parametro_ActualizarExamen_lastone = "lastone";
+        const string parametro_ActualizarExamen_image = "image";
 
 
         public static async Task<string> deleteMensaje(string token, string idMensaje)
@@ -441,6 +456,61 @@ namespace PrTab.Model.Comunicacion
 
           
         }
+
+        public static async Task<string> createExam (string token,string idSubject, string idTheme, string year, string month, string lastone, byte[] image)
+        {
+            HttpClient httpClient = new HttpClient();
+            MultipartFormDataContent form = new MultipartFormDataContent();
+            form.Add(new StringContent(token), parametro_CreateExamPost_token);
+            if (idSubject!=null)
+                form.Add(new StringContent(idSubject), parametro_CreateExamPost_idSubject);
+            if(idTheme!=null)
+                form.Add(new StringContent(idTheme), parametro_CreateExamPost_idTheme);
+            form.Add(new StringContent(year), parametro_CreateExamPost_year);
+            form.Add(new StringContent(month), parametro_CreateExamPost_month);
+            form.Add(new StringContent(lastone), parametro_CreateExamPost_lastone);
+
+            var imagenForm = new ByteArrayContent(image, 0, image.Count());
+            imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            form.Add(imagenForm, parametroPOST_sendimageImagen, "nameholder.jpg");
+            HttpResponseMessage response = await httpClient.PostAsync(baseURL + crearExam, form);
+
+            response.EnsureSuccessStatusCode();
+            httpClient.Dispose();
+            string sd = response.Content.ReadAsStringAsync().Result;
+            JObject json = JObject.Parse(sd);
+            if ((string)json.SelectToken("error") == "200" && lastone=="False")
+            {
+                return (string)json.SelectToken("token");
+            }
+            return "";
+        }
+
+        public static async Task<bool> updateExam(string token, string number, string lastone, byte[] image)
+        {
+            HttpClient httpClient = new HttpClient();
+            MultipartFormDataContent form = new MultipartFormDataContent();
+            form.Add(new StringContent(token), parametro_ActualizarExamen_token);
+            form.Add(new StringContent(lastone), parametro_ActualizarExamen_lastone);
+            form.Add(new StringContent(number), parametro_ActualizarExamen_number);
+
+            var imagenForm = new ByteArrayContent(image, 0, image.Count());
+            imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            form.Add(imagenForm, parametroPOST_sendimageImagen, "nameholder.jpg");
+            HttpResponseMessage response = await httpClient.PostAsync(baseURL + actualizarExamen, form);
+
+            response.EnsureSuccessStatusCode();
+            httpClient.Dispose();
+            string sd = response.Content.ReadAsStringAsync().Result;
+            JObject json = JObject.Parse(sd);
+            if ((string)json.SelectToken("error") == "200")
+            {
+                return true;
+            }
+            return false;
+        }
+
+
 
 
         private static HttpContent CreateFileContent(byte[] stream, string fileName, string contentType)

@@ -275,7 +275,6 @@
                     </StackPanel>
                 </phone:PivotItem.Header>
                 <StackPanel>
-                    <TextBlock Text="Pestaña3" />
                     <Button x:Name="NavegaExamen" Content="Ir a examen" Click="NavegaExamen_Click"/>
                     <Button x:Name="SubirExamen" Content="Subir examen" Click="SubirExamen_Click"/>
                 </StackPanel>
