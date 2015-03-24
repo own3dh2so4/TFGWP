@@ -133,20 +133,21 @@ namespace PrTab.Model.Comunicacion
         const string parametro_deleteMessageToken = "token";
         const string parametro_deleteMessageIdMessage = "idmessage";
 
-        const string crearExam = "createexam";
-        const string parametro_CreateExamPost_token = "token";
-        const string parametro_CreateExamPost_idSubject = "idsubject";
-        const string parametro_CreateExamPost_idTheme = "idtheme";
-        const string parametro_CreateExamPost_year = "year";
-        const string parametro_CreateExamPost_month = "month";
-        const string parametro_CreateExamPost_image = "image";
-        const string parametro_CreateExamPost_lastone = "lastone";
+        const string crearDocumento = "createdocument";
+        const string parametro_CreateDocumentoPost_token = "token";
+        const string parametro_CreateDocumentoPost_idSubject = "idsubject";
+        const string parametro_CreateDocumentoPost_idTheme = "idtheme";
+        const string parametro_CreateDocumentoPost_year = "year";
+        const string parametro_CreateDocumentoPost_month = "month";
+        const string parametro_CreateDocumentoPost_image = "image";
+        const string parametro_CreateDocumentoPost_lastone = "lastone";
+        const string parametro_CreateDocumentoPost_type = "type";
 
-        const string actualizarExamen = "uploadexam";
-        const string parametro_ActualizarExamen_token = "token";
-        const string parametro_ActualizarExamen_number = "number";
-        const string parametro_ActualizarExamen_lastone = "lastone";
-        const string parametro_ActualizarExamen_image = "image";
+        const string actualizarDocumento = "updatedocument";
+        const string parametro_ActualizarDocumento_token = "token";
+        const string parametro_ActualizarDocumento_tipo = "type";
+        const string parametro_ActualizarDocumento_lastone = "lastone";
+        const string parametro_ActualizarDocumento_image = "image";
 
 
         public static async Task<string> deleteMensaje(string token, string idMensaje)
@@ -457,23 +458,24 @@ namespace PrTab.Model.Comunicacion
           
         }
 
-        public static async Task<string> createExam (string token,string idSubject, string idTheme, string year, string month, string lastone, byte[] image)
+        public static async Task<string> createDocument (string token,string idSubject, string idTheme, string year, string month, string tipo,string lastone, byte[] image)
         {
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
-            form.Add(new StringContent(token), parametro_CreateExamPost_token);
+            form.Add(new StringContent(token), parametro_CreateDocumentoPost_token);
             if (idSubject!=null)
-                form.Add(new StringContent(idSubject), parametro_CreateExamPost_idSubject);
+                form.Add(new StringContent(idSubject), parametro_CreateDocumentoPost_idSubject);
             if(idTheme!=null)
-                form.Add(new StringContent(idTheme), parametro_CreateExamPost_idTheme);
-            form.Add(new StringContent(year), parametro_CreateExamPost_year);
-            form.Add(new StringContent(month), parametro_CreateExamPost_month);
-            form.Add(new StringContent(lastone), parametro_CreateExamPost_lastone);
+                form.Add(new StringContent(idTheme), parametro_CreateDocumentoPost_idTheme);
+            form.Add(new StringContent(year), parametro_CreateDocumentoPost_year);
+            form.Add(new StringContent(month), parametro_CreateDocumentoPost_month);
+            form.Add(new StringContent(lastone), parametro_CreateDocumentoPost_lastone);
+            form.Add(new StringContent(tipo), parametro_CreateDocumentoPost_type);
 
             var imagenForm = new ByteArrayContent(image, 0, image.Count());
             imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
             form.Add(imagenForm, parametroPOST_sendimageImagen, "nameholder.jpg");
-            HttpResponseMessage response = await httpClient.PostAsync(baseURL + crearExam, form);
+            HttpResponseMessage response = await httpClient.PostAsync(baseURL + crearDocumento, form);
 
             response.EnsureSuccessStatusCode();
             httpClient.Dispose();
@@ -486,18 +488,18 @@ namespace PrTab.Model.Comunicacion
             return "";
         }
 
-        public static async Task<bool> updateExam(string token, string number, string lastone, byte[] image)
+        public static async Task<bool> updateDocument(string token, string type, string lastone, byte[] image)
         {
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
-            form.Add(new StringContent(token), parametro_ActualizarExamen_token);
-            form.Add(new StringContent(lastone), parametro_ActualizarExamen_lastone);
-            form.Add(new StringContent(number), parametro_ActualizarExamen_number);
+            form.Add(new StringContent(token), parametro_ActualizarDocumento_token);
+            form.Add(new StringContent(lastone), parametro_ActualizarDocumento_lastone);
+            form.Add(new StringContent(type), parametro_ActualizarDocumento_tipo);
 
             var imagenForm = new ByteArrayContent(image, 0, image.Count());
             imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
             form.Add(imagenForm, parametroPOST_sendimageImagen, "nameholder.jpg");
-            HttpResponseMessage response = await httpClient.PostAsync(baseURL + actualizarExamen, form);
+            HttpResponseMessage response = await httpClient.PostAsync(baseURL + actualizarDocumento, form);
 
             response.EnsureSuccessStatusCode();
             httpClient.Dispose();

@@ -285,33 +285,36 @@ namespace PrTab.View
             string eltema = null;
             if (ListItemTema.SelectedItem != null && ListItemTema.SelectedItem.ToString() != "")
                 eltema = searchIdTheme() + "";
-           
-           string token = await Comunicacion.createExam(AplicationSettings.getToken(),
+           string masDeUnaImagen = "True";
+           if (botonPulsado > 1)
+               masDeUnaImagen = "False";
+           string token = await Comunicacion.createDocument(AplicationSettings.getToken(),
                         searchIdAsignatrua() + "",
                         eltema,
                         ListItemAño.SelectedItem.ToString(),
                         monthToNumber() + "",
-                        "False",
+                        "exam",
+                        masDeUnaImagen,
                         foto1);
           switch(botonPulsado)
           {
                         case 2:
-                            await Comunicacion.updateExam(token, "2", "True", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "True", foto2);
                             break;
                         case 3:
-                            await Comunicacion.updateExam(token, "2", "False", foto2);
-                            await Comunicacion.updateExam(token, "3", "True", foto3);
+                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "True", foto3);
                             break;
                         case 4:
-                            await Comunicacion.updateExam(token, "2", "False", foto2);
-                            await Comunicacion.updateExam(token, "3", "False", foto3);
-                            await Comunicacion.updateExam(token, "4", "True", foto4);
+                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "False", foto3);
+                            await Comunicacion.updateDocument(token, "exam", "True", foto4);
                             break;
                         case 5:
-                            await Comunicacion.updateExam(token, "2", "False", foto2);
-                            await Comunicacion.updateExam(token, "3", "False", foto3);
-                            await Comunicacion.updateExam(token, "4", "False", foto4);
-                            await Comunicacion.updateExam(token, "5", "True", foto5);
+                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "False", foto3);
+                            await Comunicacion.updateDocument(token, "exam", "False", foto4);
+                            await Comunicacion.updateDocument(token, "exam", "True", foto5);
                             break;
                     }
              
@@ -342,20 +345,7 @@ namespace PrTab.View
             return ret;
         }
 
-        public static byte[] ConvertToBytes( BitmapImage bitmapImage)
-        {  
-            using (MemoryStream ms = new MemoryStream())
-            {
-                WriteableBitmap btmMap = new WriteableBitmap
-                    (bitmapImage.PixelWidth, bitmapImage.PixelHeight);
-
-                // write an image into the stream
-                Extensions.SaveJpeg(btmMap, ms,
-                    bitmapImage.PixelWidth, bitmapImage.PixelHeight, 0, 100);
-
-                return ms.ToArray();
-            }
-        }
+        
 
         public static byte[] ReadFully(Stream input)
         {
