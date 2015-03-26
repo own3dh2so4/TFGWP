@@ -448,6 +448,11 @@ namespace PrTab
             NavigationService.Navigate(new Uri("/View/SubirExamen.xaml", UriKind.Relative));
         }
 
+        private void SubirApuntes_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/SubirApuntes.xaml", UriKind.Relative));
+        }
+
 
 
 

@@ -142,6 +142,7 @@ namespace PrTab.Model.Comunicacion
         const string parametro_CreateDocumentoPost_image = "image";
         const string parametro_CreateDocumentoPost_lastone = "lastone";
         const string parametro_CreateDocumentoPost_type = "type";
+        const string parametro_CreateDocumentoPost_description = "description";
 
         const string actualizarDocumento = "updatedocument";
         const string parametro_ActualizarDocumento_token = "token";
@@ -458,7 +459,7 @@ namespace PrTab.Model.Comunicacion
           
         }
 
-        public static async Task<string> createDocument (string token,string idSubject, string idTheme, string year, string month, string tipo,string lastone, byte[] image)
+        public static async Task<string> createDocument (string token,string idSubject, string idTheme, string year, string month, string tipo,string lastone, string descripcion, byte[] image)
         {
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
@@ -471,6 +472,7 @@ namespace PrTab.Model.Comunicacion
             form.Add(new StringContent(month), parametro_CreateDocumentoPost_month);
             form.Add(new StringContent(lastone), parametro_CreateDocumentoPost_lastone);
             form.Add(new StringContent(tipo), parametro_CreateDocumentoPost_type);
+            form.Add(new StringContent(descripcion), parametro_CreateDocumentoPost_description);
 
             var imagenForm = new ByteArrayContent(image, 0, image.Count());
             imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");

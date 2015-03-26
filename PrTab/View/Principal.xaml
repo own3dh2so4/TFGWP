@@ -277,6 +277,7 @@
                 <StackPanel>
                     <Button x:Name="NavegaExamen" Content="Ir a examen" Click="NavegaExamen_Click"/>
                     <Button x:Name="SubirExamen" Content="Subir examen" Click="SubirExamen_Click"/>
+                    <Button x:Name="SubirApuntes" Content="Subir apuntes" Click="SubirApuntes_Click"/>
                 </StackPanel>
             </phone:PivotItem>
 

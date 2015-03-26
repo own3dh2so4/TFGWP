@@ -7,17 +7,17 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using PrTab.Model.Modelo;
 using PrTab.Model.Base_de_Datos;
-using PrTab.Model.Comunicacion;
-using PrTab.Utiles;
+using PrTab.Model.Modelo;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
+using PrTab.Model.Comunicacion;
+using PrTab.Utiles;
 
 namespace PrTab.View
 {
-    public partial class SubirExamen : PhoneApplicationPage
+    public partial class SubirApuntes : PhoneApplicationPage
     {
         private CDB_AsignaturaCursoAgregar BD_AsignaturaCurso = new CDB_AsignaturaCursoAgregar();
         private List<Asignatura> asignaturas = new List<Asignatura>();
@@ -27,17 +27,13 @@ namespace PrTab.View
         //Seleccion de fotos
         PhotoChooserTask photoChooserTask;
         int botonPulsado = 0;
-     
 
-        byte[] foto1;
-        byte[] foto2;
-        byte[] foto3;
-        byte[] foto4;
-        byte[] foto5;
+        //fotos
+        private List<byte[]> fotos = new List<byte[]>();
 
-        public SubirExamen()
+        public SubirApuntes()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             this.Loaded += InicializaLsitPicker;
             this.photoChooserTask = new PhotoChooserTask();
             this.photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed); 
@@ -45,65 +41,81 @@ namespace PrTab.View
 
         private void photoChooserTask_Completed(object sender, PhotoResult e)
         {
-            if (e.ChosenPhoto == null)
-            {
-                if (botonPulsado == 1)
-                    botonPulsado = 0;
-            }
-            else
+            if (e.ChosenPhoto != null)
             {
                 BitmapImage a = new BitmapImage();
-                switch (botonPulsado)
-                {
+                fotos.Add(ReadFully(e.ChosenPhoto));
+                a.SetSource(e.ChosenPhoto);
+                switch(botonPulsado)
+                { 
                     case 1:
-                        foto1 = ReadFully(e.ChosenPhoto);                        
-                        a.SetSource(e.ChosenPhoto);
                         Image1.Source = a;
                         Boton1.Visibility = System.Windows.Visibility.Collapsed;
                         Boton2.Visibility = System.Windows.Visibility.Visible;
                         Image2.Visibility = System.Windows.Visibility.Visible;
                         break;
                     case 2:
-                        foto2 = ReadFully(e.ChosenPhoto);
-                        a.SetSource(e.ChosenPhoto);
                         Image2.Source = a;
                         Boton2.Visibility = System.Windows.Visibility.Collapsed;
                         Boton3.Visibility = System.Windows.Visibility.Visible;
                         Image3.Visibility = System.Windows.Visibility.Visible;
                         break;
                     case 3:
-                        foto3 = ReadFully(e.ChosenPhoto);
-                        a.SetSource(e.ChosenPhoto);
                         Image3.Source = a;
                         Boton3.Visibility = System.Windows.Visibility.Collapsed;
                         Boton4.Visibility = System.Windows.Visibility.Visible;
                         Image4.Visibility = System.Windows.Visibility.Visible;
                         break;
-                    case 4: 
-                        foto4 = ReadFully(e.ChosenPhoto);
-                        a.SetSource(e.ChosenPhoto);
+                    case 4:
                         Image4.Source = a;
                         Boton4.Visibility = System.Windows.Visibility.Collapsed;
                         Boton5.Visibility = System.Windows.Visibility.Visible;
                         Image5.Visibility = System.Windows.Visibility.Visible;
                         break;
-                    case 5: 
-                        foto5 = ReadFully(e.ChosenPhoto);
-                        a.SetSource(e.ChosenPhoto);
+                    case 5:
                         Image5.Source = a;
                         Boton5.Visibility = System.Windows.Visibility.Collapsed;
+                        Boton6.Visibility = System.Windows.Visibility.Visible;
+                        Image6.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case 6:
+                        Image6.Source = a;
+                        Boton6.Visibility = System.Windows.Visibility.Collapsed;
+                        Boton7.Visibility = System.Windows.Visibility.Visible;
+                        Image7.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case 7:
+                        Image7.Source = a;
+                        Boton7.Visibility = System.Windows.Visibility.Collapsed;
+                        Boton8.Visibility = System.Windows.Visibility.Visible;
+                        Image8.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case 8:
+                        Image8.Source = a;
+                        Boton8.Visibility = System.Windows.Visibility.Collapsed;
                         break;
 
                 }
             }
-            
+        }
 
-            
-        } 
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
 
         private void InicializaLsitPicker(object sender, RoutedEventArgs e)
         {
-            if(ListItemAsignatura.Items.Count==0)
+            if (ListItemAsignatura.Items.Count == 0)
             {
 
                 ListItemCurso.Items.Add("");
@@ -130,22 +142,8 @@ namespace PrTab.View
                 ListItemAño.Items.Add("2014");
                 ListItemAño.Items.Add("2015");
 
-                ListItemMes.Items.Add("");
-                ListItemMes.Items.Add("Enero");
-                ListItemMes.Items.Add("Febrero");
-                ListItemMes.Items.Add("Marzo");
-                ListItemMes.Items.Add("Abril");
-                ListItemMes.Items.Add("Mayo");
-                ListItemMes.Items.Add("Junio");
-                ListItemMes.Items.Add("Julio");
-                ListItemMes.Items.Add("Agosto");
-                ListItemMes.Items.Add("Septiembre");
-                ListItemMes.Items.Add("Octubre");
-                ListItemMes.Items.Add("Noviembre");
-                ListItemMes.Items.Add("Diciembre");
+                
             }
-            
-            
         }
 
         private async void ListPicker_CursoSeleccioando(object sender, SelectionChangedEventArgs e)
@@ -163,7 +161,6 @@ namespace PrTab.View
                 }
                 ListItemAsignatura.ItemsSource = asig;
                 ListItemAsignatura.IsEnabled = true;
-
             }
         }
 
@@ -174,11 +171,11 @@ namespace PrTab.View
                 List<string> t = new List<string>();
                 t.Add("");
                 var i = searchIdAsignatrua();
-                temas = BD_TemasExamen.getTemasDeAsignaturas(i+"");
-                if(temas.Count == 0)
+                temas = BD_TemasExamen.getTemasDeAsignaturas(i + "");
+                if (temas.Count == 0)
                 {
                     Comunicacion_Examen ca = new Comunicacion_Examen();
-                    if(await ca.getThemeFromServer(i+""))
+                    if (await ca.getThemeFromServer(i + ""))
                     {
                         temas = BD_TemasExamen.getTemasDeAsignaturas(i + "");
                     }
@@ -192,7 +189,6 @@ namespace PrTab.View
                 ListItemTema.IsEnabled = true;
             }
         }
-
         private int searchIdAsignatrua()
         {
             foreach (var a in asignaturas)
@@ -209,48 +205,52 @@ namespace PrTab.View
             return -1;
         }
 
-        
-
-
-
-        private void ListPicker_AñoSeleccioando(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ListPicker_MesSeleccioando(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Boton1_Click(object sender, RoutedEventArgs e)
         {
             botonPulsado = 1;
-            photoChooserTask.Show(); 
+            photoChooserTask.Show();
         }
 
         private void Boton2_Click(object sender, RoutedEventArgs e)
         {
             botonPulsado = 2;
-            photoChooserTask.Show(); 
+            photoChooserTask.Show();
         }
 
         private void Boton3_Click(object sender, RoutedEventArgs e)
         {
             botonPulsado = 3;
-            photoChooserTask.Show(); 
+            photoChooserTask.Show();
         }
 
         private void Boton4_Click(object sender, RoutedEventArgs e)
         {
             botonPulsado = 4;
-            photoChooserTask.Show(); 
+            photoChooserTask.Show();
         }
 
         private void Boton5_Click(object sender, RoutedEventArgs e)
         {
             botonPulsado = 5;
-            photoChooserTask.Show(); 
+            photoChooserTask.Show();
+        }
+
+        private void Boton6_Click(object sender, RoutedEventArgs e)
+        {
+            botonPulsado = 6;
+            photoChooserTask.Show();
+        }
+
+        private void Boton7_Click(object sender, RoutedEventArgs e)
+        {
+            botonPulsado = 7;
+            photoChooserTask.Show();
+        }
+
+        private void Boton8_Click(object sender, RoutedEventArgs e)
+        {
+            botonPulsado = 8;
+            photoChooserTask.Show();
         }
 
         private async void Enviar_Click(object sender, RoutedEventArgs e)
@@ -263,105 +263,47 @@ namespace PrTab.View
             if (ListItemAño.SelectedItem == null || ListItemAño.SelectedItem.ToString() == "")
             {
                 MessageBox.Show("Selecciona un año");
-                return ;
+                return;
             }
             if (ListItemAsignatura.SelectedItem == null || ListItemAsignatura.SelectedItem.ToString() == "")
             {
                 MessageBox.Show("Selecciona una asignatura");
                 return;
             }
-            if (ListItemMes.SelectedItem == null || ListItemMes.SelectedItem.ToString() == "")
-            {
-                MessageBox.Show("Selecciona un mes");
-                return;
-            }
-            if (botonPulsado==0)
+            if (botonPulsado == 0)
             {
                 MessageBox.Show("Selecciona almenos una imagen (Pulsa el boton + )");
                 return;
             }
-            //MessageBox.Show("Mandado.");
             GridCargando.Visibility = System.Windows.Visibility.Visible;
             string eltema = null;
             if (ListItemTema.SelectedItem != null && ListItemTema.SelectedItem.ToString() != "")
                 eltema = searchIdTheme() + "";
-           string masDeUnaImagen = "True";
-           if (botonPulsado > 1)
-               masDeUnaImagen = "False";
-           string token = await Comunicacion.createDocument(AplicationSettings.getToken(),
+            string masDeUnaImagen = "True";
+            if (botonPulsado > 1)
+                masDeUnaImagen = "False";
+            string token = await Comunicacion.createDocument(AplicationSettings.getToken(),
                         searchIdAsignatrua() + "",
                         eltema,
                         ListItemAño.SelectedItem.ToString(),
-                        monthToNumber() + "",
-                        "exam",
-                        masDeUnaImagen,
                         "",
-                        foto1);
-          switch(botonPulsado)
-          {
-                        case 2:
-                            await Comunicacion.updateDocument(token, "exam", "True", foto2);
-                            break;
-                        case 3:
-                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
-                            await Comunicacion.updateDocument(token, "exam", "True", foto3);
-                            break;
-                        case 4:
-                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
-                            await Comunicacion.updateDocument(token, "exam", "False", foto3);
-                            await Comunicacion.updateDocument(token, "exam", "True", foto4);
-                            break;
-                        case 5:
-                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
-                            await Comunicacion.updateDocument(token, "exam", "False", foto3);
-                            await Comunicacion.updateDocument(token, "exam", "False", foto4);
-                            await Comunicacion.updateDocument(token, "exam", "True", foto5);
-                            break;
-                    }
-             
+                        "notes",
+                        masDeUnaImagen,
+                        TextBoxDescription.Text,
+                        fotos.ElementAt(0));
+            for(int i=1; i<fotos.Count; i++)
+            {
+                if (i+1==fotos.Count)
+                    await Comunicacion.updateDocument(token, "notes", "True", fotos.ElementAt(i));
+                else
+                    await Comunicacion.updateDocument(token, "notes", "False", fotos.ElementAt(i));
+            }
             GridCargando.Visibility = System.Windows.Visibility.Collapsed;
             MessageBox.Show("Mensaje subido, gracias por tu colaboracion");
 
         }
 
-        public int monthToNumber()
-        {
-            int ret = 0;
-            if(ListItemMes.SelectedItem !=null && ListItemMes.SelectedItem.ToString()!= "")
-                switch(ListItemMes.SelectedItem.ToString())
-                {
-                    case "Enero": ret = 1; break;
-                    case "Febrero": ret = 2; break ;
-                    case "Marzo": ret = 3; break ;
-                    case "Abril": ret = 4; break ;
-                    case "Mayo": ret = 5; break ;
-                    case "Junio": ret = 6; break ;
-                    case "Julio": ret = 7; break ;
-                    case "Agosto": ret = 8; break;
-                    case "Septiembre": ret = 9; break;
-                    case "Octubre": ret = 10; break;
-                    case "Noviembre": ret = 11; break;
-                    case "Diciembre": ret = 12; break;
-                }
-            return ret;
-        }
-
         
-
-        public static byte[] ReadFully(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
-            }
-        }
-
 
 
     }
