@@ -300,22 +300,22 @@ namespace PrTab.View
           switch(botonPulsado)
           {
                         case 2:
-                            await Comunicacion.updateDocument(token, "exam", "True", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "True","2", foto2);
                             break;
                         case 3:
-                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
-                            await Comunicacion.updateDocument(token, "exam", "True", foto3);
+                            await Comunicacion.updateDocument(token, "exam", "False" , "2", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "True", "3", foto3);
                             break;
                         case 4:
-                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
-                            await Comunicacion.updateDocument(token, "exam", "False", foto3);
-                            await Comunicacion.updateDocument(token, "exam", "True", foto4);
+                            await Comunicacion.updateDocument(token, "exam", "False","2", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "False","3", foto3);
+                            await Comunicacion.updateDocument(token, "exam", "True","4", foto4);
                             break;
                         case 5:
-                            await Comunicacion.updateDocument(token, "exam", "False", foto2);
-                            await Comunicacion.updateDocument(token, "exam", "False", foto3);
-                            await Comunicacion.updateDocument(token, "exam", "False", foto4);
-                            await Comunicacion.updateDocument(token, "exam", "True", foto5);
+                            await Comunicacion.updateDocument(token, "exam", "False","2", foto2);
+                            await Comunicacion.updateDocument(token, "exam", "False","3", foto3);
+                            await Comunicacion.updateDocument(token, "exam", "False","4", foto4);
+                            await Comunicacion.updateDocument(token, "exam", "True","5", foto5);
                             break;
                     }
              

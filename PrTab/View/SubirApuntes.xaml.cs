@@ -294,9 +294,9 @@ namespace PrTab.View
             for(int i=1; i<fotos.Count; i++)
             {
                 if (i+1==fotos.Count)
-                    await Comunicacion.updateDocument(token, "notes", "True", fotos.ElementAt(i));
+                    await Comunicacion.updateDocument(token, "notes", "True",(i+1)+"", fotos.ElementAt(i));
                 else
-                    await Comunicacion.updateDocument(token, "notes", "False", fotos.ElementAt(i));
+                    await Comunicacion.updateDocument(token, "notes", "False",(i+1)+"", fotos.ElementAt(i));
             }
             GridCargando.Visibility = System.Windows.Visibility.Collapsed;
             MessageBox.Show("Mensaje subido, gracias por tu colaboracion");

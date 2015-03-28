@@ -120,6 +120,7 @@
     <Compile Include="Model\Comunicacion\Comunicacion_Examen.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_MensajesTablon.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Usuario.cs" />
+    <Compile Include="Model\Modelo\Apuntes.cs" />
     <Compile Include="Model\Modelo\Asignatura.cs" />
     <Compile Include="Model\Modelo\CacheImagen.cs" />
     <Compile Include="Model\Modelo\ChatMensaje.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="Model\Modelo\ChatServer\MensajeServerError.cs" />
     <Compile Include="Model\Modelo\ChatServer\MensajeServerMensaje.cs" />
     <Compile Include="Model\Modelo\ChatServer\MensajeServerStatus.cs" />
+    <Compile Include="Model\Modelo\Documento.cs" />
+    <Compile Include="Model\Modelo\Examen.cs" />
     <Compile Include="Model\Modelo\ExamenEventArgs.cs" />
     <Compile Include="Model\Modelo\Facultad.cs" />
     <Compile Include="Model\Modelo\MensajesTablonEventArgs.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="Utiles\AplicationSettings.cs" />
     <Compile Include="ViewModel\AsignaturasExamenViewModel.cs" />
+    <Compile Include="ViewModel\ExamenApuntesViewModel.cs" />
     <Compile Include="ViewModel\ExamenResueltoViewModel.cs" />
     <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
@@ -183,6 +187,12 @@
     </Compile>
     <Compile Include="View\Examen.xaml.cs">
       <DependentUpon>Examen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExamenApuntesLista.xaml.cs">
+      <DependentUpon>ExamenApuntesLista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExamenesApuntesBuscar.xaml.cs">
+      <DependentUpon>ExamenesApuntesBuscar.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ExamenResuelto.xaml.cs">
       <DependentUpon>ExamenResuelto.xaml</DependentUpon>
@@ -255,6 +265,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Examen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExamenApuntesLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExamenesApuntesBuscar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

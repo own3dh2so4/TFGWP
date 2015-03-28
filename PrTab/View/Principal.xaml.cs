@@ -453,6 +453,11 @@ namespace PrTab
             NavigationService.Navigate(new Uri("/View/SubirApuntes.xaml", UriKind.Relative));
         }
 
+        private void Buscar_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/ExamenesApuntesBuscar.xaml", UriKind.Relative));
+        }
+
 
 
 

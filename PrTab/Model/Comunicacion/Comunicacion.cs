@@ -149,6 +149,13 @@ namespace PrTab.Model.Comunicacion
         const string parametro_ActualizarDocumento_tipo = "type";
         const string parametro_ActualizarDocumento_lastone = "lastone";
         const string parametro_ActualizarDocumento_image = "image";
+        const string parametro_ActualizarDocumento_position = "position";
+
+        const string getDocumentos = "getdocument";
+        const string parametro_getDocumentos_token = "token";
+        const string parametro_getDocumentos_idSubject = "idsubject";
+        const string parametro_getDocumentos_idTheme = "idtheme";
+        const string parametro_getDocumentos_tipo = "type";
 
 
         public static async Task<string> deleteMensaje(string token, string idMensaje)
@@ -435,7 +442,47 @@ namespace PrTab.Model.Comunicacion
             return facultades;
         }
 
-
+        public static async Task<List<Documento>> getDocuments (string token, string idSubject, string idTheme, string type)
+        {
+            var doc = new List<Documento>();
+            Uri_Get url = new Uri_Get(baseURL + getDocumentos);
+            url.GetData(parametro_getDocumentos_token, token);
+            url.GetData(parametro_getDocumentos_idSubject, idSubject);
+            url.GetData(parametro_getDocumentos_tipo, type);
+            if (idTheme != null && idTheme != "")
+                url.GetData(parametro_getDocumentos_idTheme, idTheme);
+            string result = await client.GetStringAsync(url.getUri());
+            JObject json = JObject.Parse(result);
+            if((string)json.SelectToken("error") == "200")
+            {
+                JArray jArray = (JArray)json["data"];
+                foreach (var a in jArray)
+                {
+                    List<string> imagenes = new List<string>();
+                    foreach(var i in (JArray)a.SelectToken("imagenes"))
+                    {
+                        imagenes.Add((string)i);
+                    }
+                    if (type == "exam")
+                        doc.Add(new Examen((string)a.SelectToken("asignatura"),
+                                        (string)a.SelectToken("tema"),
+                                        (string)a.SelectToken("mes"),
+                                        (string)a.SelectToken("ano"),
+                                        (string)a.SelectToken("usuario").SelectToken("username"),
+                                        (string)a.SelectToken("usuario").SelectToken("image"),
+                                        imagenes));
+                    else if (type == "notes")
+                        doc.Add(new Apuntes((string)a.SelectToken("asignatura"),
+                            (string)a.SelectToken("tema"),
+                            (string)a.SelectToken("ano"),
+                            (string)a.SelectToken("descripcion"),
+                            (string)a.SelectToken("usuario").SelectToken("username"),
+                            (string)a.SelectToken("usuario").SelectToken("image"),
+                            imagenes));
+                }
+            }
+            return doc;
+        }
 
         public static async void sendImagePerfil(string token, byte[] imagen)
         {
@@ -490,13 +537,14 @@ namespace PrTab.Model.Comunicacion
             return "";
         }
 
-        public static async Task<bool> updateDocument(string token, string type, string lastone, byte[] image)
+        public static async Task<bool> updateDocument(string token, string type, string lastone,string posicion, byte[] image)
         {
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
             form.Add(new StringContent(token), parametro_ActualizarDocumento_token);
             form.Add(new StringContent(lastone), parametro_ActualizarDocumento_lastone);
             form.Add(new StringContent(type), parametro_ActualizarDocumento_tipo);
+            form.Add(new StringContent(posicion), parametro_ActualizarDocumento_position);
 
             var imagenForm = new ByteArrayContent(image, 0, image.Count());
             imagenForm.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
