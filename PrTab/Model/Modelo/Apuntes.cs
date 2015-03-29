@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class Apuntes : Documento
+    public class Apuntes : Documento
     {
-        public string descipcion;
+        public string descipcion { get; set; }
 
         public Apuntes() { }
 

@@ -175,6 +175,7 @@
     </Compile>
     <Compile Include="View\convert\BoolToHeart.cs" />
     <Compile Include="View\convert\CacheImageFileConverter.cs" />
+    <Compile Include="View\convert\NumeroMesToNombreConverter.cs" />
     <Compile Include="View\convert\UnixTimeToStringConverter.cs" />
     <Compile Include="View\EditarPerfil.xaml.cs">
       <DependentUpon>EditarPerfil.xaml</DependentUpon>
@@ -196,6 +197,9 @@
     </Compile>
     <Compile Include="View\ExamenResuelto.xaml.cs">
       <DependentUpon>ExamenResuelto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExamenVista.xaml.cs">
+      <DependentUpon>ExamenVista.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicial.xaml.cs">
       <DependentUpon>Inicial.xaml</DependentUpon>
@@ -277,6 +281,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ExamenResuelto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExamenVista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -133,12 +133,16 @@ namespace PrTab.View
                 return;
             }
             string idTheme = "a";
+            string theme = "a";
             if (ListItemTema.SelectedItem != null && ListItemTema.SelectedItem.ToString() != "")
             {
                 idTheme = searchIdTheme() + "";
+                theme = ListItemTema.SelectedItem.ToString();
             }
-            NavigationService.Navigate(new Uri("/View/ExamenApuntesLista.xaml?idsubject=" + ListItemAsignatura.SelectedItem.ToString() +
+            NavigationService.Navigate(new Uri("/View/ExamenApuntesLista.xaml?idsubject="+ searchIdAsignatrua()+
+                                                    "&subject=" + ListItemAsignatura.SelectedItem.ToString() +
                                                     "&idTheme=" + idTheme +
+                                                    "&theme=" + theme +
                                                     "&type=" + ListItemBuscar.SelectedItem.ToString(), UriKind.Relative));
         }
         

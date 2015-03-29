@@ -8,25 +8,60 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PrTab.Model.Comunicacion;
+using PrTab.ViewModel;
+using PrTab.Model.Modelo;
 
 namespace PrTab.View
 {
     public partial class ExamenApuntesLista : PhoneApplicationPage
     {
+        string idSubject;
+        string idtheme;
+        string type ;
+        string theme;
+
+        private ExamenApuntesViewModel _viewModel;
+
         public ExamenApuntesLista()
         {
             InitializeComponent();
+            
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            string idSubject = NavigationContext.QueryString["idsubject"];
-            string type = NavigationContext.QueryString["idTheme"];
-            string theme = NavigationContext.QueryString["type"];
-            if (theme == "a")
+            idSubject = NavigationContext.QueryString["idsubject"];
+            idtheme = NavigationContext.QueryString["idTheme"];
+            type = NavigationContext.QueryString["type"];
+            theme = NavigationContext.QueryString["theme"];
+            if (idtheme == "a")
+            {
+                idtheme = "";
                 theme = "";
-            //TODO
+            }
+            string name = NavigationContext.QueryString["subject"] + "  " + theme;
+            if (type == "Examen")
+            {
+                type = "exam";
+            }
+            else
+            {
+                type = "notes";
+            }
+            _viewModel = new ExamenApuntesViewModel(idSubject,  idtheme,  type);
+            ContentPanel.DataContext = _viewModel;
+            titulo.Text = name;
+            tipo.Text = NavigationContext.QueryString["type"];
+        }
+
+        private void ListaDocuments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (type == "Examen")
+            {
+                var doc = ((LongListSelector)sender).SelectedItem as Examen;
+                //Todo cuntinuar desde aqui
+            }
         }
     }
 }

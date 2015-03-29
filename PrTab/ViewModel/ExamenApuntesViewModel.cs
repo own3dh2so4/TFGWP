@@ -1,4 +1,6 @@
-﻿using PrTab.Model.Modelo;
+﻿using PrTab.Model.Comunicacion;
+using PrTab.Model.Modelo;
+using PrTab.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,13 +19,28 @@ namespace PrTab.ViewModel
         {
             get
             {
-                if (DesignerProperties.IsInDesignTool)
-                {
-                    for (int i = 0; i < 10; i++)
-                        documentos.Add(new Documento());
-                }
                 return documentos;
             }
+
+            private set
+            {
+                documentos = value;
+                this.OnPropertyChanged("Documentos");
+            }
+        }
+
+        public ExamenApuntesViewModel(string idSubject, string idTheme, string type)
+        {
+            obtenerExamenApuntes(idSubject, idTheme, type);
+        }
+
+        private async void obtenerExamenApuntes(string idSubject, string idTheme, string type)
+        {
+            var doc = await Comunicacion.getDocuments(AplicationSettings.getToken(), idSubject, idTheme, type);
+
+            foreach (var d in doc)
+                documentos.Add(d);
+            this.OnPropertyChanged("Documentos");
         }
     }
 }

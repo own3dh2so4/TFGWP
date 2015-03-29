@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class Examen:Documento
+    public class Examen:Documento
     {
-        public string mes;
+        public string mes { get; set; }
         
         public Examen():base()
         {

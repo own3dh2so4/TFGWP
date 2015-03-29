@@ -9,9 +9,55 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="Portrait" Orientation="Portrait"    
     mc:Ignorable="d"
+    xmlns:valueConverter="clr-namespace:PrTab.View.convert"
     shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+
+        <!--<vm:AsignaturasExamenViewModel x:Key="ViewModelAsignaturas" />-->
+        <valueConverter:NumeroMesToNombreConverter x:Key="NumeroMesToNombreConverter"  />
+
+        <DataTemplate x:Key="DocumentDataTemplate">
+
+            
+            <StackPanel x:Name="GridVistaAsignatura">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Stretch="UniformToFill" MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Grid.Column="0" Margin="5"
+                           Source="{Binding fotoUsuario}">
+                        <Image.OpacityMask>
+                            <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
+                                <GradientStop Color="#ffffffff" Offset="0.7" />
+                                <GradientStop Color="#00ffffff" Offset="0.7" />
+                            </RadialGradientBrush>
+                        </Image.OpacityMask>
+                    </Image>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock  Text="{Binding nombreUsuario}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/> 
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1"  Text="{Binding ano, Converter={StaticResource NumeroMesToNombreConverter}}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Line X1="0" Y1="0" X2="1" Y2="0" Stretch="Fill" Stroke="White" />
+            </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -22,13 +68,19 @@
 
         <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MI APLICACIÓN" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="nombre de la página" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="titulo" Text="Nombre Asignatura" Style="{StaticResource PhoneTextNormalStyle}" FontSize="48"/>
+            <TextBlock x:Name="tipo" Text="Tipo" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <!--DataContext="{Binding Source = {StaticResource ViewModelAsignaturas}}">-->
+            <phone:LongListSelector
+                x:Name="ListaDocuments"
+                ItemsSource="{Binding Documentos}"
+                ItemTemplate="{StaticResource DocumentDataTemplate}" SelectionChanged="ListaDocuments_SelectionChanged" >
 
+            </phone:LongListSelector>
         </Grid>
     </Grid>
 
