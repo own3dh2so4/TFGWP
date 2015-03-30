@@ -19,6 +19,7 @@ namespace PrTab.View
         string idtheme;
         string type ;
         string theme;
+        string subject;
 
         private ExamenApuntesViewModel _viewModel;
 
@@ -35,6 +36,7 @@ namespace PrTab.View
             idtheme = NavigationContext.QueryString["idTheme"];
             type = NavigationContext.QueryString["type"];
             theme = NavigationContext.QueryString["theme"];
+            subject = NavigationContext.QueryString["subject"];
             if (idtheme == "a")
             {
                 idtheme = "";
@@ -57,10 +59,32 @@ namespace PrTab.View
 
         private void ListaDocuments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (type == "Examen")
+            if (theme == "")
             {
-                var doc = ((LongListSelector)sender).SelectedItem as Examen;
+                theme = "a";
+            }
+            if (type == "exam")
+            {
+                
+                var examen = ((LongListSelector)sender).SelectedItem as PrTab.Model.Modelo.Examen;
+                var datos = "?theme="+theme+"&subject="+subject+"&type="+type+"&fotoUsuario="+examen.fotoUsuario+"&nombreUser="+examen.nombreUsuario+"&ano="+examen.ano+"&mes="+examen.mes+"&numPhotos="+examen.imagenes.Count;
+                for(int i=0; i<examen.imagenes.Count; i++)
+                {
+                    datos = datos + "&foto" + i + "=" + examen.imagenes.ElementAt(i);
+                }
                 //Todo cuntinuar desde aqui
+                NavigationService.Navigate(new Uri("/View/ExamenApuntesVista.xaml"+datos, UriKind.Relative));
+            }
+            else
+            {
+                var apuntes = ((LongListSelector)sender).SelectedItem as PrTab.Model.Modelo.Apuntes;
+                var datos = "?theme=" + theme + "&subject=" + subject + "&type=" + type + "&fotoUsuario=" + apuntes.fotoUsuario + "&nombreUser=" + apuntes.nombreUsuario + "&ano=" + apuntes.ano + "&descripcion=" + apuntes.descipcion + "&numPhotos=" + apuntes.imagenes.Count;
+                for (int i = 0; i < apuntes.imagenes.Count; i++)
+                {
+                    datos = datos + "&foto" + i + "=" + apuntes.imagenes.ElementAt(i);
+                }
+                //Todo cuntinuar desde aqui
+                NavigationService.Navigate(new Uri("/View/ExamenApuntesVista.xaml" + datos, UriKind.Relative));
             }
         }
     }

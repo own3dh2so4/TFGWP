@@ -1,0 +1,101 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PrTab.View.ExamenVista"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">           
+            <TextBlock x:Name="titulo" Text="nombre de la página" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="subtitulo" Text="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!--ContentPanel. Colocar aquí el contenido adicional-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            
+            <ScrollViewer>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="125"/>
+                                <ColumnDefinition Width="*"/>
+                          </Grid.ColumnDefinitions>
+                        <Image x:Name="imagenUsuario" Stretch="UniformToFill" MinHeight="125" MinWidth="125" MaxHeight="125" MaxWidth="125" Grid.Column="0" Margin="5">
+                            <Image.OpacityMask>
+                                <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
+                                    <GradientStop Color="#ffffffff" Offset="0.7" />
+                                    <GradientStop Color="#00ffffff" Offset="0.7" />
+                                </RadialGradientBrush>
+                            </Image.OpacityMask>
+                        </Image>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="textBlocknombreUsuario"  Text="NombreUsuario" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+                            <TextBlock Grid.Row="1" x:Name="Fecha" Text="subido trololo" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0"/>
+                        </Grid>
+                        
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" x:Name="FotoCount" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Text="de" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" x:Name="FotoTotal" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    </Grid>
+                    <Image Margin="10" x:Name="visorDocumentos" MinHeight="400" MinWidth="300" MaxHeight="400" MaxWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center" DoubleTap="visorDocumentos_DoubleTap">
+                        
+                    </Image>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="botonIzq" Grid.Column="1" Visibility="Collapsed" Click="botonIzq_Click">
+                            <Image
+                                Source="/View/icons/appbar.arrow.left.png">
+                                <Image.RenderTransform>
+                                    <CompositeTransform CenterX="100" CenterY="75" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </Button>
+                        <Button x:Name="botonDrc" Grid.Column="2" Click="botonDrc_Click" >
+                            <Image Source="/View/icons/appbar.arrow.right.png"/>
+                        </Button>                        
+                    </Grid>
+                    <TextBlock x:Name="description" TextWrapping="Wrap"/>
+                </StackPanel>
+            </ScrollViewer>
+            
+
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

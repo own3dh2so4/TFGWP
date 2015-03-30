@@ -198,8 +198,8 @@
     <Compile Include="View\ExamenResuelto.xaml.cs">
       <DependentUpon>ExamenResuelto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ExamenVista.xaml.cs">
-      <DependentUpon>ExamenVista.xaml</DependentUpon>
+    <Compile Include="View\ExamenApuntesVista.xaml.cs">
+      <DependentUpon>ExamenApuntesVista.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicial.xaml.cs">
       <DependentUpon>Inicial.xaml</DependentUpon>
@@ -233,6 +233,9 @@
     </Compile>
     <Compile Include="View\TemasAsignaturasExamen.xaml.cs">
       <DependentUpon>TemasAsignaturasExamen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VisorImagen.xaml.cs">
+      <DependentUpon>VisorImagen.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +287,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ExamenVista.xaml">
+    <Page Include="View\ExamenApuntesVista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -321,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TemasAsignaturasExamen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VisorImagen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
