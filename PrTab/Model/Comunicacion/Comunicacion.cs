@@ -151,7 +151,7 @@ namespace PrTab.Model.Comunicacion
         const string parametro_ActualizarDocumento_image = "image";
         const string parametro_ActualizarDocumento_position = "position";
 
-        const string getDocumentos = "getdocument";
+        const string getDocumentos = "getdocuments";
         const string parametro_getDocumentos_token = "token";
         const string parametro_getDocumentos_idSubject = "idsubject";
         const string parametro_getDocumentos_idTheme = "idtheme";

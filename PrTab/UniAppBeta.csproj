@@ -114,6 +114,8 @@
     <Compile Include="Model\Base de Datos\CDB_TemaExamen.cs" />
     <Compile Include="Model\Base de Datos\CDB_Universidad.cs" />
     <Compile Include="Model\Base de Datos\ConexionDataBase.cs" />
+    <Compile Include="Model\Charts\LineData.cs" />
+    <Compile Include="Model\Charts\PieData.cs" />
     <Compile Include="Model\ComunicacionChat\HiloChat.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion.cs" />
     <Compile Include="Model\Comunicacion\Comunicacion_Asignatura.cs" />
@@ -234,6 +236,9 @@
     <Compile Include="View\TemasAsignaturasExamen.xaml.cs">
       <DependentUpon>TemasAsignaturasExamen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UsuarioVista.xaml.cs">
+      <DependentUpon>UsuarioVista.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VisorImagen.xaml.cs">
       <DependentUpon>VisorImagen.xaml</DependentUpon>
     </Compile>
@@ -327,6 +332,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UsuarioVista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VisorImagen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -408,6 +417,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AmCharts.Windows.QuickCharts.WP">
+      <HintPath>..\packages\amChartsQuickCharts.1.1\lib\sl3-wp\AmCharts.Windows.QuickCharts.WP.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>

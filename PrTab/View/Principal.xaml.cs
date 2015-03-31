@@ -417,7 +417,7 @@ namespace PrTab
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/View/EditarPerfil.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/View/UsuarioVista.xaml", UriKind.Relative));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
