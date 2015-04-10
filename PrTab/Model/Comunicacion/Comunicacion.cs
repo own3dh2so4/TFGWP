@@ -74,6 +74,7 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getExamenAsignaturaAsignatura = "subject";
         const string parametro_getExamenAsignaturaNumeroPreguntas = "numberofquestions";
         const string parametroOpcional_getExamenAsignaturaTema = "theme";
+        const string parametro_getExamenAsignaturatipoPregunta = "typeofquestion";
 
         const string getAsignatras = "getsubjects";
         const string parametro_getAsignaturaToken = "token";
@@ -280,25 +281,27 @@ namespace PrTab.Model.Comunicacion
         }
 
 
-        public static async Task<string> getExamen(string token, string asignatura, string numeroPreguntas)
+        public static async Task<string> getExamen(string token, string asignatura,string tipoexam, string numeroPreguntas)
         {
             Uri_Get url = new Uri_Get(baseURL+getExamenAsignatura);
             url.GetData(parametro_getExamenAsignaturaToken, token);
             url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
+            url.GetData(parametro_getExamenAsignaturatipoPregunta, tipoexam);
             //Evitar cache
             unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);
             return await client.GetStringAsync(url.getUri());
         }
 
-        public static async Task<string> getExamen(string token, string asignatura,string tema, string numeroPreguntas)
+        public static async Task<string> getExamen(string token, string asignatura,string tema,string tipoexam, string numeroPreguntas)
         {
             Uri_Get url = new Uri_Get(baseURL + getExamenAsignatura);
             url.GetData(parametro_getExamenAsignaturaToken, token);
             url.GetData(parametro_getExamenAsignaturaAsignatura, asignatura);
             url.GetData(parametroOpcional_getExamenAsignaturaTema, tema);
             url.GetData(parametro_getExamenAsignaturaNumeroPreguntas, numeroPreguntas);
+            url.GetData(parametro_getExamenAsignaturatipoPregunta, tipoexam);
             //Evitar cache
             unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);

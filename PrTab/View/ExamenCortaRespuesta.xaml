@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="PrTab.View.Examen"
+    x:Class="PrTab.View.ExamenCortaRespuesta"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -40,30 +40,21 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
-
+    
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid x:Name="GridPregunta">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="12*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding NumeroPregunta}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="1" Text="{Binding PreguntaMostrada.enunciado}" FontSize="36" TextWrapping="Wrap"/>
-            <StackPanel Grid.Row="2">
-                <Button MinHeight="100" x:Name="Respuesta1" Grid.Row="0" Content="{Binding PreguntaMostrada.respuesta1}" Background="{Binding ColorBoton1}" Click="Respuesta1_Click"/>
-                <Button MinHeight="100" x:Name="Respuesta2" Grid.Row="1" Content="{Binding PreguntaMostrada.respuesta2}" Background="{Binding ColorBoton2}" Click="Respuesta2_Click"/>
-                <Button MinHeight="100" x:Name="Respuesta3" Grid.Row="2" Content="{Binding PreguntaMostrada.respuesta3}" Background="{Binding ColorBoton3}" Click="Respuesta3_Click"
-                        Visibility="{Binding VisibilidadBoton3}"/>
-                <Button MinHeight="100" x:Name="Respuesta4" Grid.Row="3" Content="{Binding PreguntaMostrada.respuesta4}" Background="{Binding ColorBoton4}" Click="Respuesta4_Click"
-                        Visibility="{Binding VisibilidadBoton4}"/>
-                <Button MinHeight="100" x:Name="Respuesta5" Grid.Row="4" Content="{Binding PreguntaMostrada.respuesta5}" Background="{Binding ColorBoton5}" Click="Respuesta5_Click"
-                        Visibility="{Binding VisibilidadBoton5}"/>
-            </StackPanel>
+            <TextBlock Grid.Row="0" x:Name="numeroPregunta"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" x:Name="enunciado"  FontSize="36" TextWrapping="Wrap"/>
+            <TextBox TextWrapping="Wrap" Grid.Row="2" x:Name="Respuesta" VerticalAlignment="Top"></TextBox>
         </Grid>
-        
-        <Grid x:Name="GridCargando" Visibility="{Binding VisibilidadMensaje}" Background="#7F808080">
+
+        <Grid x:Name="GridCargando" Visibility="Visible" Background="#7F808080">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -76,12 +67,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="MensajeCargando" Text="{Binding MensajeMostrar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
+                    <TextBlock x:Name="MensajeCargando" Text="Cargando" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
                     <ProgressBar x:Name="myProgressRing" IsIndeterminate="True" Height="90" Width="300" Grid.Row="1"/>
                 </Grid>
             </Grid>
         </Grid>
-        
     </Grid>
 
 </phone:PhoneApplicationPage>

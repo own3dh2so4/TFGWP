@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    public class Pregunta
+    public class Pregunta: PreguntaInterface
     {
         [PrimaryKey]
         public int identificador { get; set; }
@@ -16,10 +16,11 @@ namespace PrTab.Model.Modelo
         public string respuesta2 { get; set; }
         public string respuesta3 { get; set; }
         public string respuesta4 { get; set; }
+        public string respuesta5 { get; set; }
         public int respuestaCorrecta { get; set; }
         public int idTema { get; set; }
 
-        public Pregunta(int id, string enun, string r1,string r2, string r3, string r4, int rc, int idT)
+        public Pregunta(int id, string enun, string r1,string r2, string r3, string r4,string r5, int rc, int idT)
         {
             identificador = id;
             enunciado = enun;
@@ -27,6 +28,7 @@ namespace PrTab.Model.Modelo
             respuesta2 = r2;
             respuesta3 = r3;
             respuesta4 = r4;
+            respuesta5 = r5;
             respuestaCorrecta = rc;
             idTema = idT;
         }

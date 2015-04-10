@@ -59,10 +59,70 @@ namespace PrTab.Model.Comunicacion
             return false;
         }
 
-        public async Task<bool> getExamen (string asignatura, string numPreguguntas)
+        public async Task<bool> getExamenCortas(string asignatura, string numPreguntas)
         {
-            List<Pregunta> preguntasExamen = new List<Pregunta>();
-            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, numPreguguntas);
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, "sa", numPreguntas);
+            JObject o = JObject.Parse(response);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+                JArray preguntas = (JArray)o.SelectToken("data");
+                foreach (var p in preguntas)
+                {
+                    preguntasExamen.Add(new PreguntaCortaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("respuestaCorta")));
+                }
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+                return true;
+            }
+            
+            
+            return false;
+        }
+
+        public async Task<bool> getExamenMulti(string asignatura, string numPreguntas)
+        {
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, "ma", numPreguntas);
+            JObject o = JObject.Parse(response);
+            if((string)o.SelectToken("error")=="200")
+            {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+                JArray preguntas = (JArray)o.SelectToken("data");
+                foreach (var p in preguntas)
+                {
+                    List<int> correctas = new List<int>();
+                    foreach (var i in (JArray)p.SelectToken("respuestasCorrectas"))
+                        correctas.Add(Convert.ToInt32((string)i));
+                    preguntasExamen.Add(new PreguntaMultirespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("respuesta1"),
+                        (string)p.SelectToken("respuesta2"),
+                        (string)p.SelectToken("respuesta3"),
+                        (string)p.SelectToken("respuesta4"),
+                        (string)p.SelectToken("respuesta5"),
+                        correctas,
+                        0));
+                }
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> getExamenNormal (string asignatura, string numPreguntas)
+        {
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, "na", numPreguntas );
             JObject o = JObject.Parse(response);
             if ((string)o.SelectToken("error") == "200")
             {
@@ -77,6 +137,7 @@ namespace PrTab.Model.Comunicacion
                         (string)p.SelectToken("respuesta2"),
                         (string)p.SelectToken("respuesta3"),
                         (string)p.SelectToken("respuesta4"),
+                        (string)p.SelectToken("respuesta5"),
                         Convert.ToInt32((string)p.SelectToken("respuestaCorrecta")),
                         0));//El id del tema no se pasa a si que lo pongo a 0.
                 }
@@ -92,13 +153,74 @@ namespace PrTab.Model.Comunicacion
             return false;
         }
 
-        public async Task<bool> getExamen(string asignatura, string tema, string numPreguguntas)
+        public async Task<bool> getExamenCortas(string asignatura,string tema, string numPreguntas)
         {
-            List<Pregunta> preguntasExamen = new List<Pregunta>();
-            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, tema, numPreguguntas);
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura,tema, "sa", numPreguntas);
             JObject o = JObject.Parse(response);
             if ((string)o.SelectToken("error") == "200")
             {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+                JArray preguntas = (JArray)o.SelectToken("data");
+                foreach (var p in preguntas)
+                {
+                    preguntasExamen.Add(new PreguntaCortaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("respuestaCorta")));
+                }
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+                return true;
+            }
+
+
+            return false;
+        }
+
+        public async Task<bool> getExamenMulti(string asignatura, string tema, string numPreguntas)
+        {
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura,tema, "ma", numPreguntas);
+            JObject o = JObject.Parse(response);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+                JArray preguntas = (JArray)o.SelectToken("data");
+                foreach (var p in preguntas)
+                {
+                    List<int> correctas = new List<int>();
+                    foreach (var i in (JArray)p.SelectToken("respuestasCorrectas"))
+                        correctas.Add(Convert.ToInt32((string)i));
+                    preguntasExamen.Add(new PreguntaMultirespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("respuesta1"),
+                        (string)p.SelectToken("respuesta2"),
+                        (string)p.SelectToken("respuesta3"),
+                        (string)p.SelectToken("respuesta4"),
+                        (string)p.SelectToken("respuesta5"),
+                        correctas,
+                        0));
+                }
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> getExamenNormal(string asignatura, string tema, string numPreguguntas)
+        {
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, tema,"na", numPreguguntas);
+            JObject o = JObject.Parse(response);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
                 JArray preguntas = (JArray)o.SelectToken("data");
                 foreach (var p in preguntas)
                 {
@@ -108,6 +230,7 @@ namespace PrTab.Model.Comunicacion
                         (string)p.SelectToken("respuesta2"),
                         (string)p.SelectToken("respuesta3"),
                         (string)p.SelectToken("respuesta4"),
+                        (string)p.SelectToken("respuesta5"),
                         Convert.ToInt32((string)p.SelectToken("respuestaCorrecta")),
                         Convert.ToInt32(tema)));
                 }

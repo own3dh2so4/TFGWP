@@ -36,6 +36,8 @@ namespace PrTab.Utiles
         const string anonymus = "Anonymous";
 
 
+        
+
         public static void SetAnonimo(bool anoni)
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains(anonymus))
@@ -43,16 +45,16 @@ namespace PrTab.Utiles
                 IsolatedStorageSettings.ApplicationSettings.Remove(anonymus);
             }
             if (anoni)
-                IsolatedStorageSettings.ApplicationSettings.Add(anonymus, "True");
+                IsolatedStorageSettings.ApplicationSettings.Add(anonymus, "true");
             else
-                IsolatedStorageSettings.ApplicationSettings.Add(anonymus, "False");
+                IsolatedStorageSettings.ApplicationSettings.Add(anonymus, "false");
         }
 
         public static bool GetAnonimo()
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains(anonymus))
             {
-                return IsolatedStorageSettings.ApplicationSettings[anonymus].ToString() == "True";                   
+                return IsolatedStorageSettings.ApplicationSettings[anonymus].ToString() == "true";                   
             }
             return false;
         }

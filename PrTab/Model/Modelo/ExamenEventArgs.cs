@@ -8,9 +8,9 @@ namespace PrTab.Model.Modelo
 {
     class ExamenEventArgs : EventArgs
     {
-        public List<Pregunta> preguntas { get; set; }
+        public List<PreguntaInterface> preguntas { get; set; }
 
-        public ExamenEventArgs(List<Pregunta> listaPreguntas)
+        public ExamenEventArgs(List<PreguntaInterface> listaPreguntas)
         {
             this.preguntas = listaPreguntas;
         }

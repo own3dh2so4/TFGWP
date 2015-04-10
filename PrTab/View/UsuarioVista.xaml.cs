@@ -19,7 +19,7 @@ namespace PrTab.View
         public UsuarioVista()
         {
             InitializeComponent();
-            BitmapImage bi2 = new BitmapImage(new Uri(Model.Comunicacion.Comunicacion.baseURL + "/media/users/pic_image_"+AplicationSettings.getIdUsuario()+".jpg"));
+            BitmapImage bi2 = new BitmapImage(new Uri(Model.Comunicacion.Comunicacion.baseURL + "media/users/pic_image_"+AplicationSettings.getIdUsuario()+".jpg"));
             fotoUsuario.Source = bi2;
         }
 

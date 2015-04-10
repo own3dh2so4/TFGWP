@@ -11,7 +11,7 @@ namespace PrTab.Model.Modelo
         public int Respuesta { get; set; }
 
 
-        public PreguntaRespondida(int id, string enun, string r1,string r2, string r3, string r4, int rc, int idT, int r)
+        public PreguntaRespondida(int id, string enun, string r1,string r2, string r3, string r4, string r5, int rc, int idT, int r)
         {
             identificador = id;
             enunciado = enun;
@@ -19,6 +19,7 @@ namespace PrTab.Model.Modelo
             respuesta2 = r2;
             respuesta3 = r3;
             respuesta4 = r4;
+            respuesta5 = r5;
             respuestaCorrecta = rc;
             idTema = idT;
             Respuesta = r;

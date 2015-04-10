@@ -8,26 +8,25 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PrTab.ViewModel;
-using System.Windows.Media;
 
 namespace PrTab.View
 {
-    public partial class Examen : PhoneApplicationPage
+    public partial class ExamenMultiRespuesta : PhoneApplicationPage
     {
+
         string idAsignatura;
         string idTema;
-        ExamenViewModel _viewModel;
+        ExamenRespuestaMultipleViewModel _viewModel;
 
-        public Examen()
+        public ExamenMultiRespuesta()
         {
             InitializeComponent();
             this.Loaded += Inicializa;
-           
         }
 
         private void Inicializa(object sender, RoutedEventArgs e)
         {
-            _viewModel = new ExamenViewModel();
+            _viewModel = new ExamenRespuestaMultipleViewModel();
             GridPregunta.DataContext = _viewModel;
             GridCargando.DataContext = _viewModel;
             if (idTema == "")
@@ -42,6 +41,7 @@ namespace PrTab.View
             idAsignatura = NavigationContext.QueryString["idAsignatura"];
             idTema = NavigationContext.QueryString["idTema"];
         }
+
 
         private void Respuesta1_Click(object sender, RoutedEventArgs e)
         {
@@ -86,10 +86,8 @@ namespace PrTab.View
         private void AppBarCorregir_Click(object sender, EventArgs e)
         {
             var nota = _viewModel.evaluarExamen();
-            string targetUri = string.Format("/View/EvaluacionExamen.xaml?numCorrectas={0}&numPreguntas={1}", nota,_viewModel.getNumberOfQuestion());
+            string targetUri = string.Format("/View/EvaluacionExamen.xaml?numCorrectas={0}&numPreguntas={1}", nota, _viewModel.getNumberOfQuestion());
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
-
-
     }
 }

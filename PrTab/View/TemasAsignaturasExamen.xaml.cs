@@ -48,13 +48,13 @@ namespace PrTab.View
         private void ListaTemasAsignatura_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var myTema = ((LongListSelector)sender).SelectedItem as Tema;
-            string targetUri = string.Format("/View/Examen.xaml?idAsignatura={0}&idTema={1}", idAsignatura,myTema.identificador+"" );
+            string targetUri = string.Format("/View/TipoDeExamen.xaml?idAsignatura={0}&idTema={1}", idAsignatura, myTema.identificador + "");
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
 
         private void AllAplicationBar_Click(object sender, EventArgs e)
         {
-            string targetUri = string.Format("/View/Examen.xaml?idAsignatura={0}&idTema={1}", idAsignatura, "");
+            string targetUri = string.Format("/View/TipoDeExamen.xaml?idAsignatura={0}&idTema={1}", idAsignatura, "");
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
     }
