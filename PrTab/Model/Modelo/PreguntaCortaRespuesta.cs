@@ -13,12 +13,14 @@ namespace PrTab.Model.Modelo
         public int identificador { get; set; }
         public string enunciado { get; set; }
         public string respuestaCorrecta { get; set; }
+        public int idTema { get; set; }
 
-        public PreguntaCortaRespuesta(int i, string enu, string resp)
+        public PreguntaCortaRespuesta(int i, string enu, string resp, int idT)
         {
             identificador = i;
             enunciado = enu;
             respuestaCorrecta = resp;
+            idTema = idT;
         }
 
         public PreguntaCortaRespuesta()

@@ -59,6 +59,37 @@ namespace PrTab.Model.Comunicacion
             return false;
         }
 
+
+        public async Task<bool> getExamenParejas(string asignatura,  string numPreguntas)
+        {
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura,  "pa", numPreguntas);
+            JObject o = JObject.Parse(response);
+            if ((string)o.SelectToken("error") == "200")
+            {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+                JArray preguntas = (JArray)o.SelectToken("data");
+                foreach (var p in preguntas)
+                {
+                    preguntasExamen.Add(new PreguntaParejaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("pareja11"),
+                        (string)p.SelectToken("pareja12"),
+                        (string)p.SelectToken("pareja13"),
+                        (string)p.SelectToken("pareja21"),
+                        (string)p.SelectToken("pareja22"),
+                        (string)p.SelectToken("pareja23"),
+                        Convert.ToInt32((string)p.SelectToken("tema"))));
+                }
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+                return true;
+            }
+            return false;
+        }
+
         public async Task<bool> getExamenCortas(string asignatura, string numPreguntas)
         {
             List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
@@ -72,7 +103,8 @@ namespace PrTab.Model.Comunicacion
                 {
                     preguntasExamen.Add(new PreguntaCortaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
                         (string)p.SelectToken("enunciado"),
-                        (string)p.SelectToken("respuestaCorta")));
+                        (string)p.SelectToken("respuestaCorta"),
+                        Convert.ToInt32((string)p.SelectToken("enunciado"))));
                 }
                 if (getExanenCompletado != null)
                 {
@@ -152,7 +184,35 @@ namespace PrTab.Model.Comunicacion
 
             return false;
         }
-
+        public async Task<bool> getExamenParejas(string asignatura,string tema, string numPreguntas)
+        {
+            List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
+            string response = await Comunicacion.getExamen(AplicationSettings.getToken(), asignatura, tema, "pa", numPreguntas);
+            JObject o = JObject.Parse(response);
+            if((string)o.SelectToken("error") == "200")
+            {
+                AplicationSettings.setIdTest((string)o.SelectToken("test"));
+                JArray preguntas = (JArray)o.SelectToken("data");
+                foreach (var p in preguntas)
+                {
+                    preguntasExamen.Add(new PreguntaParejaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
+                        (string)p.SelectToken("enunciado"),
+                        (string)p.SelectToken("pareja11"),
+                        (string)p.SelectToken("pareja12"),
+                        (string)p.SelectToken("pareja13"),
+                        (string)p.SelectToken("pareja21"),
+                        (string)p.SelectToken("pareja22"),
+                        (string)p.SelectToken("pareja23"),
+                        Convert.ToInt32((string)p.SelectToken("tema"))));
+                }
+                if (getExanenCompletado != null)
+                {
+                    getExanenCompletado(this, new ExamenEventArgs(preguntasExamen));
+                }
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> getExamenCortas(string asignatura,string tema, string numPreguntas)
         {
             List<PreguntaInterface> preguntasExamen = new List<PreguntaInterface>();
@@ -166,7 +226,8 @@ namespace PrTab.Model.Comunicacion
                 {
                     preguntasExamen.Add(new PreguntaCortaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
                         (string)p.SelectToken("enunciado"),
-                        (string)p.SelectToken("respuestaCorta")));
+                        (string)p.SelectToken("respuestaCorta"),
+                        Convert.ToInt32((string)p.SelectToken("enunciado"))));
                 }
                 if (getExanenCompletado != null)
                 {

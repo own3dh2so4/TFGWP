@@ -30,7 +30,7 @@
             <Button x:Name="normal" Content="Normal" Click="normal_Click"/>
             <Button x:Name="multi" Content="Multi" Click="multi_Click"/>
             <Button x:Name="cortas" Content="Cortas" Click="cortas_Click"/>
-            <Button x:Name="parejas" Content="Parejas"/>
+            <Button x:Name="parejas" Content="Parejas" Click="parejas_Click"/>
         </StackPanel>
     </Grid>
 

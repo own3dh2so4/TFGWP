@@ -144,6 +144,7 @@
     <Compile Include="Model\Modelo\PreguntaCortaRespuesta.cs" />
     <Compile Include="Model\Modelo\PreguntaInterface.cs" />
     <Compile Include="Model\Modelo\PreguntaMultirespuesta.cs" />
+    <Compile Include="Model\Modelo\PreguntaParejaRespuesta.cs" />
     <Compile Include="Model\Modelo\PreguntaRespondida.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
     <Compile Include="Model\Modelo\RespuestaPregunta.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="ViewModel\AsignaturasExamenViewModel.cs" />
     <Compile Include="ViewModel\ExamenApuntesViewModel.cs" />
     <Compile Include="ViewModel\ExamenRespuestaMultipleViewModel.cs" />
+    <Compile Include="ViewModel\ExamenRespuestaParejasViewModel.cs" />
     <Compile Include="ViewModel\ExamenResueltoViewModel.cs" />
     <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
@@ -206,6 +208,9 @@
     </Compile>
     <Compile Include="View\ExamenMultiRespuesta.xaml.cs">
       <DependentUpon>ExamenMultiRespuesta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExamenParejasRespuesta.xaml.cs">
+      <DependentUpon>ExamenParejasRespuesta.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ExamenResuelto.xaml.cs">
       <DependentUpon>ExamenResuelto.xaml</DependentUpon>
@@ -306,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ExamenMultiRespuesta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExamenParejasRespuesta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

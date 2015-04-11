@@ -45,6 +45,12 @@ namespace PrTab.View
             string targetUri = string.Format("/View/ExamenCortaRespuesta.xaml?idAsignatura={0}&idTema={1}", idAsignatura, idTema + "");
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
+
+        private void parejas_Click(object sender, RoutedEventArgs e)
+        {
+            string targetUri = string.Format("/View/ExamenParejasRespuesta.xaml?idAsignatura={0}&idTema={1}", idAsignatura, idTema + "");
+            NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
+        }
     }
 
     
