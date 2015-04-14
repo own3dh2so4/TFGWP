@@ -88,8 +88,10 @@ namespace PrTab.Model.Comunicacion
         const string setResults = "sendresult";
         const string parametro_sendResultsToken = "token";
         const string parametro_sendResultIdTest = "idtest";
-        const string parametro_sendResultQuestions = "questions";
+        const string parametro_sendResultQuestions = "badanswer";
         const string parametro_sendResultaTime = "time";
+        const string parametro_sendResultNota = "score";
+        const string parametro_sendResultTipoExamen = "typeofquestion";
 
         const string addfavsubject = "favoritesubject";
         const string parametro_addfavsubjectToken = "token";
@@ -248,13 +250,15 @@ namespace PrTab.Model.Comunicacion
             return posion;
         }
 
-        public static async Task<string> sendResults(string token, string idTest, string questionsJSon, string time)
+        public static async Task<string> sendResults(string token, string idTest, string questionsJSon, string time, string nota, string tipoExamen)
         {
             Uri_Get url = new Uri_Get(baseURL + setResults);
             url.GetData(parametro_sendResultsToken, token);
             url.GetData(parametro_sendResultIdTest, idTest);
             url.GetData(parametro_sendResultQuestions, questionsJSon);
             url.GetData(parametro_sendResultaTime, time);
+            url.GetData(parametro_sendResultNota, nota);
+            url.GetData(parametro_sendResultTipoExamen, tipoExamen);
             //Evitar cache
             unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
             url.GetData(unixTime, unixTimestamp);

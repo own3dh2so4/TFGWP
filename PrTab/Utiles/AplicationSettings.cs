@@ -77,7 +77,7 @@ namespace PrTab.Utiles
 
         public static string getNumeroDePreguntasExamen()
         {
-            string ret = "10";
+            string ret = "3";
             if (IsolatedStorageSettings.ApplicationSettings.Contains(numeroPreguntasExamen))
                 ret = IsolatedStorageSettings.ApplicationSettings[numeroPreguntasExamen].ToString();
             return ret;

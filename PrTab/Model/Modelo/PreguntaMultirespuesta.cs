@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class PreguntaMultirespuesta : PreguntaInterface
+    public class PreguntaMultirespuesta : PreguntaInterface
     {
         [PrimaryKey]
         public int identificador { get; set; }
@@ -58,6 +58,16 @@ namespace PrTab.Model.Modelo
             }
         }
 
+        public List<int> getRepuestasCorrectas()
+        {
+            List<int> ret = new List<int>();
+            if (correcta1) ret.Add(1);
+            if (correcta2) ret.Add(2);
+            if (correcta3) ret.Add(3);
+            if (correcta4) ret.Add(4);
+            if (correcta5) ret.Add(5);
+            return ret;
+        }
         public PreguntaMultirespuesta()
         {
 

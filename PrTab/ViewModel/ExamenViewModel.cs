@@ -312,7 +312,7 @@ namespace PrTab.ViewModel
             tiempoTranscurrido.Stop();
             int nota = 0;
             //List<RespuestaFallidaPregunta> failresponse = new List<RespuestaFallidaPregunta>();
-            List<PreguntaRespondida> preguntasRespondidas = new List<PreguntaRespondida>();
+            List<PreguntaRespondidaInterface> preguntasRespondidas = new List<PreguntaRespondidaInterface>();
             bd_preguntasrespuestas.deleteAll();
             for (int i=0; i<preguntasExamen.Count; i++)
             {
@@ -323,9 +323,9 @@ namespace PrTab.ViewModel
                     preguntasExamen[i].respuesta5, preguntasExamen[i].respuestaCorrecta, preguntasExamen[i].idTema, respuestas[i]));
             }
 
-            servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, preguntasRespondidas, tiempoTranscurrido.ElapsedMilliseconds);
+            servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, preguntasRespondidas, tiempoTranscurrido.ElapsedMilliseconds, "na");
 
-            bd_preguntasrespuestas.insertAll(preguntasRespondidas);
+            bd_preguntasrespuestas.insertAll(preguntasRespondidas.Cast<PreguntaRespondida>().ToList());
 
             return nota;
         }

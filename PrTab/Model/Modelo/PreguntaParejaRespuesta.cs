@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class PreguntaParejaRespuesta :PreguntaInterface
+    public class PreguntaParejaRespuesta :PreguntaInterface
     {
         public int identificador { get; set; }
         public string enunciado { get; set; }

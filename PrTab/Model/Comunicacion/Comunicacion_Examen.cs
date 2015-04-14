@@ -307,21 +307,33 @@ namespace PrTab.Model.Comunicacion
             return false;
         }
 
-        public async Task<bool> sendResultadoExamen(string asignatura, int numRespuestasCorrectas, int numeroPreguntas, List<PreguntaRespondida> lista, long tiempo )
+        public async Task<bool> sendResultadoExamen(string asignatura, int numRespuestasCorrectas, int numeroPreguntas, List<PreguntaRespondidaInterface> lista, long tiempo, string tipoExamen)
         {
-            /*MemoryStream stream = new MemoryStream();
-            DataContractJsonSerializer jsonList = new DataContractJsonSerializer(typeof(List<RespuestaFallidaPregunta>));
-            jsonList.WriteObject(stream, listaFallos);
-            stream.Position = 0;
-            StreamReader sr = new StreamReader(stream);
-            var json = sr.ReadToEnd();*/
-            var listaFallos = RespuestaPregunta.parseRespuestaPregunta(lista);
-            var json = JsonConvert.SerializeObject(listaFallos);
-            string response = await Comunicacion.sendResults(AplicationSettings.getToken(),AplicationSettings.getIdTest(),json,tiempo+"");
+            
+            string json="";
+            if( tipoExamen== "na")
+            {
+                var listaFallos = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaRespondida>().ToList());
+                json = JsonConvert.SerializeObject(listaFallos);
+                
+            }
+            else if (tipoExamen == "ma")
+            {
+                var list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaMultiRespondida>().ToList());
+                json = JsonConvert.SerializeObject(list);
+                
+            }
+            else if (tipoExamen == "pa")
+            {
+                var list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaParejasRespondida>().ToList());
+                json = JsonConvert.SerializeObject(list);
+            }
+
+            string response = await Comunicacion.sendResults(AplicationSettings.getToken(), AplicationSettings.getIdTest(), json, tiempo + "", numRespuestasCorrectas + "", tipoExamen);
 
             //Continuar por aqui...
 
-            return false;
+            return true;
         }
 
     }

@@ -110,6 +110,8 @@
     <Compile Include="Model\Base de Datos\CDB_MensajesServerMessage.cs" />
     <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
     <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizado.cs" />
+    <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizadoMulti.cs" />
+    <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizadoParejas.cs" />
     <Compile Include="Model\Base de Datos\CDB_Provincia.cs" />
     <Compile Include="Model\Base de Datos\CDB_TemaExamen.cs" />
     <Compile Include="Model\Base de Datos\CDB_Universidad.cs" />
@@ -143,9 +145,12 @@
     <Compile Include="Model\Modelo\Pregunta.cs" />
     <Compile Include="Model\Modelo\PreguntaCortaRespuesta.cs" />
     <Compile Include="Model\Modelo\PreguntaInterface.cs" />
+    <Compile Include="Model\Modelo\PreguntaMultiRespondida.cs" />
     <Compile Include="Model\Modelo\PreguntaMultirespuesta.cs" />
     <Compile Include="Model\Modelo\PreguntaParejaRespuesta.cs" />
+    <Compile Include="Model\Modelo\PreguntaParejasRespondida.cs" />
     <Compile Include="Model\Modelo\PreguntaRespondida.cs" />
+    <Compile Include="Model\Modelo\PreguntaRespondidaInterface.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
     <Compile Include="Model\Modelo\RespuestaPregunta.cs" />
     <Compile Include="Model\Modelo\Tema.cs" />

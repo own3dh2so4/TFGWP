@@ -1,4 +1,5 @@
-﻿using PrTab.Model.Comunicacion;
+﻿using PrTab.Model.Base_de_Datos;
+using PrTab.Model.Comunicacion;
 using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using System;
@@ -21,7 +22,7 @@ namespace PrTab.ViewModel
         int posicion;
         private string textoPreguntas = "";
         private string idAsignatura = "";
-        //Aqui la base de datos
+        private CDB_PreguntasExamenRealizadoParejas bd_preguntasrespuestas = new CDB_PreguntasExamenRealizadoParejas();
         private Stopwatch tiempoTranscurrido;
 
         public string NumeroPregunta
@@ -349,7 +350,25 @@ namespace PrTab.ViewModel
 
         public int evaluarExamen()
         {
-            return 0;
+            tiempoTranscurrido.Stop();
+            int nota = 0;
+            List<PreguntaRespondidaInterface> preguntaResponidas = new List<PreguntaRespondidaInterface>();
+            bd_preguntasrespuestas.deleteAll();
+            for (int i = 0; i < preguntasExamen.Count; i++ )
+            {
+                if(respuestas[i][0] == 4 && respuestas[i][1] == 5 && respuestas[i][2] == 6 )
+                {
+                    nota++;
+                }
+
+                preguntaResponidas.Add(new PreguntaParejasRespondida(preguntasExamen[i].identificador, preguntasExamen[i].enunciado, preguntasExamen[i].pareja11, preguntasExamen[i].pareja12,
+                    preguntasExamen[i].pareja13, preguntasExamen[i].pareja21, preguntasExamen[i].pareja22, preguntasExamen[i].pareja23, preguntasExamen[i].idTema,
+                    respuestas[i][0], respuestas[i][1], respuestas[i][2]));
+            }
+            servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, preguntaResponidas, tiempoTranscurrido.ElapsedMilliseconds, "pa");
+            bd_preguntasrespuestas.insertAll(preguntaResponidas.Cast<PreguntaParejasRespondida>().ToList());
+
+            return nota;
         }
 
 

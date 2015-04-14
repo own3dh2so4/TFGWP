@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,12 @@ namespace PrTab.Model.Modelo
 {
     public class RespuestaPregunta
     {
-        public int i { get; set; }
-        public int r { get; set; }
+        public int id { get; set; }
+        public string r { get; set; }
 
-        public RespuestaPregunta(int idP, int r)
+        public RespuestaPregunta(int idP, string r)
         {
-            i = idP;
+            id = idP;
             this.r = r;
         }
 
@@ -22,7 +23,28 @@ namespace PrTab.Model.Modelo
             List<RespuestaPregunta> ret = new List<RespuestaPregunta>();
             foreach (var p in list)
             {
-                ret.Add(new RespuestaPregunta(p.identificador, p.Respuesta));
+                ret.Add(new RespuestaPregunta(p.identificador, p.Respuesta+""));
+            }
+            return ret;
+        }
+
+        public static List<RespuestaPregunta> parseRespuestaPregunta(List<PreguntaMultiRespondida> list)
+        {
+            List<RespuestaPregunta> ret = new List<RespuestaPregunta>();
+            foreach(var p in list)
+            {
+                ret.Add(new RespuestaPregunta(p.identificador, JsonConvert.SerializeObject(p.respuestas())));
+            }
+            return ret;
+        }
+
+        public static List<RespuestaPregunta> parseRespuestaPregunta(List<PreguntaParejasRespondida> list)
+        {
+            List<RespuestaPregunta> ret = new List<RespuestaPregunta>();
+            foreach (var p in list)
+            {
+                //ret.Add(new RespuestaPregunta(p.identificador, JsonConvert.SerializeObject(p.respuesta)));
+                ret.Add(new RespuestaPregunta(p.identificador, p.respuesta));
             }
             return ret;
         }

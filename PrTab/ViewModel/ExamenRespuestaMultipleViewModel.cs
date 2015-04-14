@@ -1,4 +1,5 @@
-﻿using PrTab.Model.Comunicacion;
+﻿using PrTab.Model.Base_de_Datos;
+using PrTab.Model.Comunicacion;
 using PrTab.Model.Modelo;
 using PrTab.Utiles;
 using System;
@@ -21,7 +22,7 @@ namespace PrTab.ViewModel
         private int posicion;
         private string textoPreguntas = "";
         private string idAsignatura = "";
-        //Aqui la database
+        private CDB_PreguntasExamenRealizadoMulti bd_preguntasrespuestas = new CDB_PreguntasExamenRealizadoMulti();
         private Stopwatch tiempoTranscurrido;
         private Visibility[] visibilidadBotones = new Visibility[3];
 
@@ -304,7 +305,30 @@ namespace PrTab.ViewModel
 
         public int evaluarExamen()
         {
-            return 0;
+            tiempoTranscurrido.Stop();
+            int nota = 0;
+            List<PreguntaRespondidaInterface> preguntasRespondidas = new List<PreguntaRespondidaInterface>();
+            bd_preguntasrespuestas.deleteAll();
+            for (int i = 0; i < preguntasExamen.Count; i++ )
+            {
+                if (respuestas[i][0] == preguntasExamen[i].correcta1 && respuestas[i][1] == preguntasExamen[i].correcta2 && respuestas[i][2] == preguntasExamen[i].correcta3 &&
+                    respuestas[i][3] == preguntasExamen[i].correcta4 && respuestas[i][4] == preguntasExamen[i].correcta5)
+                {
+                    nota++;
+                }
+                List<int> r = new List<int>();
+                if(respuestas[i][0]) r.Add(1);
+                if(respuestas[i][1]) r.Add(2);
+                if(respuestas[i][2]) r.Add(3);
+                if(respuestas[i][3]) r.Add(4);
+                if(respuestas[i][4]) r.Add(5);
+                preguntasRespondidas.Add(new PreguntaMultiRespondida(preguntasExamen[i].identificador, preguntasExamen[i].enunciado, preguntasExamen[i].respuesta1, preguntasExamen[i].respuesta2,
+                    preguntasExamen[i].respuesta3, preguntasExamen[i].respuesta4, preguntasExamen[i].respuesta5, preguntasExamen[i].getRepuestasCorrectas(), preguntasExamen[i].idTema, r));
+            }
+            servicioExamen.sendResultadoExamen(idAsignatura, nota, preguntasExamen.Count, preguntasRespondidas, tiempoTranscurrido.ElapsedMilliseconds, "ma");
+            bd_preguntasrespuestas.insertAll(preguntasRespondidas.Cast<PreguntaMultiRespondida>().ToList());
+
+            return nota;
         }
 
         public int getNumberOfQuestion()
