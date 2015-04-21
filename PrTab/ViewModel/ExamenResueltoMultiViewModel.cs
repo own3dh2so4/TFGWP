@@ -321,7 +321,7 @@ namespace PrTab.ViewModel
             if(poscion < preguntasExamen.Count - 1 && poscion !=-1)
             {
                 poscion++;
-                PreguntaMostrada = preguntasExamen[poscion];
+                preguntaMostrada = preguntasExamen[poscion];
                 NumeroPregunta = (poscion + 1) + "/" + preguntasExamen.Count;
                 avisarCambios();
             }
@@ -332,7 +332,7 @@ namespace PrTab.ViewModel
             if(poscion > 0)
             {
                 poscion--;
-                PreguntaMostrada = preguntasExamen[poscion];
+                preguntaMostrada = preguntasExamen[poscion];
                 NumeroPregunta = (poscion + 1) + "/" + preguntasExamen.Count;
                 avisarCambios();
             }

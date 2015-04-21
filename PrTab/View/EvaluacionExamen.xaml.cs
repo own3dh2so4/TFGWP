@@ -68,6 +68,12 @@ namespace PrTab.View
                 case "multi":
                     NavigationService.Navigate(new Uri("/View/ExamenResueltoMulti.xaml", UriKind.Relative));
                     break;
+                case "pareja":
+                    NavigationService.Navigate(new Uri("/View/ExamenResueltoPareja.xaml", UriKind.Relative));
+                    break;
+                case "corta":
+                    NavigationService.Navigate(new Uri("/View/ExamenResueltoCorto.xaml", UriKind.Relative));
+                    break;
             }
             
         }

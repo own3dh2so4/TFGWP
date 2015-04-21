@@ -1,0 +1,65 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PrTab.View.ExamenResueltoCorto"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <!--<shell:ApplicationBarIconButton Text="Mensaje" 
+                                            IconUri="/View/icons/appbar.message.smiley.png"
+                                            Click="escribirMensajeTablon_Click"/>-->
+            <shell:ApplicationBarIconButton x:Name="AppBarAnterior"
+                                            Text="Anterior" 
+                                            IconUri="/View/icons/appbar.arrow.left.png" Click="AppBarAnterior_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AppBarSiguiente"
+                                            Text="Siguiente" 
+                                            IconUri="/View/icons/appbar.arrow.right.png" Click="AppBarSiguiente_Click"/>            
+            <shell:ApplicationBarIconButton x:Name="AppBarSalir"
+                                            Text="salir" 
+                                            IconUri="/View/icons/appbar.close.png" Click="AppBarSalir_Click_1"/>
+            <shell:ApplicationBar.MenuItems>
+                <!--<shell:ApplicationBarMenuItem Text="Escribir tablon"
+                                              Click="escribirMensajeTablon_Click"/>-->
+                <shell:ApplicationBarMenuItem Text="Pregunta anterior" Click="AppBarAnterior_Click"/>
+                <shell:ApplicationBarMenuItem Text="Pregunta siguiente" Click="AppBarSiguiente_Click"/>
+                <shell:ApplicationBarMenuItem Text="Salir del examen" Click="AppBarSalir_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
+    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid x:Name="GridPregunta">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding NumeroPregunta}" x:Name="numeroPregunta"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Text="{Binding PreguntaMostrada.enunciado}" x:Name="enunciado"  FontSize="36" TextWrapping="Wrap"/>
+            <StackPanel Grid.Row="2">
+                <TextBlock Text="Respuesta correcta" HorizontalAlignment="Center" FontSize="36"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding PreguntaMostrada.respuestaCorrecta}"  FontSize="36"  HorizontalAlignment="Center"/>
+                <TextBlock Text="Tu respuesta" HorizontalAlignment="Center" FontSize="36"/>
+                <Grid Background="{Binding ColorGrid}">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding PreguntaMostrada.respuesta}" FontSize="36" HorizontalAlignment="Center" />
+                </Grid>
+                
+            </StackPanel>
+            
+        </Grid>
+
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>

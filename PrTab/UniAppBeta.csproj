@@ -171,7 +171,9 @@
     <Compile Include="ViewModel\ExamenApuntesViewModel.cs" />
     <Compile Include="ViewModel\ExamenRespuestaMultipleViewModel.cs" />
     <Compile Include="ViewModel\ExamenRespuestaParejasViewModel.cs" />
+    <Compile Include="ViewModel\ExamenResueltoCortaViewModel.cs" />
     <Compile Include="ViewModel\ExamenResueltoMultiViewModel.cs" />
+    <Compile Include="ViewModel\ExamenResueltoParejasViewModel.cs" />
     <Compile Include="ViewModel\ExamenResueltoViewModel.cs" />
     <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
@@ -226,8 +228,14 @@
     <Compile Include="View\ExamenApuntesVista.xaml.cs">
       <DependentUpon>ExamenApuntesVista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ExamenResueltoCorto.xaml.cs">
+      <DependentUpon>ExamenResueltoCorto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ExamenResueltoMulti.xaml.cs">
       <DependentUpon>ExamenResueltoMulti.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExamenResueltoPareja.xaml.cs">
+      <DependentUpon>ExamenResueltoPareja.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicial.xaml.cs">
       <DependentUpon>Inicial.xaml</DependentUpon>
@@ -337,7 +345,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ExamenResueltoCorto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ExamenResueltoMulti.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExamenResueltoPareja.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

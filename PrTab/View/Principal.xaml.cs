@@ -31,16 +31,7 @@ namespace PrTab
     public partial class MainPage : PhoneApplicationPage
     {
 
-        /**
-            Conexion al chat
-        **/
-        //const string dir = "192.168.0.2";
-        //const string dir = "178.62.194.33";
-        //const int port = 8000;
-        //SocketClient client = new SocketClient();
-        //ChatMensaje newMsg = new ChatMensaje();
         
-        //private BackgroundWorker bw = new BackgroundWorker();
 
         MensajesTablonViewModel _viewModelTablonMensaje;
 
@@ -54,14 +45,9 @@ namespace PrTab
         public MainPage()
         {
             InitializeComponent();
-            //_viewModelTablonMensaje = (MensajesTablonViewModel)Resources["ViewModelTablon"];
             this.Loaded += InicializarViewModel;
             
 
-            // Código de ejemplo para traducir ApplicationBar
-            //BuildLocalizedApplicationBar();
-            //inicializaElHilo();
-            //conectWithServer();
             InicializaChats();
         }
 
@@ -70,7 +56,8 @@ namespace PrTab
             var rooms = hilo.getRooms();
             foreach (var r in rooms)
             {
-                anadirSalas(r);
+                
+                    anadirSalas(r);
             }
         }
 
@@ -100,165 +87,7 @@ namespace PrTab
             };
         }
 
-        /*public void conectWithServer()
-        {
-            string result = client.Connect(dir, port);
-            if (result == "Success")
-            {
-
-                ponerMensaje(new ChatMensaje("El servidor responde","lalala", "System", 0), false);
-                string reg = client.Register();
-                if(reg == "Success")
-                {
-                    ponerMensaje(new ChatMensaje("Te has conectado al chat!", "lalala", "System", 0), false);
-                    bw.RunWorkerAsync();
-                }
-                
-            }
-            else
-                ponerMensaje(new ChatMensaje("Hay algun problema", "lalala", "System", 0), false);
-        }*/
-
-        /*public void inicializaElHilo()
-        {
-            bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-
-        }*/
-
-        /*private void bw_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            bool getMsg = false;
-            while (worker.CancellationPending == false && !getMsg)
-            {
-                /*string msg = client.Receive();
-                ponerMensaje(msg); AQUI COMENTAR
-                newMsg = client.Receive();
-                //if (newMsg != "Operation Timeout")
-                getMsg = true;
-            }
-        }*/
-
-        /*private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ponerMensaje(newMsg, false);
-            if (!bw.IsBusy)
-                bw.RunWorkerAsync();
-        }*/
-
-        /*public void ponerMensaje(ChatMensaje mensaje, bool me)
-        {
-            Grid panelTexto = new Grid();
-            //panelTexto.Orientation = System.Windows.Controls.Orientation.Horizontal;
-            Thickness marginpanel = panelTexto.Margin;
-            marginpanel.Bottom = 10;
-            panelTexto.Margin = marginpanel;
-
-            //Creo los colores
-            SolidColorBrush yellowBrush = new SolidColorBrush();
-            yellowBrush.Color = Colors.Yellow;
-            SolidColorBrush blackBrush = new SolidColorBrush();
-            blackBrush.Color = Colors.Black;
-
-            //Creo el triangulo
-            Polygon yellowTriangle = new Polygon();
-            yellowTriangle.Fill = yellowBrush;
-            //Creo sus puntos
-            System.Windows.Point Point1 = new System.Windows.Point(0, 0);
-            System.Windows.Point Point2 = new System.Windows.Point(10, 0);
-            System.Windows.Point Point3;
-            if (!me)
-                Point3 = new System.Windows.Point(10, 10);
-            else
-                Point3 = new System.Windows.Point(0, 10);
-            PointCollection polygonPoints = new PointCollection();
-            polygonPoints.Add(Point1);
-            polygonPoints.Add(Point2);
-            polygonPoints.Add(Point3);
-
-            //Añado los puntos al triangulo
-            yellowTriangle.Points = polygonPoints;
-
-
-            //Creo el mensaje con el texto
-            Grid gridParaTexto = new Grid();// En WP los textBlock notienecolor de fondo, usamos un gridpara ponerle ese color de fondo
-            gridParaTexto.Background = yellowBrush;
-            
-
-            //Mejoramos la interfaz del mensaje
-            gridParaTexto.RowDefinitions.Add(new RowDefinition()
-            {
-                Height = GridLength.Auto,
-            });
-            gridParaTexto.RowDefinitions.Add(new RowDefinition()
-            {
-                Height = GridLength.Auto,
-            });
-            TextBlock name = new TextBlock();
-            name.Text = mensaje.name + ":";
-            name.Foreground = blackBrush;
-            gridParaTexto.Children.Add(name);
-
-            TextBlock texto = new TextBlock();
-            texto.TextWrapping = TextWrapping.Wrap;
-            texto.Text = mensaje.message;
-            texto.Foreground = blackBrush;
-            gridParaTexto.Children.Add(texto);
-
-            Grid.SetRow(name, 0);
-            Grid.SetRow(texto, 1);
-
-            panelTexto.Children.Add(yellowTriangle);
-            panelTexto.Children.Add(gridParaTexto);
-
-            //Añado el texto segun quien pusiera el mensaje
-            if (!me)
-            {
-
-                //panelTexto.Children.Add(yellowTriangle);
-                //panelTexto.Children.Add(gridParaTexto);
-                panelTexto.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = GridLength.Auto,
-                });
-                panelTexto.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(1, GridUnitType.Star),
-                });
-                Grid.SetColumn(gridParaTexto, 1);
-                Grid.SetColumn(yellowTriangle, 0);
-                chat.Children.Add(panelTexto);
-            }
-            else
-            {
-                //panelTexto.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                //panelTexto.Children.Add(gridParaTexto);
-                //panelTexto.Children.Add(yellowTriangle);
-                panelTexto.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = new GridLength(1, GridUnitType.Star),
-                });
-                panelTexto.ColumnDefinitions.Add(new ColumnDefinition()
-                {
-                    Width = GridLength.Auto,
-                });
-
-                gridParaTexto.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                Grid.SetColumn(gridParaTexto, 0);
-                Grid.SetColumn(yellowTriangle, 1);
-                chat.Children.Add(panelTexto);
-
-            }
-
-
-
-            //Estas 2 lineas de abajo me bajan el ScrollView cuando esta lleno de mensajes.
-            ScrollViewer.UpdateLayout();
-            ScrollViewer.ScrollToVerticalOffset(double.MaxValue);
-
-        }*/
+        
 
         private void InicializarViewModel(object sender, RoutedEventArgs e)
         {
@@ -267,40 +96,7 @@ namespace PrTab
             _viewModelTablonMensaje.CargarMensajesTablon();
         }
 
-        /*private void Mandar_Click(object sender, RoutedEventArgs e)
-        {
-            if (Mensaje.Text != "")
-            {
-                //bw.CancelAsync();
-                ChatMensaje mandar = new ChatMensaje(Mensaje.Text, AplicationSettings.getIdUniversidadUsuario(), "Tu", Convert.ToInt32(AplicationSettings.getIdUsuario()));
-                client.SendMessage(mandar);
-                //ponerMensaje("<Tú>" + Mensaje.Text, true);
-                ponerMensaje(mandar, true);
-                Mensaje.Text = "";
-                //if (!bw.IsBusy)
-                //bw.RunWorkerAsync();
-            }
-        }*/
-
-        
-
-        // Código de ejemplo para compilar una ApplicationBar traducida
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Establecer ApplicationBar de la página en una nueva instancia de ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Crear un nuevo botón y establecer el valor de texto en la cadena traducida de AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Crear un nuevo elemento de menú con la cadena traducida de AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
-
-        //Se sobre escribe la funcion que se llama cuando el usuario pulsa la tecla FISICA "Back", para que cierre la aplicación.
+       
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             //Do your work here

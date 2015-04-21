@@ -1,0 +1,87 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PrTab.View.ExamenResueltoPareja"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <!--<shell:ApplicationBarIconButton Text="Mensaje" 
+                                            IconUri="/View/icons/appbar.message.smiley.png"
+                                            Click="escribirMensajeTablon_Click"/>-->
+            <shell:ApplicationBarIconButton x:Name="AppBarAnterior"
+                                            Text="Anterior" 
+                                            IconUri="/View/icons/appbar.arrow.left.png" Click="AppBarAnterior_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AppBarSiguiente"
+                                            Text="Siguiente" 
+                                            IconUri="/View/icons/appbar.arrow.right.png" Click="AppBarSiguiente_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AppBarCambiar"
+                                            Text="salir" 
+                                            IconUri="/View/icons/appbar.clipboard.paste.png" Click="AppBarCambiar_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AppBarSalir"
+                                            Text="salir" 
+                                            IconUri="/View/icons/appbar.close.png" Click="AppBarSalir_Click_1"/>
+            <shell:ApplicationBar.MenuItems>
+                <!--<shell:ApplicationBarMenuItem Text="Escribir tablon"
+                                              Click="escribirMensajeTablon_Click"/>-->
+                <shell:ApplicationBarMenuItem Text="Pregunta anterior" Click="AppBarAnterior_Click"/>
+                <shell:ApplicationBarMenuItem Text="Pregunta siguiente" Click="AppBarSiguiente_Click"/>
+                <shell:ApplicationBarMenuItem Text="Cambiar respuesta" Click="AppBarCambiar_Click"/>
+                <shell:ApplicationBarMenuItem Text="Salir del examen" Click="AppBarSalir_Click_1"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
+    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <ScrollViewer>
+            <Grid x:Name="GridPregunta">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="12*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding NumeroPregunta}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="1" Text="{Binding PropietarioRespuestas}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+                <TextBlock Grid.Row="1" Text="{Binding PreguntaMostrada.enunciado}" FontSize="36" TextWrapping="Wrap"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Button MinHeight="100" x:Name="Respuesta1" Grid.Row="0" Content="{Binding PreguntaMostrada.pareja11}" Background="{Binding ColorBoton1}" />
+                    <Button MinHeight="100" x:Name="Respuesta2" Grid.Row="1" Content="{Binding PreguntaMostrada.pareja12}" Background="{Binding ColorBoton2}" />
+                    <Button MinHeight="100" x:Name="Respuesta3" Grid.Row="2" Content="{Binding PreguntaMostrada.pareja13}" Background="{Binding ColorBoton3}" />
+                    <Button MinHeight="100" x:Name="Respuesta4" Grid.Row="0" Grid.Column="1" Content="{Binding PreguntaMostrada.pareja21}" Background="{Binding ColorBoton4}" />
+                    <Button MinHeight="100" x:Name="Respuesta5" Grid.Row="1" Grid.Column="1" Content="{Binding PreguntaMostrada.pareja22}" Background="{Binding ColorBoton5}" />
+                    <Button MinHeight="100" x:Name="Respuesta6" Grid.Row="2" Grid.Column="1" Content="{Binding PreguntaMostrada.pareja23}" Background="{Binding ColorBoton6}" />
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>
