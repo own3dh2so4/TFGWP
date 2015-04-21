@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrTab.Model.Modelo
 {
-    class PreguntaCortaRespuesta: PreguntaInterface
+    public class PreguntaCortaRespuesta: PreguntaInterface
     {
         [PrimaryKey]
         public int identificador { get; set; }

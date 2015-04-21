@@ -90,7 +90,7 @@ namespace PrTab.View
         private void AppBarCorregir_Click(object sender, EventArgs e)
         {
             var nota = _viewModel.evaluarExamen();
-            string targetUri = string.Format("/View/EvaluacionExamen.xaml?numCorrectas={0}&numPreguntas={1}", nota, _viewModel.getNumberOfQuestion());
+            string targetUri = string.Format("/View/EvaluacionExamen.xaml?numCorrectas={0}&numPreguntas={1}&tipoExamen={2}", nota, _viewModel.getNumberOfQuestion(),"pareja");
             NavigationService.Navigate(new Uri(targetUri, UriKind.Relative));
         }
 

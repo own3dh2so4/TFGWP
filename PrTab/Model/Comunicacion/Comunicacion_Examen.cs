@@ -104,7 +104,7 @@ namespace PrTab.Model.Comunicacion
                     preguntasExamen.Add(new PreguntaCortaRespuesta(Convert.ToInt32((string)p.SelectToken("pk")),
                         (string)p.SelectToken("enunciado"),
                         (string)p.SelectToken("respuestaCorta"),
-                        Convert.ToInt32((string)p.SelectToken("enunciado"))));
+                        Convert.ToInt32((string)p.SelectToken("tema"))));
                 }
                 if (getExanenCompletado != null)
                 {
@@ -311,23 +311,28 @@ namespace PrTab.Model.Comunicacion
         {
             
             string json="";
-            if( tipoExamen== "na")
+            List<RespuestaPregunta> list = new List<RespuestaPregunta>();
+            if (tipoExamen == "na")
             {
-                var listaFallos = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaRespondida>().ToList());
-                json = JsonConvert.SerializeObject(listaFallos);
-                
+                list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaRespondida>().ToList());
+
             }
             else if (tipoExamen == "ma")
             {
-                var list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaMultiRespondida>().ToList());
-                json = JsonConvert.SerializeObject(list);
-                
+                list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaMultiRespondida>().ToList());
+
             }
             else if (tipoExamen == "pa")
             {
-                var list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaParejasRespondida>().ToList());
-                json = JsonConvert.SerializeObject(list);
+                list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaParejasRespondida>().ToList());
             }
+            else if (tipoExamen == "sa")
+            {
+                list = RespuestaPregunta.parseRespuestaPregunta(lista.Cast<PreguntaRespondidaCorta>().ToList());
+            }
+            else
+                return false;
+            json = JsonConvert.SerializeObject(list);
 
             string response = await Comunicacion.sendResults(AplicationSettings.getToken(), AplicationSettings.getIdTest(), json, tiempo + "", numRespuestasCorrectas + "", tipoExamen);
 

@@ -111,6 +111,56 @@ namespace PrTab.ViewModel
 
         }
 
+        public SolidColorBrush ColorBoton5
+        {
+            get
+            {
+                if (preguntasExamen == null)
+                    return new SolidColorBrush(Colors.Transparent);
+                else
+                {
+                    if (preguntaMostrada.respuestaCorrecta == 5)
+                        return new SolidColorBrush(Colors.Green);
+                    else if (preguntaMostrada.Respuesta == 5)
+                        return new SolidColorBrush(Colors.Red);
+                    else
+                        return new SolidColorBrush(Colors.Transparent);
+                }
+            }
+        }
+
+        public System.Windows.Visibility VisibilidadBoton3
+        {
+            get
+            {
+                if (preguntaMostrada.respuesta3 == "")
+                    return System.Windows.Visibility.Collapsed;
+                else
+                    return System.Windows.Visibility.Visible;
+            }
+        }
+
+        public System.Windows.Visibility VisibilidadBoton4
+        {
+            get
+            {
+                if (preguntaMostrada.respuesta4 == "")
+                    return System.Windows.Visibility.Collapsed;
+                else
+                    return System.Windows.Visibility.Visible;
+            }
+        }
+
+        public System.Windows.Visibility VisibilidadBoton5
+        {
+            get
+            {
+                if (preguntaMostrada.respuesta5 == "")
+                    return System.Windows.Visibility.Collapsed;
+                else
+                    return System.Windows.Visibility.Visible;
+            }
+        }
 
         public PreguntaRespondida PreguntaMostrada
         {
@@ -145,6 +195,12 @@ namespace PrTab.ViewModel
                 this.OnPropertyChanged("ColorBoton2");
                 this.OnPropertyChanged("ColorBoton3");
                 this.OnPropertyChanged("ColorBoton4");
+                this.OnPropertyChanged("ColorBoton5");
+
+                this.OnPropertyChanged("VisibilidadBoton3");
+                this.OnPropertyChanged("VisibilidadBoton4");
+                this.OnPropertyChanged("VisibilidadBoton5");
+
                 NumeroPregunta = (posicion + 1) + "/" + preguntasExamen.Count;
 
             }
@@ -160,6 +216,12 @@ namespace PrTab.ViewModel
                 this.OnPropertyChanged("ColorBoton2");
                 this.OnPropertyChanged("ColorBoton3");
                 this.OnPropertyChanged("ColorBoton4");
+                this.OnPropertyChanged("ColorBoton5");
+
+                this.OnPropertyChanged("VisibilidadBoton3");
+                this.OnPropertyChanged("VisibilidadBoton4");
+                this.OnPropertyChanged("VisibilidadBoton5");
+
                 NumeroPregunta = (posicion + 1) + "/" + preguntasExamen.Count;
             }
         }

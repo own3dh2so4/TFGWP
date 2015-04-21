@@ -14,6 +14,7 @@ namespace PrTab.View
     {
         private string numCorectas;
         private string numPreguntas;
+        private string tipoExamen;
 
         public EvaluacionExamen()
         {
@@ -49,6 +50,7 @@ namespace PrTab.View
             base.OnNavigatedTo(e);
             numCorectas = NavigationContext.QueryString["numCorrectas"];
             numPreguntas = NavigationContext.QueryString["numPreguntas"];
+            tipoExamen = NavigationContext.QueryString["tipoExamen"];
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -58,7 +60,16 @@ namespace PrTab.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/View/ExamenResuelto.xaml", UriKind.Relative));
+            switch(tipoExamen)
+            {
+                case "normal":
+                    NavigationService.Navigate(new Uri("/View/ExamenResuelto.xaml", UriKind.Relative));
+                    break;
+                case "multi":
+                    NavigationService.Navigate(new Uri("/View/ExamenResueltoMulti.xaml", UriKind.Relative));
+                    break;
+            }
+            
         }
     }
 }

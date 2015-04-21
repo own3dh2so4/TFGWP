@@ -51,7 +51,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" x:Name="numeroPregunta"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="1" x:Name="enunciado"  FontSize="36" TextWrapping="Wrap"/>
-            <TextBox TextWrapping="Wrap" Grid.Row="2" x:Name="Respuesta" VerticalAlignment="Top"></TextBox>
+            <TextBox TextWrapping="Wrap" Grid.Row="2" x:Name="Respuesta" VerticalAlignment="Top" ></TextBox>
         </Grid>
 
         <Grid x:Name="GridCargando" Visibility="Visible" Background="#7F808080">

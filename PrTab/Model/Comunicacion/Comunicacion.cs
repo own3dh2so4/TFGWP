@@ -88,7 +88,7 @@ namespace PrTab.Model.Comunicacion
         const string setResults = "sendresult";
         const string parametro_sendResultsToken = "token";
         const string parametro_sendResultIdTest = "idtest";
-        const string parametro_sendResultQuestions = "badanswer";
+        const string parametro_sendResultQuestions = "questions";
         const string parametro_sendResultaTime = "time";
         const string parametro_sendResultNota = "score";
         const string parametro_sendResultTipoExamen = "typeofquestion";

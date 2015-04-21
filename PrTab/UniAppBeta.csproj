@@ -110,6 +110,7 @@
     <Compile Include="Model\Base de Datos\CDB_MensajesServerMessage.cs" />
     <Compile Include="Model\Base de Datos\CDB_MensajeTablon.cs" />
     <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizado.cs" />
+    <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizadoCortas.cs" />
     <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizadoMulti.cs" />
     <Compile Include="Model\Base de Datos\CDB_PreguntasExamenRealizadoParejas.cs" />
     <Compile Include="Model\Base de Datos\CDB_Provincia.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Model\Modelo\PreguntaParejaRespuesta.cs" />
     <Compile Include="Model\Modelo\PreguntaParejasRespondida.cs" />
     <Compile Include="Model\Modelo\PreguntaRespondida.cs" />
+    <Compile Include="Model\Modelo\PreguntaRespondidaCorta.cs" />
     <Compile Include="Model\Modelo\PreguntaRespondidaInterface.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
     <Compile Include="Model\Modelo\RespuestaPregunta.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="ViewModel\ExamenApuntesViewModel.cs" />
     <Compile Include="ViewModel\ExamenRespuestaMultipleViewModel.cs" />
     <Compile Include="ViewModel\ExamenRespuestaParejasViewModel.cs" />
+    <Compile Include="ViewModel\ExamenResueltoMultiViewModel.cs" />
     <Compile Include="ViewModel\ExamenResueltoViewModel.cs" />
     <Compile Include="ViewModel\ExamenViewModel.cs" />
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
@@ -222,6 +225,9 @@
     </Compile>
     <Compile Include="View\ExamenApuntesVista.xaml.cs">
       <DependentUpon>ExamenApuntesVista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExamenResueltoMulti.xaml.cs">
+      <DependentUpon>ExamenResueltoMulti.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicial.xaml.cs">
       <DependentUpon>Inicial.xaml</DependentUpon>
@@ -331,6 +337,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ExamenResueltoMulti.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Inicial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -434,6 +444,7 @@
     <Content Include="View\icons\appbar.arrow.left.png" />
     <Content Include="View\icons\appbar.arrow.right.png" />
     <Content Include="View\icons\appbar.check.png" />
+    <Content Include="View\icons\appbar.clipboard.paste.png" />
     <Content Include="View\icons\appbar.close.png" />
     <Content Include="View\fotos\archivos_sinfondo.png" />
     <Content Include="View\fotos\chat_sinfondo.png" />

@@ -66,7 +66,7 @@ namespace PrTab.Model.Comunicacion
                         idUsuarioActual,
                         (string)userInfo.SelectToken("username"),
                         (string)mensaje.SelectToken("texto"),
-                        Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + (string)userInfo.SelectToken("image"),
+                        Comunicacion.baseURL  +  (string)userInfo.SelectToken("image"),
                         Convert.ToInt32((string)mensaje.SelectToken("fecha_creacion")),
                         Convert.ToInt32(idFacultad),
                         Convert.ToInt32((string)mensaje.SelectToken("num_fav")),
