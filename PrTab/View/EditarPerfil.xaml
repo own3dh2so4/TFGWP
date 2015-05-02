@@ -34,7 +34,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Image x:Name="imagenPerfil" Grid.Column="0" MaxHeight="200" MaxWidth="200"/>
+                <Image x:Name="imagenPerfil" Source="" Grid.Column="0" MaxHeight="200" MaxWidth="200"/>
                 <Grid Grid.Column="1" Height="200">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

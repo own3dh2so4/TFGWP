@@ -117,7 +117,7 @@ namespace PrTab.View
             else if (!controlPass)
             {
                 PasswordUsuario.BorderBrush = new SolidColorBrush(Colors.Red);
-                MessageBox.Show("Contraseña demasiado corto");
+                MessageBox.Show("Contraseña demasiado corta");
             }
             else if (!controlEmail)
             {

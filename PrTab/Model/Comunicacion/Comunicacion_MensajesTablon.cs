@@ -143,7 +143,7 @@ namespace PrTab.Model.Comunicacion
                             Convert.ToInt32((string)mensajeJson.SelectToken("usuario").SelectToken("pk")),
                             (string)mensajeJson.SelectToken("usuario").SelectToken("username"),
                             mensaje,
-                            Comunicacion.baseURL + Comunicacion.imagenesPerfil + "/" + "pic_image_" + (string)mensajeJson.SelectToken("usuario").SelectToken("pk") + ".jpg",
+                            Comunicacion.baseURL +  "media/users/pic_image_" + (string)mensajeJson.SelectToken("usuario").SelectToken("pk") + ".jpg",
                             Convert.ToInt32((string)mensajeJson.SelectToken("fecha_creacion")),
                             Convert.ToInt32(idFacultad),
                             0,
@@ -152,6 +152,11 @@ namespace PrTab.Model.Comunicacion
 
                 //dbConn = new SQLiteConnection(DB_PATH);
                 //dbConn.InsertAll(mensajesNuevos);
+                if (AplicationSettings.GetAnonimo())
+                {
+                    mensajesNuevos[0].nombre = "Anónimo";
+                    mensajesNuevos[0].foto = Comunicacion.baseURL + "media/users/no_image.png";
+                }
                 dataBase.insertAll(mensajesNuevos);
 
                 if (getMensajesTablonServerCompletado != null)

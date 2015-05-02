@@ -138,6 +138,7 @@ namespace PrTab.View
                     if (!respuesta)
                     {
                         MessageBox.Show(AplicationSettings.getErrorServer());
+                        
                     }
                 }
                 if (NuevaContraseña.Password != "" && NuevaContraseña.Password != null)
@@ -151,8 +152,10 @@ namespace PrTab.View
                         var respuesta = await Comunicacion_Usuario.CambiarContraseña(AntiguaContraseña.Password, NuevaContraseña.Password);
                         if (!respuesta)
                         {
-                            MessageBox.Show(AplicationSettings.getErrorServer());
+                            //MessageBox.Show(AplicationSettings.getErrorServer());
+                            MessageBox.Show("Contraseña incorrecta");
                         }
+
                     }
                 }
             }

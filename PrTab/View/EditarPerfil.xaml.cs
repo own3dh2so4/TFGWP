@@ -50,16 +50,11 @@ namespace PrTab.View
         }
 
 
-        private async void Inicilizar(object sender, RoutedEventArgs e)
+        private void Inicilizar(object sender, RoutedEventArgs e)
         {
             
-            //ListItemProvincias.Items.Add("");
-            //provincias = await Comunicacion.getProvicias();
-            //foreach (var provincia in provincias)
-            //{
-            //    ListItemProvincias.Items.Add(provincia.nombre);
-            //}
-            await ponerFoto();
+            
+            imagenPerfil.Source = new BitmapImage(new Uri( Comunicacion.baseURL + "media/users/pic_image_" + AplicationSettings.getIdUsuario() + ".jpg" , UriKind.Absolute));
             
             if(AplicationSettings.GetAnonimo())
             {

@@ -15,8 +15,8 @@ namespace PrTab.Model.ComunicacionChat
     {
         private static HiloChat instance = null;
 
-        const string dir = "192.168.0.2";
-        //const string dir = "178.62.194.33";
+        //const string dir = "192.168.0.2";
+        const string dir = "178.62.194.33";
         const int port = 8000;
         private SocketClient client = new SocketClient();
         private BackgroundWorker bw = new BackgroundWorker();
