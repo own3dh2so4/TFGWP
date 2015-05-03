@@ -10,5 +10,12 @@ namespace PrTab.Model.Charts
     {
         public string Title { get; set; }
         public double Value { get; set; }
+
+        public PieData() { }
+        public PieData(string t, double v)
+        {
+            Title = t;
+            Value = v;
+        }
     }
 }

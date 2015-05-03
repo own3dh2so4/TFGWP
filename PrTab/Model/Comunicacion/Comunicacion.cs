@@ -160,6 +160,9 @@ namespace PrTab.Model.Comunicacion
         const string parametro_getDocumentos_idTheme = "idtheme";
         const string parametro_getDocumentos_tipo = "type";
 
+        const string getEstadisticas = "generateuserstats";
+        const string parametro_getStatis_token = "token";
+
 
         public static async Task<string> deleteMensaje(string token, string idMensaje)
         {
@@ -385,6 +388,27 @@ namespace PrTab.Model.Comunicacion
             url.GetData(parametro_NombreUsuario,usuario);
             url.GetData(parametro_ContraseñaUsuario,contraseña);
             return await client.GetStringAsync(url.getUri());
+        }
+
+        public static async Task<ResumenEstadisitcas> getStatic(string token)
+        {
+            ResumenEstadisitcas rest = new ResumenEstadisitcas();
+            List<TestStat> estadisticas = new List<TestStat>();
+            Uri_Get url = new Uri_Get(baseURL + getEstadisticas);
+            url.GetData(parametro_getStatis_token, token);
+            var result = await client.GetStringAsync(url.getUri());
+            JObject json = JObject.Parse(result);
+            if((string)json.SelectToken("error") == "200")
+            {
+                JObject jo = (JObject)json["data"];
+                JArray jArray = (JArray)jo["tests"];
+                for(int i=0; i<jArray.Count; i++)
+                {
+                    estadisticas.Add(new TestStat((long)jArray[i]["fecha"], (int)jArray[i]["not_answered"], (int)jArray[i]["answers"], (int)jArray[i]["mark"], (long)jArray[i]["time"], (int)jArray[i]["correct"], (int)jArray[i]["failed"]));
+                }
+                rest = new ResumenEstadisitcas(estadisticas, (long)jo["avg_time"], (double)jo["avg_mark"], (double)jo["per_correct"], (double)jo["per_failed"], (double)jo["per_not_answered"]);
+            }
+            return rest;
         }
 
         public static async Task<List<Provincia>> getProvicias()

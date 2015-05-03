@@ -155,8 +155,10 @@
     <Compile Include="Model\Modelo\PreguntaRespondidaInterface.cs" />
     <Compile Include="Model\Modelo\Provincia.cs" />
     <Compile Include="Model\Modelo\RespuestaPregunta.cs" />
+    <Compile Include="Model\Modelo\ResumenEstadisitcas.cs" />
     <Compile Include="Model\Modelo\Tema.cs" />
     <Compile Include="Model\Modelo\TemaEventArgs.cs" />
+    <Compile Include="Model\Modelo\TestStat.cs" />
     <Compile Include="Model\Modelo\Universidad.cs" />
     <Compile Include="Model\Modelo\UpdateMensajesEventArgs.cs" />
     <Compile Include="Model\Modelo\UpdateMensajeTablon.cs" />
