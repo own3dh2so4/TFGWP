@@ -181,6 +181,9 @@
     <Compile Include="ViewModel\MensajesTablonViewModel.cs" />
     <Compile Include="ViewModel\NotificationenabledObject.cs" />
     <Compile Include="ViewModel\TemasAsignaturaViewModel.cs" />
+    <Compile Include="View\AdminVista.xaml.cs">
+      <DependentUpon>AdminVista.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AgregarAsignaturaExamen.xaml.cs">
       <DependentUpon>AgregarAsignaturaExamen.xaml</DependentUpon>
     </Compile>
@@ -287,6 +290,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="View\AdminVista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AgregarAsignaturaExamen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

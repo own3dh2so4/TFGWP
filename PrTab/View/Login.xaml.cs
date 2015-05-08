@@ -42,10 +42,18 @@ namespace PrTab.View
             //Comprobar si el usuario y contraseña es el correcto.
            if (await tarea)
             {
-                AplicationSettings.RegistrarUsuario(Usuario.Text, Contraseña.Password); 
-                //NavigationService.Navigate(new Uri("/View/Inicial.xaml", UriKind.Relative));
-                //NavigationService.GoBack();
-                NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
+               if(Usuario.Text=="root")
+               {
+                   NavigationService.Navigate(new Uri("/View/AdminVista.xaml", UriKind.Relative));
+               }
+               else
+               {
+                   AplicationSettings.RegistrarUsuario(Usuario.Text, Contraseña.Password);
+                   //NavigationService.Navigate(new Uri("/View/Inicial.xaml", UriKind.Relative));
+                   //NavigationService.GoBack();
+                   NavigationService.Navigate(new Uri("/View/Principal.xaml", UriKind.Relative));
+               }
+                
             }
             else
             {

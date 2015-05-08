@@ -396,6 +396,9 @@ namespace PrTab.Model.Comunicacion
             List<TestStat> estadisticas = new List<TestStat>();
             Uri_Get url = new Uri_Get(baseURL + getEstadisticas);
             url.GetData(parametro_getStatis_token, token);
+            //Evitar cache
+            unixTimestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + "";
+            url.GetData(unixTime, unixTimestamp);
             var result = await client.GetStringAsync(url.getUri());
             JObject json = JObject.Parse(result);
             if((string)json.SelectToken("error") == "200")

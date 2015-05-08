@@ -51,24 +51,31 @@ namespace PrTab.View
             //};
             //LineChart.DataSource = LineDataCollection;
             estadisticas = await Comunicacion.getStatic(AplicationSettings.getToken());
-            ObservableCollection<PieData> PieDataCollection = new ObservableCollection<PieData>();
-            PieDataCollection.Add(new PieData("Correctas", estadisticas.per_correcta));
-            PieDataCollection.Add(new PieData("Incorrectas", estadisticas.per_incorrecta));
-            PieDataCollection.Add(new PieData("No Respondidas", estadisticas.per_noRespondida));
-
-            PieChart.DataSource = PieDataCollection;
-
-            ObservableCollection<LineData> LineDataCollection = new ObservableCollection<LineData>();
-            int i = 1;
-            foreach (var a in estadisticas.test)
+            if (estadisticas.test!=null)
             {
-                var q = a.correctasSobreCien();
-                var t = a.falladasSobreCien();
-                var y = a.sinResponderSobreCien();
-                LineDataCollection.Add(new LineData { Category = "Test" + i, Line1 = a.correctasSobreCien(), Line2 = a.falladasSobreCien(), Line3 = a.sinResponderSobreCien() });
-                i++;
+                ObservableCollection<PieData> PieDataCollection = new ObservableCollection<PieData>();
+                PieDataCollection.Add(new PieData("Correctas", estadisticas.per_correcta));
+                PieDataCollection.Add(new PieData("Incorrectas", estadisticas.per_incorrecta));
+                PieDataCollection.Add(new PieData("No Respondidas", estadisticas.per_noRespondida));
+
+                PieChart.DataSource = PieDataCollection;
+
+                ObservableCollection<LineData> LineDataCollection = new ObservableCollection<LineData>();
+                int i = 1;
+                foreach (var a in estadisticas.test)
+                {
+                    var q = a.correctasSobreCien();
+                    var t = a.falladasSobreCien();
+                    var y = a.sinResponderSobreCien();
+                    LineDataCollection.Add(new LineData { Category = "Test" + i, Line1 = a.correctasSobreCien(), Line2 = a.falladasSobreCien(), Line3 = a.sinResponderSobreCien() });
+                    i++;
+                }
+                LineChart.DataSource = LineDataCollection;
+
+                NotaMedia.Text = estadisticas.avg_nota+"";
+                TiempoMedio.Text = estadisticas.avg_tiempo / 1000 + " s";
             }
-            LineChart.DataSource = LineDataCollection;
+            
         }
 
         private void CambiarDatos_Click(object sender, EventArgs e)

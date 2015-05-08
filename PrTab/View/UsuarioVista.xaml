@@ -68,7 +68,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Nota Media" FontSize="36"/>
-                        <TextBlock Grid.Column="1" Text="9" FontSize="36" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" x:Name="NotaMedia" FontSize="36" HorizontalAlignment="Center"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -76,7 +76,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Tiempo Medio" FontSize="36"/>
-                        <TextBlock Grid.Column="1" Text="23 s" FontSize="36" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" x:Name="TiempoMedio" FontSize="36" HorizontalAlignment="Center"/>
                     </Grid>
                     <chart:PieChart  
                          x:Name="PieChart" 
