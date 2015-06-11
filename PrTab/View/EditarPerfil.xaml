@@ -62,6 +62,8 @@
             </Grid>
             
             <Button Content="Cambiar Datos Personales" Click="Button_Click" />
+            <Button x:Name="BotonProfesor" Content="Profesor" Click="Button_Click_2" Visibility="Collapsed"/>
+            <Button Content="Cerrar sesion" Click="Button_Click_1"/>
         </StackPanel>
     </Grid>
 

@@ -35,7 +35,29 @@ namespace PrTab.Utiles
 
         const string anonymus = "Anonymous";
 
+        const string profesor = "profesor";
 
+
+        public static void SetProfesor(bool profe)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(profesor))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Remove(profesor);
+            }
+            if (profe)
+                IsolatedStorageSettings.ApplicationSettings.Add(profesor, "true");
+            else
+                IsolatedStorageSettings.ApplicationSettings.Add(profesor, "false");
+        }
+
+        public static bool GetProfesor()
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains(profesor))
+            {
+                return IsolatedStorageSettings.ApplicationSettings[profesor].ToString() == "true";
+            }
+            return false;
+        }
         
 
         public static void SetAnonimo(bool anoni)

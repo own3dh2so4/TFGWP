@@ -123,38 +123,42 @@ namespace PrTab.Model.Comunicacion
         private static void savesPropertys(JObject o)
         {
             //Guardamos en la bd la info de la facultad.
-                {
-                    Facultad facultad = new Facultad((string)o.SelectToken("faculty").SelectToken("nombre"),
-                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("pk")),
-                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk")));
-                    AplicationSettings.setIdTablonMensaje((string)o.SelectToken("faculty").SelectToken("pk"));
-                    CDB_Facultad bdFacultad = new CDB_Facultad();
-                    bdFacultad.insert(facultad);
-                    AplicationSettings.setIdFacultadUsuario((string)o.SelectToken("faculty").SelectToken("pk"));
-                }
-                //Guardar universidad 
-                {
-                    Universidad universidad = new Universidad((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("nombre"),
-                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk")),
-                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
-                    CDB_Universidad bdUniversidad = new CDB_Universidad();
-                    bdUniversidad.insert(universidad);
-                    AplicationSettings.setIdUniversidadUsuario((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk"));
-                }
-                //Guardar provincia
-                {
-                    Provincia provincia = new Provincia((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("nombre"),
-                        Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
-                    CDB_Provincia dbProvincia = new CDB_Provincia();
-                    dbProvincia.insert(provincia);
-                }
-                //Guardar idUsuario
-                {
-                    AplicationSettings.setIdUsuario((string)o.SelectToken("user").SelectToken("pk"));
-                }
+            {
+                Facultad facultad = new Facultad((string)o.SelectToken("faculty").SelectToken("nombre"),
+                    Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("pk")),
+                    Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk")));
+                AplicationSettings.setIdTablonMensaje((string)o.SelectToken("faculty").SelectToken("pk"));
+                CDB_Facultad bdFacultad = new CDB_Facultad();
+                bdFacultad.insert(facultad);
+                AplicationSettings.setIdFacultadUsuario((string)o.SelectToken("faculty").SelectToken("pk"));
+            }
+            //Guardar universidad 
+            {
+                Universidad universidad = new Universidad((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("nombre"),
+                    Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk")),
+                    Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
+                CDB_Universidad bdUniversidad = new CDB_Universidad();
+                bdUniversidad.insert(universidad);
+                AplicationSettings.setIdUniversidadUsuario((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("pk"));
+            }
+            //Guardar provincia
+            {
+                Provincia provincia = new Provincia((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("nombre"),
+                    Convert.ToInt32((string)o.SelectToken("faculty").SelectToken("universidad").SelectToken("provincia").SelectToken("pk")));
+                CDB_Provincia dbProvincia = new CDB_Provincia();
+                dbProvincia.insert(provincia);
+            }
+            //Guardar idUsuario
+            {
+                AplicationSettings.setIdUsuario((string)o.SelectToken("user").SelectToken("pk"));
+                string asd = (string)o.SelectToken("user").SelectToken("is_teacher");
+                AplicationSettings.SetProfesor((string)o.SelectToken("user").SelectToken("is_teacher") == "True");
+            }
 
-                //Guardamos el token
-                AplicationSettings.setToken((string)(o.SelectToken("token").SelectToken("token")));                
+            
+
+            //Guardamos el token
+            AplicationSettings.setToken((string)(o.SelectToken("token").SelectToken("token")));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace PrTab.View
         public AdminVista()
         {
             InitializeComponent();
-            webview.Navigate(new Uri(Comunicacion.baseURL + "admin"));
+            webview.Navigate(new Uri(Comunicacion.baseURL + "admin/"));
         }
     }
 }

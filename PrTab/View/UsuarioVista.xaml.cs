@@ -64,16 +64,13 @@ namespace PrTab.View
                 int i = 1;
                 foreach (var a in estadisticas.test)
                 {
-                    var q = a.correctasSobreCien();
-                    var t = a.falladasSobreCien();
-                    var y = a.sinResponderSobreCien();
                     LineDataCollection.Add(new LineData { Category = "Test" + i, Line1 = a.correctasSobreCien(), Line2 = a.falladasSobreCien(), Line3 = a.sinResponderSobreCien() });
                     i++;
                 }
                 LineChart.DataSource = LineDataCollection;
 
-                NotaMedia.Text = estadisticas.avg_nota+"";
-                TiempoMedio.Text = estadisticas.avg_tiempo / 1000 + " s";
+                NotaMedia.Text = (double)(estadisticas.per_correcta/10)+"";
+                TiempoMedio.Text = (double)(estadisticas.avg_tiempo / 1000) + " s";
             }
             
         }

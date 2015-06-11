@@ -20,6 +20,7 @@ using PrTab.Model.Modelo;
 using Windows.Web.Http;
 using Newtonsoft.Json.Linq;
 using System.Windows.Media;
+using System.IO.IsolatedStorage;
 
 namespace PrTab.View
 {
@@ -59,6 +60,10 @@ namespace PrTab.View
             if(AplicationSettings.GetAnonimo())
             {
                 anonimo.Background = new SolidColorBrush(Colors.White);
+            }
+            if(AplicationSettings.GetProfesor())
+            {
+                BotonProfesor.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -169,6 +174,18 @@ namespace PrTab.View
                 anonimo.Background = new SolidColorBrush(Colors.White);
                 AplicationSettings.SetAnonimo(true);
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            AplicationSettings.logout();
+            IsolatedStorageSettings.ApplicationSettings.Save();
+            Application.Current.Terminate();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/AdminVista.xaml", UriKind.Relative));
         }
 
         //private async void ListPicker_ProvicniaSeleccionada(object sender, SelectionChangedEventArgs e)
