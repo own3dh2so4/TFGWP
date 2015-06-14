@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2014/deployment" AppPlatformVersion="8.1">
   <DefaultLanguage xmlns="" code="es-ES" />
-  <App xmlns="" ProductID="{2ce57a4d-2303-46f4-b1a3-ee1c74394dc0}" Title="UniAppBeta" RuntimeType="Silverlight" Version="1.0.0.1" Genre="apps.normal" Author="David Garcia" Description="Red social para universitarios." Publisher="own3dh2so4" PublisherID="{e6876b6a-76f8-4c3b-9bdf-cc57a000df6f}">
+  <App xmlns="" ProductID="{2ce57a4d-2303-46f4-b1a3-ee1c74394dc0}" Title="TFG UniApp" RuntimeType="Silverlight" Version="1.0.0.1" Genre="apps.normal" Author="David Garcia" Description="Red social para universitarios." Publisher="own3dh2so4" PublisherID="{e6876b6a-76f8-4c3b-9bdf-cc57a000df6f}">
     <IconPath IsRelative="true" IsResource="false">Baby-icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
